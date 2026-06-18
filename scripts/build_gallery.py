@@ -108,8 +108,12 @@ def build_gallery_html(data: dict, output_path: str):
 
     styles_json_array = '\n    '.join(styles_js)
 
-    version = meta.get('version', '0')
+    version = meta.get('version', '0.0.0').lstrip('v')
     total = len(styles)
+
+    description = 'AI 风格画廊 — 收集 129 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。'
+    base_url = 'https://malongan.github.io/style-source'
+    img_preview = f'{base_url}/images/styles_previews/'
 
     html = f'''<!DOCTYPE html>
 <html lang="zh-CN">
@@ -117,6 +121,20 @@ def build_gallery_html(data: dict, output_path: str):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 风格画廊 v{version}</title>
+<meta name="description" content="{description}">
+<meta name="keywords" content="AI绘画,风格提示词,Stable Diffusion,Midjourney,AI画廊,提示词库">
+<meta name="author" content="malongan">
+<meta property="og:title" content="AI 风格画廊 v{version}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{base_url}/gallery.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{base_url}/images/styles_previews/avantgarde_bw_poster_1e5913d0.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI 风格画廊 v{version}">
+<meta name="twitter:description" content="{description}">
+<meta name="twitter:image" content="{base_url}/images/styles_previews/avantgarde_bw_poster_1e5913d0.jpg">
+<link rel="canonical" href="{base_url}/gallery.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
 <style>
 /* ★ 样式内联 — 来自 gallery/src/gallery.css */
 {inline_css}
