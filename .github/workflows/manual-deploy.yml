@@ -18,10 +18,15 @@ jobs:
       - name: 生成最新数据
         run: python3 scripts/generate_data.py
 
-      - name: 本地构建 gallery.html（内联 CSS/JS）
+      - name: 构建 gallery.html（内联 CSS/JS）
         run: python3 scripts/build_gallery.py
 
-      - name: 部署到 style-gallery 仓库
-        run: python3 scripts/deploy_gallery.py
+      - name: 提交到仓库并触发 Pages
+        run: |
+          git config user.name "style-source-bot"
+          git config user.email "bot@style-source"
+          git add data/ gallery.html gallery/src/
+          git diff --cached --quiet || git commit -m "chore: manual deploy gallery [skip ci]"
+          git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GALLERY_DEPLOY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

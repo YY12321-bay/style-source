@@ -36,12 +36,15 @@ jobs:
       - name: 生成 _index.md
         run: python3 scripts/generate_index.py
 
+      - name: 构建 gallery.html（内联 CSS/JS）
+        run: python3 scripts/build_gallery.py
+
       - name: 提交自动生成的文件
         run: |
           git config user.name "style-source-bot"
           git config user.email "bot@style-source"
-          git add data/ styles/_index.md */_index.md styles/_collection_log.md
-          git diff --cached --quiet || git commit -m "chore: auto-generate data, index & collection_log [skip ci]"
+          git add data/ styles/_index.md */_index.md styles/_collection_log.md gallery.html gallery/src/
+          git diff --cached --quiet || git commit -m "chore: auto-generate data, index, gallery [skip ci]"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

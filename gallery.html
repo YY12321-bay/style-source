@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格画廊 v6a26c5a-dirty</title>
+<style>
+/* ★ 样式内联 — 来自 gallery/src/gallery.css */
+/* ==================== 主题变量 ==================== */
+:root {
+  /* 浅色主题 - 灰色调 */
+  --bg-primary: #f0f2f5;
+  --bg-secondary: #e8eaed;
+  --bg-card: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --border-color: #d1d5db;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --tag-bg: #e5e7eb;
+  --tag-color: #374151;
+  --tag-active-bg: #3b82f6;
+  --tag-active-color: #ffffff;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --overlay-bg: rgba(31,41,55,0.85);
+  --card-hover-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+[data-theme="dark"] {
+  /* 深色主题 */
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-card: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --border-color: #374151;
+  --accent-color: #60a5fa;
+  --accent-hover: #3b82f6;
+  --tag-bg: #374151;
+  --tag-color: #d1d5db;
+  --tag-active-bg: #60a5fa;
+  --tag-active-color: #ffffff;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --overlay-bg: rgba(0,0,0,0.9);
+  --card-hover-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* ==================== 基础样式 ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 16px 20px;
+}
+
+/* ==================== Header 固定顶部 ==================== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.header-author {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.header-update {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 6px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 搜索框 */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 6px 10px;
+  transition: border-color 0.2s;
+}
+
+.search-box:focus-within {
+  border-color: var(--accent-color);
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  color: var(--text-primary);
+  width: 160px;
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-icon {
+  color: var(--text-muted);
+  margin-right: 6px;
+  font-size: 12px;
+}
+
+/* 深色模式切换 */
+.theme-toggle {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.theme-toggle:hover {
+  background: var(--border-color);
+}
+
+/* ==================== 主布局 - 两栏 ==================== */
+.main-layout {
+  display: flex;
+  gap: 16px;
+}
+
+/* ==================== 左侧标签栏 ==================== */
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+}
+
+.sidebar-section {
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 100px);
+}
+
+.sidebar-header {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 标签列表 - 可滚动 */
+.tag-list {
+  padding: 10px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 6px;
+}
+
+/* 标签项 */
+.tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  background: var(--tag-bg);
+  color: var(--tag-color);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tag-item:hover {
+  background: var(--accent-color);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.tag-item.active {
+  background: var(--tag-active-bg);
+  color: var(--tag-active-color);
+}
+
+.tag-count {
+  font-size: 10px;
+  padding: 1px 5px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 6px;
+}
+
+.tag-item:hover .tag-count,
+.tag-item.active .tag-count {
+  background: rgba(255,255,255,0.25);
+}
+
+/* 自定义滚动条 */
+.tag-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.tag-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tag-list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.tag-list::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ==================== 右侧内容区 ==================== */
+.content-area {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ==================== 筛选栏 ==================== */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.filter-btn {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent-color);
+}
+
+.filter-btn.active {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.count-num {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* ==================== 风格卡片网格 - 瀑布流布局 ==================== */
+.gallery-grid {
+  columns: 4 280px;
+  column-gap: 12px;
+}
+
+.style-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  break-inside: avoid;
+  margin-bottom: 12px;
+}
+
+.style-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-hover-shadow);
+}
+
+/* 缩略图 - 宽度统一，高度自适应 */
+.card-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--bg-secondary);
+  aspect-ratio: auto;
+}
+
+.card-content {
+  padding: 10px 12px;
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+/* 底部操作栏 */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+}
+
+.card-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-size: 11px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+.favorite-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.favorite-btn:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.favorite-btn.active {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+/* ==================== 无结果 ==================== */
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+}
+
+.no-results-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+/* ==================== Lightbox 详情页 - 左图右文布局 ==================== */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--overlay-bg);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 20px;
+}
+
+.lightbox.show {
+  display: flex;
+}
+
+.lightbox-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  cursor: default;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  display: flex;
+}
+
+/* 左侧图片区 */
+.lightbox-image-wrap {
+  width: 45%;
+  flex-shrink: 0;
+  position: relative;
+  background: var(--bg-secondary);
+}
+
+.lightbox-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-close:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+/* 右侧内容区 */
+.lightbox-body {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 标题行 */
+.lightbox-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.lightbox-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.lightbox-index {
+  font-size: 14px;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* 内容区块 */
+.lightbox-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.lightbox-section {
+  margin-bottom: 16px;
+}
+
+.lightbox-section:last-child {
+  margin-bottom: 0;
+}
+
+.lightbox-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 一句话理解 */
+.lightbox-summary {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+/* 触发词 */
+.lightbox-triggers {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* 核心特点列表 */
+.lightbox-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lightbox-features li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  border-left: 3px solid var(--accent-color);
+}
+
+/* 标签 */
+.lightbox-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lightbox-tag {
+  background: var(--tag-bg);
+  color: var(--tag-color);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+/* 来源链接 */
+.lightbox-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+}
+
+.lightbox-link:hover {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* ==================== 响应式 ==================== */
+@media (max-width: 1200px) {
+  .gallery-grid {
+    columns: 3 200px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-layout {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+    max-height: none;
+  }
+  
+  .sidebar-section {
+    max-height: 200px;
+  }
+  
+  .tag-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .gallery-grid {
+    columns: 2 180px;
+  }
+  
+  /* 平板：详情页改为上下布局 */
+  .lightbox-card {
+    flex-direction: column;
+    max-height: 85vh;
+  }
+  
+  .lightbox-image-wrap {
+    width: 100%;
+    height: 250px;
+  }
+  
+  .lightbox-body {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    position: relative;
+  }
+  
+  .header-right {
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .search-box input {
+    width: 120px;
+  }
+  
+  .gallery-grid {
+    columns: 2 150px;
+    column-gap: 8px;
+  }
+  
+  .style-card {
+    margin-bottom: 8px;
+  }
+  
+  .card-footer {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+  
+  .card-link {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-box input {
+    width: 80px;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .gallery-grid {
+    columns: 1;
+  }
+  
+  .lightbox-image-wrap {
+    height: 200px;
+  }
+}
+
+/* ==================== 隐藏类 ==================== */
+.hidden {
+  display: none !important;
+}
+
+/* ==================== 分类标签 ==================== */
+.card-category {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: auto;
+}
+
+/* ==================== WIP 标记 ==================== */
+.card-wip {
+  font-size: 14px;
+  margin-right: 4px;
+}
+
+/* ==================== 分类筛选 ==================== */
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 0 16px;
+}
+
+.category-btn {
+  padding: 4px 10px;
+  font-size: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.category-btn:hover {
+  background: var(--bg-secondary);
+}
+
+.category-btn.active {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+</style>
+</head>
+<body>
+<div id="loading">🔄 加载风格画廊...</div>
+<div id="gallery"></div>
+<button id="refresh-btn" onclick="loadGallery()">🔄 刷新</button>
+
+<script>
+/* ★ FALLBACK DATA — 部署时内嵌 */
+window.__FALLBACK_DATA__ = {
+  "meta": {
+    "version": "v0.0.0",
+    "total": 129,
+    "fallback_count": 50
+  },
+  "styles": [
+    {
+      "id": "vigo_yellow_black_manga_food_zine_ad",
+      "name": "Vigo Yellow Black Manga Food Zine Ad",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/yellow-black-manga-food-zine-ad.jpg"
+      ],
+      "summary": "A dense Japanese-manga-inspired food and product zine advertisement style with black ink linework, yellow advertising blocks, cream paper fields, dramatic cropped character panels, glossy illustrated hero objects, giant warped display typography, small Chinese editorial copy, and rough print texture."
+    },
+    {
+      "id": "vigo_y2k_mirror_ui_scribble_collage",
+      "name": "Vigo Y2K Mirror Ui Scribble Collage",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/y2k-mirror-ui-scribble-collage.jpg"
+      ],
+      "summary": "A gritty Y2K photomontage style that combines wide-angle flash photography, floating desktop-like interface fragments, thick electric-blue marker outlines, hand-drawn graffiti lettering, and dense analog noise into a chaotic personal-screen collage."
+    },
+    {
+      "id": "vigo_y2k_grunge_hiphop_cutout_poster",
+      "name": "Vigo Y2K Grunge Hiphop Cutout Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/y2k-grunge-hiphop-cutout-poster.jpg"
+      ],
+      "summary": "A Y2K grunge hip-hop magazine collage poster style built from oversized photo cutouts, acid yellow retro typography, rough black-and-white wall textures, dense editorial footer panels, and photocopied print noise."
+    },
+    {
+      "id": "vigo_warm_fisheye_product_impact_ad",
+      "name": "Vigo Warm Fisheye Product Impact Ad",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/warm-fisheye-product-impact-ad.jpg"
+      ],
+      "summary": "A high-impact product advertising style built from ultra-wide close-up photography, a tunnel of textured foreground pieces, oversized angled white Chinese display type, warm amber-brown contrast, tiny top navigation labels, product-pack callouts, and compressed social-banner density. It feels like a loud commercial thumbnail shot from inside a pile of snack-like objects, with the product and subject rushing toward the viewer."
+    },
+    {
+      "id": "vigo_urban_transit_doodle_diary",
+      "name": "Vigo Urban Transit Doodle Diary",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/urban-transit-doodle-diary.jpg"
+      ],
+      "summary": "A raw urban snapshot treated like a personal visual diary, combining real public-space photography with bold hand-drawn comic overlays, handwritten travel notes, saturated cartoon faces, and a large foreground gesture."
+    },
+    {
+      "id": "vigo_turquoise_red_techno_manga_poster",
+      "name": "Vigo Turquoise Red Techno Manga Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/turquoise-red-techno-manga-poster.jpg"
+      ],
+      "summary": "A retro techno-manga poster system with a cream paper ground, huge red display lettering, turquoise technical clothing or hardware, dense mechanical linework, annotation panels, cel-shaded figure drawing, and slightly faded printed texture."
+    },
+    {
+      "id": "vigo_tri_color_hardcut_portrait_poster",
+      "name": "Vigo Tri Color Hardcut Portrait Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/tri-color-hardcut-portrait-poster.jpg"
+      ],
+      "summary": "A clean three-color hardcut portrait poster style using flat teal background fields, coral-red subject planes, and near-black silhouettes or shadows, with all detail reduced into large hard-edged vector-like cutouts."
+    },
+    {
+      "id": "vigo_tokyo_kawaii_travel_collage_poster",
+      "name": "Vigo Tokyo Kawaii Travel Collage Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/tokyo-kawaii-travel-collage-poster.jpg"
+      ],
+      "summary": "A maximalist Japanese city-travel collage style with bold destination typography, cute sticker elements, manga speech bubbles, cutout fashion photography, halftone urban backgrounds, and scrapbook editorial layout."
+    },
+    {
+      "id": "vigo_sunny_3d_avatar_campaign",
+      "name": "Vigo Sunny 3D Avatar Campaign",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/sunny-3d-avatar-campaign.jpg"
+      ],
+      "summary": "A bright social campaign poster style built from glossy toy-like 3D avatars, saturated blue-sky outdoor lighting, exaggerated wide-angle perspective, oversized slanted headline typography, and neon hand-drawn motion marks."
+    },
+    {
+      "id": "vigo_subway_doodle_photo_hybrid",
+      "name": "Vigo Subway Doodle Photo Hybrid",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/subway-doodle-photo-hybrid.jpg"
+      ],
+      "summary": "A phone-shot urban transit poster style combining documentary subway or street transport photography with expressive hand-drawn cartoon overlays, doodled character faces, oversized foreground gestures, handwritten notes, and social media screenshot texture."
+    },
+    {
+      "id": "vigo_sky_blue_home_life_doodle_poster",
+      "name": "Vigo Sky Blue Home Life Doodle Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/sky-blue-home-life-doodle-poster.jpg"
+      ],
+      "summary": "A naive flat poster system with a full sky-blue field, a rough house-shaped white inset, giant uneven black hand-lettering, small badge labels, and simple thick-outlined cartoon home-life scenes drawn like marker doodles."
+    },
+    {
+      "id": "vigo_school_grid_paper_cutout_poster",
+      "name": "Vigo School Grid Paper Cutout Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/school-grid-paper-cutout-poster.jpg"
+      ],
+      "summary": "A sparse nostalgic poster system built from warm classroom grid paper, hand-drawn vertical notebook writing, and one large centered torn-paper collage object photographed with shallow real-paper shadows."
+    },
+    {
+      "id": "vigo_rough_marker_monster_poster",
+      "name": "Vigo Rough Marker Monster Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/rough-marker-monster-poster.jpg"
+      ],
+      "summary": "A naive children's poster system built from thick black marker outlines, rough crayon-pastel color fills, cream paper grain, oversized goofy creature forms, and chunky hand-lettered black text."
+    },
+    {
+      "id": "vigo_rough_ink_music_doodle_poster",
+      "name": "Vigo Rough Ink Music Doodle Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/rough-ink-music-doodle-poster.jpg"
+      ],
+      "summary": "A rough hand-inked poster style built from oversized dark green-black brush lettering, pale blush paper, hot pink secondary type, naive mascot drawings, teal and pink flat fills, sharp yellow burst marks, scattered music-note doodles, and scanned risograph-like print texture."
+    },
+    {
+      "id": "vigo_pop_bubble_letter_photo_poster",
+      "name": "Vigo Pop Bubble Letter Photo Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/pop-bubble-letter-photo-poster.jpg"
+      ],
+      "summary": "A punchy photo-and-illustration poster style built around a central low-angle fashion portrait framed by oversized flat bubble-letter shapes, saturated candy colors, thick black outlines, oval highlights, and crisp sparkle marks."
+    },
+    {
+      "id": "vigo_plush_comic_toy_product_poster",
+      "name": "Vigo Plush Comic Toy Product Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/plush-comic-toy-product-poster.jpg"
+      ],
+      "summary": "A loud toy-product poster style built around one fuzzy plush product hero, retro cream poster paper, a cyan circular backdrop, oversized slanted comic typography, thick black shadows, doodle annotations, sticker labels, lightning graphics, and dense campaign microcopy."
+    },
+    {
+      "id": "vigo_plush_city_festival_mobile_poster",
+      "name": "Vigo Plush City Festival Mobile Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/plush-city-festival-mobile-poster.jpg"
+      ],
+      "summary": "A bright mobile event poster style combining real city landmarks, soft fuzzy mascot characters, rounded app-card UI framing, bold white festival typography, date/location text, and friendly tourism-campaign energy."
+    },
+    {
+      "id": "vigo_playful_mascot_doodle_snapshot",
+      "name": "Vigo Playful Mascot Doodle Snapshot",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/playful-mascot-doodle-snapshot.jpg"
+      ],
+      "summary": "A casual real-life social photo transformed into a playful poster by layering original cartoon mascot stickers, hand-drawn outlines, ribbon headline panels, sparkles, spirals, and sketchy decorative marks over the photographic scene."
+    },
+    {
+      "id": "vigo_playful_marker_grounding_poster",
+      "name": "Vigo Playful Marker Grounding Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/playful-marker-grounding-poster.jpg"
+      ],
+      "summary": "A naive hand-drawn poster style built from cream paper margins, loose marker-scribble color blocks, thick uneven keylines, oversized casual lettering, and simple mascot-like figures arranged with clear public-service poster hierarchy."
+    },
+    {
+      "id": "vigo_photo_illustration_overlay_poster",
+      "name": "Vigo Photo Illustration Overlay Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/photo-illustration-overlay-poster.jpg"
+      ],
+      "summary": "A realistic city photograph with an oversized, high-saturation, flat 2D cartoon figure composited on top, plus hand-drawn stars, sparks, arrows, and comic marks."
+    },
+    {
+      "id": "vigo_olive_scribble_sports_poster",
+      "name": "Vigo Olive Scribble Sports Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/olive-scribble-sports-poster.jpg"
+      ],
+      "summary": "A kinetic flat editorial illustration style built from off-white paper, large olive-green poster blocks, oversized action figures, rough black ink contours, red marker motion arcs, yellow-green dry-brush swaths, sparse debris, and handmade screenprint texture."
+    },
+    {
+      "id": "vigo_neon_plush_gadget_pop_3d",
+      "name": "Vigo Neon Plush Gadget Pop 3D",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/neon-plush-gadget-pop-3d.jpg"
+      ],
+      "summary": "A glossy toy-advertising 3D style built from acid lime studio backdrops, oversized fuzzy plush mascots, chunky tech props, soft textile surfaces, translucent plastic accessories, checkerboard cards, sticker-like icons, hot-pink burst graphics, and bright commercial lighting."
+    },
+    {
+      "id": "vigo_neon_kinetic_typographic_poster",
+      "name": "Vigo Neon Kinetic Typographic Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/neon-kinetic-typographic-poster.jpg"
+      ],
+      "summary": "A dramatic outdoor editorial poster style combining low-angle lifestyle photography, oversized warped neon typography, film grain, and high-energy youth-culture campaign design."
+    },
+    {
+      "id": "vigo_neon_doodle_gallery_snapshot",
+      "name": "Vigo Neon Doodle Gallery Snapshot",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/neon-doodle-gallery-snapshot.jpg"
+      ],
+      "summary": "A candid phone-photo style layered with chaotic neon digital marker doodles: hot-pink and cyan subject outlines, yellow monster spikes, rough handwritten captions, stars, paw prints, spiderweb corners, scribble bars, halos, plants, and student diary energy."
+    },
+    {
+      "id": "vigo_neon_diary_collage",
+      "name": "Vigo Neon Diary Collage",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/neon-outdoor-diary-longform-collage.jpg"
+      ],
+      "summary": "A tall mobile-first outdoor diary poster system with a charcoal black canvas, documentary action-photo cutouts, acid green kinetic headlines, ripped paper panels, hand-drawn arrows, sticker labels, numbered sections, and dense social-note pacing."
+    },
+    {
+      "id": "vigo_naive_marker_quote_card",
+      "name": "Vigo Naive Marker Quote Card",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/naive-marker-quote-card.jpg"
+      ],
+      "summary": "A tall, hand-drawn absurdist quote-card poster system with crude black marker outlines, pale pastel panels, blocky blue lettering, off-kilter label tabs, and a simple central object-character gag rendered as flat naive illustration."
+    },
+    {
+      "id": "vigo_mono_noir_type_portrait_poster",
+      "name": "Vigo Mono Noir Type Portrait Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/mono-noir-type-portrait-poster.jpg"
+      ],
+      "summary": "A stark black-and-white editorial poster system pairing a close, high-contrast photographic portrait with oversized lowercase neo-grotesk typography. One headline word is reversed into a clean white rectangular label while the remaining words sit as heavy white type over a charcoal background."
+    },
+    {
+      "id": "vigo_mondrian_style",
+      "name": "Vigo Mondrian Style",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_mondrian/her_name.jpg",
+        "https://malongan.github.io/images/vigo_mondrian/bookstore.jpg",
+        "https://malongan.github.io/images/vigo_mondrian/longtermism.jpg",
+        "https://malongan.github.io/images/vigo_mondrian/future_city.jpg"
+      ],
+      "summary": "把任何主题重新放进红黄蓝白黑的网格系统：让色块建立节奏，让黑线组织结构，让标题本身变成图形和隐喻。"
+    },
+    {
+      "id": "vigo_metro_doodle_snapshot_diary",
+      "name": "Vigo Metro Doodle Snapshot Diary",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/metro-doodle-snapshot-diary.jpg"
+      ],
+      "summary": "A handheld urban transit photo-collage style combining realistic crowded metro, bus, tram, or station snapshots with expressive marker-like cartoon doodles, oversized foreground gestures, white handwritten diary notes, and saturated comic face overlays."
+    },
+    {
+      "id": "vigo_market_brush_produce_poster",
+      "name": "Vigo Market Brush Produce Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/market-brush-produce-poster.jpg"
+      ],
+      "summary": "A sparse fresh-market poster system with a warm ivory paper field, one oversized glossy produce hero, a smaller echo product, violent black hand-cut brush typography, thin editorial header text, and tiny bottom seal-like captions."
+    },
+    {
+      "id": "vigo_luxury_street_cover",
+      "name": "Vigo Luxury Street Cover",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/kinetic-luxury-street-fashion-cover.jpg"
+      ],
+      "summary": "A premium street-fashion magazine cover style built from side-profile walking photography, horizontal motion-blurred architecture, one dominant luxury garment, wind-shaped hair, restrained urban neutrals, and oversized wide-spaced serif cover typography. It preserves the kinetic editorial grammar of the reference while changing the model identity, wardrobe, prop, headline, and story details."
+    },
+    {
+      "id": "vigo_kinetic_geometric_doodle_cutouts",
+      "name": "Vigo Kinetic Geometric Doodle Cutouts",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/kinetic-geometric-doodle-cutouts.jpg"
+      ],
+      "summary": "A sparse, playful illustration system where a character or object is assembled from oversized flat geometric color pieces, loose black doodle lines, paper grain, and buoyant off-center motion on a warm cream background."
+    },
+    {
+      "id": "vigo_k_pop_apocalypse_ransom_zine",
+      "name": "Vigo K Pop Apocalypse Ransom Zine",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/k-pop-apocalypse-ransom-zine.jpg"
+      ],
+      "summary": "A maximalist K-pop fashion zine collage style built from a central portrait cutout, crumpled monochrome paper texture, skewed ransom-note typography, loud sticker blocks, saturated lime/blue/red accents, and a bold bottom masthead band."
+    },
+    {
+      "id": "vigo_impact_burst_halftone_comic_poster",
+      "name": "Vigo Impact Burst Halftone Comic Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/impact-burst-halftone-comic-poster.jpg"
+      ],
+      "summary": "A loud retro comic poster system built from thick black ink, flat high-saturation colors, oversized impact typography, exaggerated illustrated subjects, diagonal props, speech bursts, smoke puffs, halftone dots, and distressed screen-print grain."
+    },
+    {
+      "id": "vigo_gothic_cat_doodle_photo_collage",
+      "name": "Vigo Gothic Cat Doodle Photo Collage",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/gothic-cat-doodle-photo-collage.jpg"
+      ],
+      "summary": "A playful photo-illustration collage style combining dramatic real architectural photography with oversized flat cartoon creature overlays, bubbly hand-drawn headline lettering, and loose marker doodles."
+    },
+    {
+      "id": "vigo_folded_newspaper_product_ad",
+      "name": "Vigo Folded Newspaper Product Ad",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/folded-newspaper-product-ad.jpg"
+      ],
+      "summary": "A folded broadsheet product advertisement style built from dense bilingual newspaper typography, worn off-white paper, black and antique-gold display headlines, stamped label graphics, one red editorial sidebar tab, and a huge photorealistic hero product overlapping the page foreground."
+    },
+    {
+      "id": "vigo_fisheye_bubble_poster",
+      "name": "Vigo Fisheye Bubble Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/sunburst-fisheye-bubble-type-poster.jpg"
+      ],
+      "summary": "An ultra-low-angle fisheye summer lifestyle poster style with a close photographic subject, saturated cobalt sky, huge arched lemon-yellow bubble typography, warm orange type shading, Y2K accessories, and heavy analog grain."
+    },
+    {
+      "id": "vigo_fantasy_scribble_mascot_poster",
+      "name": "Vigo Fantasy Scribble Mascot Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/fantasy-scribble-mascot-poster.jpg"
+      ],
+      "summary": "A raw hand-drawn fantasy poster system with oversized uneven lettering, neon marker mascot shapes, thick black outlines, loose scribble decorations, and dense childlike collage energy on a white paper field."
+    },
+    {
+      "id": "vigo_cyan_red_shockwave_type_poster",
+      "name": "Vigo Cyan Red Shockwave Type Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/cyan-red-shockwave-type-poster.jpg"
+      ],
+      "summary": "A flat illustrated poster system built from a saturated cyan field, oversized red block typography, lemon-yellow human accents, white jagged shockwaves, thick red keylines, and compact rotated microcopy. It feels like a loud regional travel poster crossed with manga impact graphics and screenprinted street signage."
+    },
+    {
+      "id": "vigo_chromatic_fisheye_orbit_pop_poster",
+      "name": "Vigo Chromatic Fisheye Orbit Pop Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/chromatic-fisheye-orbit-pop-poster.jpg"
+      ],
+      "summary": "A high-key pop poster system built from extreme fisheye photography, a convex glass-dome center, oversized orbiting typography, hot red-magenta-orange letter fills, aqua chromatic light arcs, and light analog print texture."
+    },
+    {
+      "id": "vigo_bold_block_mascot_poster",
+      "name": "Vigo Bold Block Mascot Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/bold-block-mascot-poster.jpg"
+      ],
+      "summary": "A dense flat poster system built from giant black display type, chunky white mascot figures, thick cartoon outlines, tilted cyan or mint color panels, compact badges, tiny red accents, and a clean off-white print surface."
+    },
+    {
+      "id": "vigo_bold_anime_reaction_thumbnail",
+      "name": "Vigo Bold Anime Reaction Thumbnail",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/bold-anime-reaction-thumbnail.jpg"
+      ],
+      "summary": "A high-impact anime web-thumbnail system with oversized reaction characters, bold yellow headline typography, hard black shadows, split-screen framing, a smaller glowing action insert, and clean cel-shaded illustration."
+    },
+    {
+      "id": "vigo_blue_kinetic_poster",
+      "name": "Vigo Blue Kinetic Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/blue-lime-kinetic-comic-type-poster.jpg"
+      ],
+      "summary": "A loud flat comic-poster system built from electric-blue grid paper, oversized neon-lime speech-panel geometry, heavy black block typography, sharp yellow back plates, radial action marks, and gritty print texture. The style feels like a kinetic street flyer where the headline is the main subject."
+    },
+    {
+      "id": "vigo_blue_hud_macro_product_poster",
+      "name": "Vigo Blue Hud Macro Product Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/blue-hud-macro-product-poster.jpg"
+      ],
+      "summary": "A high-density blue creator-tech advertisement style built around macro 3D hardware heroes, oversized ribbed gloves, electric-blue HUD panels, massive condensed typography, glossy glass cards, and one warm gold performance badge."
+    },
+    {
+      "id": "vigo_blue_halftone_ransom_zine_poster",
+      "name": "Vigo Blue Halftone Ransom Zine Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/blue-halftone-ransom-zine-poster.jpg"
+      ],
+      "summary": "A rough cobalt-blue ransom-zine poster system built from torn white paper scraps, black photocopied halftone subject cutouts, marker-like handwritten words, crumpled paper texture, and sparse noisy micro captions."
+    },
+    {
+      "id": "vigo_blue_bubble_fisheye_action_poster",
+      "name": "Vigo Blue Bubble Fisheye Action Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/blue-bubble-fisheye-action-poster.jpg"
+      ],
+      "summary": "A crisp white youth-culture action poster style with a rectangular fisheye photograph, oversized rounded royal-blue display typography, frame-breaking foreground scale, small blue editorial captions, and one red hand-drawn annotation circle."
+    },
+    {
+      "id": "vigo_black_cutout_food_card_ad",
+      "name": "Vigo Black Cutout Food Card Ad",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/black-cutout-food-card-ad.jpg"
+      ],
+      "summary": "A black-background food promotion style built around one irregular cream paper card, oversized hand-brushed Chinese lettering, clipped food photography, small price medallions, warm red/yellow accents, and a handmade street-snack print texture."
+    },
+    {
+      "id": "vigo_analog_editorial_poster",
+      "name": "Vigo Analog Editorial Poster",
+      "category": "vigo_cookbook",
+      "preview_urls": [
+        "https://malongan.github.io/images/vigo_previews/soft-analog-future-editorial-poster.jpg"
+      ],
+      "summary": "A quiet analog-future editorial poster style using warm cream paper, oversized black neo-grotesk typography, strict grid rules, retro technology still life, pale-blue translucent interface panels, botanical foreground accents, and tiny bilingual information design."
+    },
+    {
+      "id": "urban_collage_poster",
+      "name": "Urban Collage Poster",
+      "category": "brand_kv",
+      "preview_urls": [],
+      "summary": "高饱和橙色大色块 + 黑色矩形堆叠的都市拼贴海报，酷女孩广角近摄 + 黑描边贴纸化处理，强烈能量感。"
+    },
+    {
+      "id": "typography",
+      "name": "Typography",
+      "category": "print",
+      "preview_urls": [
+        "https://malongan.github.io/images/styles_previews/typography.png"
+      ],
+      "summary": "字体类型 + 笔画结构 + 材质光效 = 高级字体设计。"
+    }
+  ]
+};
+
+/* ★ JS 交互 — 来自 gallery/src/gallery.js */
+/**
+ * Gallery 功能脚本 v3
+ * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式
+ */
+
+(function() {
+  'use strict';
+
+  // ========== 状态管理 ==========
+  const state = {
+    currentTag: 'all',
+    currentCategory: 'all',
+    searchQuery: '',
+    showFavoritesOnly: false,
+    favorites: JSON.parse(localStorage.getItem('galleryFavorites') || '[]'),
+    theme: localStorage.getItem('galleryTheme') || 'light'
+  };
+
+  // ========== DOM 元素 ==========
+  let elements = {};
+
+  // ========== 初始化 ==========
+  function init() {
+    cacheElements();
+    loadTheme();
+    bindEvents();
+    extractTags();
+    extractCategories();
+    renderSidebarTags();
+    renderCategoryFilters();
+  }
+
+  function cacheElements() {
+    elements = {
+      searchInput: document.getElementById('searchInput'),
+      themeToggle: document.getElementById('themeToggle'),
+      filterFavorites: document.getElementById('filterFavorites'),
+      galleryGrid: document.querySelector('.gallery-grid'),
+      styleCards: document.querySelectorAll('.style-card'),
+      lightbox: document.getElementById('lightbox'),
+      lightboxCard: document.querySelector('.lightbox-card'),
+      lightboxClose: document.getElementById('lightboxClose')
+    };
+  }
+
+  // ========== 主题切换 ==========
+  function loadTheme() {
+    document.documentElement.setAttribute('data-theme', state.theme);
+    updateThemeIcon();
+  }
+
+  function toggleTheme() {
+    state.theme = state.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', state.theme);
+    localStorage.setItem('galleryTheme', state.theme);
+    updateThemeIcon();
+  }
+
+  function updateThemeIcon() {
+    if (elements.themeToggle) {
+      elements.themeToggle.textContent = state.theme === 'light' ? '🌙' : '☀️';
+    }
+  }
+
+  // ========== 标签提取 - 从 dataset 中提取 ==========
+  function extractTags() {
+    const tagsMap = { all: 0 };
+    
+    elements.styleCards.forEach(card => {
+      const tagsStr = card.dataset.tags || '';
+      const tags = tagsStr.split(',').filter(t => t.trim());
+      tags.forEach(tag => {
+        const tagText = tag.trim();
+        if (tagText) {
+          if (!tagsMap[tagText]) {
+            tagsMap[tagText] = 0;
+          }
+          tagsMap[tagText]++;
+        }
+      });
+    });
+    
+    window.galleryTags = tagsMap;
+  }
+
+  // ========== 分类提取 ==========
+  function extractCategories() {
+    const categoriesMap = { all: 0 };
+    
+    elements.styleCards.forEach(card => {
+      const category = card.dataset.category || 'root';
+      if (!categoriesMap[category]) {
+        categoriesMap[category] = 0;
+      }
+      categoriesMap[category]++;
+    });
+    
+    window.galleryCategories = categoriesMap;
+  }
+
+  // ========== 渲染分类按钮 ==========
+  function renderCategoryFilters() {
+    // 在 filter-bar 后添加分类筛选栏
+    const filterBar = document.querySelector('.filter-bar');
+    if (!filterBar) return;
+
+    const categories = Object.entries(window.galleryCategories || {});
+    categories.sort((a, b) => {
+      // 固定排序：all 优先，然后按数量
+      if (a[0] === 'all') return -1;
+      if (b[0] === 'all') return 1;
+      return b[1] - a[1];
+    });
+
+    // 分类显示名称映射
+    const categoryNames = {
+      'all': '📦 全部',
+      'social_media': '📱 社交媒体',
+      'brand_kv': '🎨 品牌视觉',
+      'e-commerce': '🛒 电商',
+      'science': '🔬 科研',
+      'print': '📚 印刷品',
+      'ip_character': '🎭 IP角色',
+      'travel': '✈️ 旅行',
+      'fashion': '👔 时尚',
+      'creative': '🎪 创意',
+      'vigo_cookbook': '📖 Cookbook',
+      'meigen': '⚠️ 待整理',
+      'root': '📁 未分类'
+    };
+
+    let html = '<div class="category-filter">';
+    categories.forEach(([cat, count]) => {
+      const name = categoryNames[cat] || cat;
+      const active = state.currentCategory === cat ? 'active' : '';
+      html += `<button class="category-btn ${active}" data-category="${cat}">${name} <span class="tag-count">${count}</span></button>`;
+    });
+    html += '</div>';
+
+    filterBar.insertAdjacentHTML('afterend', html);
+
+    // 绑定分类按钮事件
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', handleCategoryClick);
+    });
+  }
+
+  // ========== 分类筛选处理 ==========
+  function handleCategoryClick(e) {
+    const btn = e.currentTarget;
+    const category = btn.dataset.category;
+    
+    // 更新状态
+    state.currentCategory = category;
+    
+    // 更新按钮样式
+    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // 重新过滤
+    filterCards();
+  }
+
+  function renderSidebarTags() {
+    const sidebar = document.querySelector('.sidebar .tag-list');
+    if (!sidebar) return;
+
+    const tags = Object.entries(window.galleryTags || {});
+    tags.sort((a, b) => b[1] - a[1]);
+
+    const total = tags.reduce((sum, t) => sum + t[1], 0);
+    
+    let html = `
+      <button class="tag-item ${state.currentTag === 'all' ? 'active' : ''}" data-tag="all">
+        📦 全部
+        <span class="tag-count">${total}</span>
+      </button>
+    `;
+
+    tags.forEach(([tag, count]) => {
+      html += `
+        <button class="tag-item ${state.currentTag === tag ? 'active' : ''}" data-tag="${tag}">
+          ${tag}
+          <span class="tag-count">${count}</span>
+        </button>
+      `;
+    });
+
+    sidebar.innerHTML = html;
+    
+    // 绑定标签按钮事件
+    sidebar.querySelectorAll('.tag-item').forEach(btn => {
+      btn.addEventListener('click', handleTagClick);
+    });
+  }
+
+  // ========== 事件处理 ==========
+  function bindEvents() {
+    // 搜索
+    if (elements.searchInput) {
+      elements.searchInput.addEventListener('input', debounce(handleSearch, 300));
+    }
+
+    // 主题切换
+    if (elements.themeToggle) {
+      elements.themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // 收藏筛选
+    if (elements.filterFavorites) {
+      elements.filterFavorites.addEventListener('click', handleFavoriteFilter);
+    }
+
+    // 图片点击 - 打开信息卡片
+    elements.styleCards.forEach(card => {
+      const img = card.querySelector('.card-image');
+      if (img) {
+        img.addEventListener('click', () => openLightbox(card));
+      }
+      // 点击整个卡片也能打开详情
+      card.addEventListener('click', (e) => {
+        if (!e.target.closest('.favorite-btn') && !e.target.closest('.card-link')) {
+          openLightbox(card);
+        }
+      });
+    });
+
+    // Lightbox 关闭
+    if (elements.lightbox) {
+      elements.lightbox.addEventListener('click', (e) => {
+        if (e.target === elements.lightbox || e.target.classList.contains('lightbox-card')) {
+          closeLightbox();
+        }
+      });
+    }
+    if (elements.lightboxClose) {
+      elements.lightboxClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeLightbox();
+      });
+    }
+
+    // ESC 关闭 Lightbox
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && elements.lightbox.classList.contains('show')) {
+        closeLightbox();
+      }
+    });
+
+    // 收藏按钮
+    elements.styleCards.forEach(card => {
+      const favBtn = card.querySelector('.favorite-btn');
+      if (favBtn) {
+        favBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          handleFavoriteToggle(card.dataset.id, favBtn);
+        });
+        updateFavoriteButton(card.dataset.id, favBtn);
+      }
+    });
+  }
+
+  function handleSearch(e) {
+    state.searchQuery = e.target.value.toLowerCase().trim();
+    filterCards();
+  }
+
+  function handleTagClick(e) {
+    const btn = e.currentTarget;
+    state.currentTag = btn.dataset.tag;
+    
+    // 更新所有标签按钮状态
+    document.querySelectorAll('.tag-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll(`.tag-item[data-tag="${state.currentTag}"]`).forEach(b => b.classList.add('active'));
+    
+    filterCards();
+  }
+
+  function handleFavoriteFilter() {
+    state.showFavoritesOnly = !state.showFavoritesOnly;
+    elements.filterFavorites.classList.toggle('active', state.showFavoritesOnly);
+    filterCards();
+  }
+
+  function handleFavoriteToggle(cardId, btn) {
+    const index = state.favorites.indexOf(cardId);
+    if (index > -1) {
+      state.favorites.splice(index, 1);
+      btn.classList.remove('active');
+      btn.textContent = '收藏';
+    } else {
+      state.favorites.push(cardId);
+      btn.classList.add('active');
+      btn.textContent = '已收藏';
+    }
+    localStorage.setItem('galleryFavorites', JSON.stringify(state.favorites));
+  }
+
+  function updateFavoriteButton(cardId, btn) {
+    if (state.favorites.includes(cardId)) {
+      btn.classList.add('active');
+      btn.textContent = '已收藏';
+    } else {
+      btn.classList.remove('active');
+      btn.textContent = '收藏';
+    }
+  }
+
+  // ========== 过滤逻辑 ==========
+  function filterCards() {
+    elements.styleCards.forEach(card => {
+      const cardId = card.dataset.id;
+      const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+      const tagsStr = card.dataset.tags || '';
+      const triggers = card.dataset.triggers?.toLowerCase() || '';
+      const category = card.dataset.category || '';
+      
+      let visible = true;
+
+      // 分类筛选
+      if (state.currentCategory !== 'all') {
+        visible = visible && category === state.currentCategory;
+      }
+
+      // 标签筛选
+      if (state.currentTag !== 'all') {
+        const cardTags = tagsStr.split(',').map(t => t.trim());
+        visible = visible && cardTags.includes(state.currentTag);
+      }
+
+      // 搜索筛选
+      if (state.searchQuery) {
+        visible = visible && (
+          title.includes(state.searchQuery) ||
+          tagsStr.toLowerCase().includes(state.searchQuery) ||
+          triggers.includes(state.searchQuery)
+        );
+      }
+
+      // 收藏筛选
+      if (state.showFavoritesOnly) {
+        visible = visible && state.favorites.includes(cardId);
+      }
+
+      card.classList.toggle('hidden', !visible);
+    });
+
+    // 更新计数
+    const total = document.querySelectorAll('.style-card').length;
+    const visible = document.querySelectorAll('.style-card:not(.hidden)').length;
+    const counter = document.querySelector('.count-num');
+    if (counter) {
+      counter.textContent = visible;
+    }
+    
+    // 显示无结果提示
+    let noResults = document.querySelector('.no-results');
+    
+    if (visible === 0) {
+      if (!noResults) {
+        noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.innerHTML = `
+          <div class="no-results-icon">🔍</div>
+          <p>没有找到匹配的风格</p>
+        `;
+        elements.galleryGrid.appendChild(noResults);
+      }
+      noResults.style.display = 'block';
+    } else if (noResults) {
+      noResults.style.display = 'none';
+    }
+  }
+
+  // ========== Lightbox 信息卡片 - 左图右文 ==========
+  function openLightbox(card) {
+    const data = extractCardData(card);
+    renderLightboxContent(data);
+    elements.lightbox.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function extractCardData(card) {
+    return {
+      imageUrl: card.querySelector('.card-image')?.src || '',
+      title: card.querySelector('.card-title')?.textContent || '',
+      number: card.dataset.number || '',
+      summary: card.dataset.summary || '',
+      features: card.dataset.features?.split('|').filter(f => f) || [],
+      triggers: card.dataset.triggers || '',
+      tags: card.dataset.tags?.split(',').filter(t => t) || [],
+      link: card.querySelector('.card-link')?.href || '',
+      linkText: card.querySelector('.card-link')?.textContent || ''
+    };
+  }
+
+  function renderLightboxContent(data) {
+    const card = elements.lightboxCard;
+    
+    // 标题（不含编号）
+    card.querySelector('.lightbox-title').textContent = data.title;
+    card.querySelector('.lightbox-index').textContent = data.number ? `#${data.number}` : '';
+    
+    // 图片
+    const img = card.querySelector('.lightbox-image');
+    img.src = data.imageUrl;
+    img.alt = data.title;
+    
+    // 一句话理解
+    const summarySection = card.querySelector('.lightbox-summary-section');
+    if (data.summary) {
+      summarySection.querySelector('.lightbox-summary').textContent = data.summary;
+      summarySection.style.display = 'block';
+    } else {
+      summarySection.style.display = 'none';
+    }
+    
+    // 触发词
+    const triggersSection = card.querySelector('.lightbox-triggers-section');
+    if (data.triggers) {
+      triggersSection.querySelector('.lightbox-triggers').textContent = data.triggers;
+      triggersSection.style.display = 'block';
+    } else {
+      triggersSection.style.display = 'none';
+    }
+    
+    // 核心特点
+    const featuresSection = card.querySelector('.lightbox-features-section');
+    const featuresList = featuresSection.querySelector('.lightbox-features');
+    if (data.features.length > 0) {
+      featuresList.innerHTML = data.features.map(f => `<li>${f}</li>`).join('');
+      featuresSection.style.display = 'block';
+    } else {
+      featuresSection.style.display = 'none';
+    }
+    
+    // 标签
+    const tagsSection = card.querySelector('.lightbox-tags-section');
+    const tagsContainer = tagsSection.querySelector('.lightbox-tags');
+    if (data.tags.length > 0) {
+      tagsContainer.innerHTML = data.tags.map(t => `<span class="lightbox-tag">${t}</span>`).join('');
+      tagsSection.style.display = 'block';
+    } else {
+      tagsSection.style.display = 'none';
+    }
+    
+    // 链接
+    const linkSection = card.querySelector('.lightbox-link-section');
+    const linkEl = linkSection.querySelector('.lightbox-link');
+    if (data.link) {
+      linkEl.href = data.link;
+      linkEl.textContent = data.linkText || '🔗 查看原文';
+      linkSection.style.display = 'block';
+    } else {
+      linkSection.style.display = 'none';
+    }
+  }
+
+  function closeLightbox() {
+    elements.lightbox.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  // ========== 工具函数 ==========
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // ========== 启动 ==========
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+/* ★ 数据加载逻辑 */
+async function loadGallery() {
+  try {
+    const resp = await fetch('https://cdn.jsdelivr.net/gh/malongan/style-source@main/data/styles.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    renderGallery(data);
+  } catch(e) {
+    console.warn('JSON 加载失败，使用备用数据', e);
+    renderGallery(window.__FALLBACK_DATA__);
+  }
+}
+
+loadGallery();
+</script>
+</body>
+</html>
