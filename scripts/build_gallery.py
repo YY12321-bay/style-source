@@ -62,7 +62,27 @@ def build_gallery_html(data: dict, output_path: str):
 
     inline_css = read_source('gallery.css')
     inline_js_raw = read_source('gallery.js')
-    inline_js = inline_js_raw.replace("})();", "  window.init = init;\n})();")
+
+    # 处理 gallery.js IIFE：阻止 auto-init，暴露 init 到全局
+    # 替换最后几行的自动启动逻辑
+    auto_init_block = (
+        "  if (document.readyState === 'loading') {\n"
+        "    document.addEventListener('DOMContentLoaded', init);\n"
+        "  } else {\n"
+        "    init();\n"
+        "  }"
+    )
+    if auto_init_block in inline_js_raw:
+        inline_js = inline_js_raw.replace(
+            auto_init_block,
+            "  // auto-init disabled, init() called by renderGallery\n  window.init = init;"
+        )
+    else:
+        # fallback: 替换尾声
+        inline_js = inline_js_raw.replace(
+            "})();",
+            "  window.init = init;\n})();"
+        )
 
     # 预生成风格数据的 JS 数组（用于 renderGallery）
     styles_js = []

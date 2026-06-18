@@ -2512,11 +2512,7 @@ window.__FALLBACK_IMG__ = '<div style=padding:40px;text-align:center;color:#999>
   }
 
   // ========== 启动 ==========
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  // auto-init disabled, init() called by renderGallery
   window.init = init;
 })();
 
