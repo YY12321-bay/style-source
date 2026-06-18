@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": "v0.1.0-2-gc28d6ff-dirty",
+    "version": "v0.1.0-4-g9cb6615-dirty",
     "total": 129,
-    "updated_at": "2026-06-18T03:14:38Z",
+    "updated_at": "2026-06-18T03:24:01Z",
     "categories": {
       "brand_kv": {
         "count": 15,
@@ -1404,17 +1404,23 @@
       "id": "chang_e_goddess",
       "name": "Chang E Goddess",
       "category": "ip_character",
-      "tags": [],
+      "tags": [
+        "3D盲盒",
+        "中国神话",
+        "IP设计",
+        "手办盲盒",
+        "嫦娥"
+      ],
       "scene": "",
       "ratio": "",
-      "summary": "",
+      "summary": "典雅神秘的嫦娥3D盲盒，中国神话与现代3D渲染的结合，清冷高贵的东方美学。",
       "features": [],
       "preview_urls": [
         "https://malongan.github.io/images/gallery/chang_e_goddess.jpg"
       ],
       "variables": {},
-      "source_author": "",
-      "source_url": "",
+      "source_author": "米奇（即梦AI）",
+      "source_url": "https://jimeng.jianying.com/",
       "code": "ST000046"
     },
     {

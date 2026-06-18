@@ -101,4 +101,8 @@ Logo：{{YIBIHUI}}
   - 极客代码风格套用IP形象，芒果仔穿炫酷机甲太空服+激光手枪+酷pose
   - 深灰色背景替代浅灰色，增强与白色主体的对比效果
 
+---
+
+## 参考配图
+
 ![极客代码海报示例](https://raw.githubusercontent.com/malongan/images/main/styles_previews/geek_code_poster.jpg)
