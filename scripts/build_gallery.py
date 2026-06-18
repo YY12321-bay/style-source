@@ -273,8 +273,24 @@ function renderGallery(data) {{
   var countEl = document.querySelector('.count-num');
   if (countEl) countEl.textContent = styles.length;
 
+  // 修正 gallery.js extractCategories() 的 all 计数 bug
+  window.__totalStyles = styles.length;
+
   // 渲染完成后调用 gallery.js 的 init() 绑定事件
   if (typeof window.init === 'function') window.init();
+
+  // 修复 all 计数（gallery.js 的 extractCategories 不递增 all）
+  if (window.galleryCategories) {{
+    window.galleryCategories.all = window.__totalStyles || styles.length;
+    // 重新渲染分类按钮以显示正确计数
+    var catBtns = document.querySelectorAll('.category-btn');
+    catBtns.forEach(function(b) {{
+      if (b.dataset.category === 'all') {{
+        var countSpan = b.querySelector('.tag-count');
+        if (countSpan) countSpan.textContent = window.galleryCategories.all;
+      }}
+    }});
+  }}
 }}
 
 /** 从 JSON 或回退数据渲染 */
