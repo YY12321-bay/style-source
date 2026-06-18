@@ -85,8 +85,41 @@ def build_gallery_html(data: dict, output_path: str):
 /* ★ FALLBACK DATA — 部署时内嵌 */
 window.__FALLBACK_DATA__ = {json.dumps(fallback, ensure_ascii=False, indent=2)};
 
-/* ★ JS 交互 — 来自 gallery/src/gallery.js */
-{inline_js}
+/* ★ JS 交互 — 来自 gallery/src/gallery.js（去掉原 DOMContentLoaded 自启动） */
+// 注意：以下 gallery.js 内容已移除尾部的 document.addEventListener('DOMContentLoaded', init)
+// 改为由 loadGallery → renderGallery → init 链式调用
+{inline_js.replace("document.addEventListener('DOMContentLoaded', init);", "// init() called after renderGallery")}
+
+/* ★ renderGallery — 从 JSON 数据渲染瀑布流卡片 */
+function renderGallery(data) {{
+  const styles = data.styles || [];
+  const container = document.getElementById('gallery');
+  const loading = document.getElementById('loading');
+  if (loading) loading.style.display = 'none';
+  if (!container) return;
+
+  // 创建与 gallery.js 匹配的 HTML 结构：.gallery-grid > .style-card
+  container.innerHTML = '<div class="gallery-grid">' +
+    styles.map(s => {{
+      const imgUrl = (s.preview_urls || [])[0] || '';
+      const tags = (s.tags || []).map(t => '<span class="tag" data-tag="' + t + '">#' + t + '</span>').join('');
+      return '<div class="style-card" data-id="' + s.id + '" data-tags="' + (s.tags || []).join(',') + '" data-category="' + s.category + '">' +
+        '<div class="card-img-wrap">' +
+          '<img src="' + imgUrl + '" alt="' + s.name + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=padding:40px;text-align:center;color:#999>图片加载失败</div>\'">' +
+          '<div class="card-number">#' + s.id + '</div>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<h3 class="card-title">' + s.name + '</h3>' +
+          '<div class="card-tags">' + tags + '</div>' +
+          '<p class="card-summary">' + (s.summary || '') + '</p>' +
+        '</div>' +
+      '</div>';
+    }}).join('') +
+  '</div>';
+
+  // 渲染完成后，调用 gallery.js 的 init() 绑定事件
+  if (typeof init === 'function') init();
+}}
 
 /* ★ 数据加载逻辑 */
 async function loadGallery() {{
@@ -97,7 +130,7 @@ async function loadGallery() {{
     renderGallery(data);
   }} catch(e) {{
     console.warn('JSON 加载失败，使用备用数据', e);
-    renderGallery(window.__FALLBACK_DATA__);
+    if (window.__FALLBACK_DATA__) renderGallery(window.__FALLBACK_DATA__);
   }}
 }}
 
