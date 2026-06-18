@@ -1,69 +1,160 @@
-# Agent 自动配置指南 — 风格收集助手
+# Agent 自动配置指南 — style-source 仓库
 
-> 任何 QwenPaw Agent 读取本文档后，可自动完成风格收集所需的所有配置。
-> 文档结构固定，Agent 可按章节标题精准读取配置项。
-
----
-
-## 1. Agent 身份
-
-| 配置项 | 值 |
-|--------|-----|
-| Agent ID | `style-collector`（建议） |
-| 职责 | 从推文/即梦/meigen 收集提示词，创建风格文件，提 PR |
+> 任何 QwenPaw Agent 读取本文档后，可自动完成风格收集和提交所需的所有配置。
+> 本文档按章节标题组织，Agent 可精准定位所需信息。
 
 ---
 
-## 2. 仓库信息
+## 1. 仓库信息
 
-| 仓库 | 地址 | 权限需求 |
-|------|------|---------|
-| **源仓库** | `git@github.com:malongan/style-source.git` | 读写（提交代码） |
-| **图片仓库** | `git@github.com:malongan/images.git` | 写入（上传配图） |
-| **画廊仓库** | `git@github.com:malongan/style-gallery.git` | 只读，不要修改 |
+| 项目 | 值 |
+|------|-----|
+| 仓库 | `malongan/style-source` |
+| 克隆地址 | `git@github.com:malongan/style-source.git`（SSH）|
+| GitHub Pages | `https://malongan.github.io/style-source/` |
+| 画廊 | `https://malongan.github.io/style-source/gallery.html` |
+| 数据 JSON | `https://malongan.github.io/style-source/data/styles.json` |
+| 预览图 | `https://malongan.github.io/style-source/images/styles_previews/` |
+
+**无需额外 Token** — 所有内容（.md + 图片 + gallery页面）在同一仓库，SSH 密钥即可 push。
 
 ---
 
-## 3. 环境准备
+## 2. 目录结构
 
-### 3.1 Git 配置
+```
+style-source/
+├── styles/                  ← 风格 .md 源文件
+│   ├── social_media/        ← 社交媒体分类
+│   ├── brand_kv/            ← 品牌视觉
+│   ├── e-commerce/          ← 电商
+│   ├── science/             ← 科研专业
+│   ├── print/               ← 印刷品
+│   ├── ip_character/        ← IP/角色
+│   ├── travel/              ← 旅行城市
+│   ├── fashion/             ← 时尚美容
+│   ├── creative/            ← 创意特殊
+│   └── vigo_cookbook/       ← Vigo Cookbook
+├── images/styles_previews/  ← 预览图（与 .md 同仓库版本管理）
+├── data/styles.json         ← 风格数据（CI 自动生成）
+├── gallery.html             ← 画廊页面（内联 CSS/JS）
+├── scripts/                 ← 工具脚本
+│   ├── validate_style.py    ← 单文件格式校验
+│   ├── validate_all.py      ← 全量格式校验
+│   ├── generate_data.py     ← 生成 data/styles.json
+│   ├── build_gallery.py     ← 构建 gallery.html
+│   ├── check_duplicate.py   ← 查重检测
+│   └── upload_preview.py    ← 图片哈希命名处理
+├── .github/workflows/       ← CI/CD
+│   ├── on-push-styles.yml   ← PR 格式检查
+│   └── on-merge-main.yml    ← 合并后验证
+├── CONTRIBUTING.md          ← 人类协作指南
+└── 404.html                 ← 自定义 404
+```
+
+---
+
+## 3. 分支保护规则
+
+| 规则 | 说明 |
+|------|------|
+| 非管理员 | 必须通过 PR + CI 检查（`Validate styles`）+ 1 人审核 |
+| 管理员 | 可用 PAT 直推 main |
+| CI 检查 | 格式验证 + 查重 + 图片可达性 |
+
+**禁止直接推 main** — 非管理员必须走分支 → PR → 审核 → 合并流程。
+
+---
+
+## 4. 风格文件规范
+
+### 4.1 文件路径
+```
+styles/分类/风格名.md
+```
+
+### 4.2 文件名
+全小写 snake_case，如 `inflatable_3d_flowers.md`，最长 60 字符。
+
+### 4.3 必填字段（CI 会严格检查）
+
+```markdown
+# 中文展示名
+
+**标签**：#标签1 #标签2 #标签3
+**触发词**：关键词1、关键词2
+**适用场景**：场景描述
+**比例**：3:4
+**来源**：@作者名
+**链接**：https://原始链接
+
+---
+
+## 一句话理解
+
+一句话概括，不超过 30 字。
+
+---
+
+## 核心特点
+
+- **名称** — 详细描述
+
+---
+
+## 完整模板
+
+```
+原始提示词原文保留，{变量}用单花括号标记
+```
+
+---
+
+## 变量使用指南
+
+| KV套用时的变量 | 对应风格文件变量 | 说明 |
+|---------------|-----------------|------|
+| 画面-主体 | 主体 | 变量说明 |
+
+---
+
+## 参考配图
+
+![描述](https://malongan.github.io/style-source/images/styles_previews/风格名_8位哈希值.jpg)
+
+---
+
+*来源：平台 - 作者名*
+```
+
+**注意**：`**来源链接**` 是可选的（CI 仅建议不报错），但 `**链接**` 必须填。
+
+### 4.4 变量格式
+
+| 位置 | 格式 | 示例 |
+|------|------|------|
+| 模板中 | `{变量}`（单花括号） | `{主体描述}` |
+| 变量指南第二列 | `变量`（无花括号） | `主体描述` |
+
+不要用 `{{变量}}`（双花括号），CI 不识别。
+
+### 4.5 配图 URL
+
+必须是 Pages URL：
+```
+https://malongan.github.io/style-source/images/styles_previews/风格名_8位哈希值.jpg
+```
+
+---
+
+## 5. 收集流程
+
+> ⚠️ 重要：Painter Agent 只负责生成内容（.md 文件 + 预览图），Git 操作交给 GitHub Manager。
+
+### Step 1：克隆并拉取最新
 ```bash
-# ★ 必须使用 SSH 方式克隆（git push 不需要 Token，依赖 SSH 密钥）
 git clone git@github.com:malongan/style-source.git
 cd style-source
-
-# 确保 SSH 密钥已配置：
-ssh -T git@github.com
-# 检查退出码（0 = 成功，非 0 = 失败）
-if [ $? -ne 0 ]; then
-    echo "❌ SSH 密钥未配置或无法连接 GitHub，请先配置 SSH key"
-    echo "参考：https://docs.github.com/zh/authentication/connecting-to-github-with-ssh"
-    exit 1
-fi
-echo "✅ SSH 认证成功"
-```
-
-### 3.2 Token 配置
-```bash
-# 只需要一个 Token（仅用于上传图片到 images 仓库）
-export IMAGES_TOKEN="ghp_yyy"    # images: Contents write
-
-# git push 走 SSH 密钥，不需要 Token
-# 仅 upload_preview.py 需要 IMAGES_TOKEN
-```
-
-### 3.3 Python 环境
-```bash
-# 仅需 Python 3 标准库，无第三方依赖
-python3 --version  # ≥ 3.8
-```
-
----
-
-## 4. 收集流程（Agent 执行步骤）
-
-### Step 1：拉取最新
-```bash
 git checkout main && git pull
 ```
 
@@ -73,173 +164,120 @@ python3 scripts/check_duplicate.py --url "来源链接"
 python3 scripts/check_duplicate.py --name "建议风格名"
 ```
 
-### Step 3：开分支
+### Step 3：下载配图
+
+**通用流程：**
 ```bash
-git checkout -b add/风格名
+curl -L -o /tmp/preview.jpg "图片URL"
 ```
 
-### Step 4：创建风格文件
-参考 `styles/` 下已有的 `.md` 文件格式，遵循以下模板结构：
-
-```markdown
-# [snake_case 风格名]
-
-**标签**：#标签1 #标签2
-**触发词**：关键词
-**适用场景**：场景描述
-**比例**：16:9（必填，CI 会校验）
-**来源**：@作者
-**来源链接**：URL
-
-## 一句话理解
-[20字以内核心描述]
-
-## 核心特点
-- 特点1
-- 特点2
-
-## 完整模板
-```
-原始提示词，{{变量}}用双花括号标记
-```
-
-## 变量使用指南
-| 变量名 | 说明 |
-|--------|------|
-| {{title}} | 主标题 |
-
-## 参考配图
-![描述](https://malongan.github.io/images/styles_previews/风格名_8位哈希值.jpg)
-```
-
-### Step 5：上传配图
+**即梦特殊流程：**
 ```bash
-python3 scripts/upload_preview.py /tmp/preview.jpg 风格名
-# 脚本自动：压缩 → 计算 MD5[:8] 哈希 → 上传 images 仓库 → 输出完整 URL
-# 注意：此脚本依赖环境变量 IMAGES_TOKEN（仅需此一个 Token）
-# 输出示例：https://malongan.github.io/images/styles_previews/bubble_card_a3f8c92e.jpg
+# 1. 用 jimeng_extractor.py 提取 workId
+# 2. 从 window._ROUTER_DATA 获取原图 URL：
+#    路径: commonAttr.coverUrl（2048px 原图）
+# 3. 用 curl 下载（必须加 Referer 头）：
+curl -H "Referer: https://jimeng.jianying.com/" "coverUrl" -o /tmp/preview.webp
 ```
 
-### Step 6：写入配图 URL
-将 Step 5 输出的完整 URL 直接填入风格文件的 `## 参考配图` 中，替换占位符。
-
-### Step 7：提交
+**压缩到 1000px：**
 ```bash
-git add styles/xxx/风格名.md
-git commit -m "feat: 新增[风格名]风格"
-git push origin add/风格名
+sips -Z 1000 /tmp/preview.webp --out /tmp/preview.jpg
 ```
 
-### Step 8：提 PR
-输出 PR 链接给用户，等待审核。
+### Step 4：计算哈希并保存到 style-source
+```bash
+HASH=$(python3 -c "import hashlib; print(hashlib.md5(open('/tmp/preview.jpg','rb').read()).hexdigest()[:8])")
+cp /tmp/preview.jpg style-source/images/styles_previews/风格名_${HASH}.jpg
+```
+
+### Step 5：创建风格文件
+按第 4 节模板创建 `.md` 文件到 `styles/分类/`。
+
+### Step 6：通知 GitHub Manager
+```python
+chat_with_agent(
+  to_agent="github-manager",
+  text="新风格已就绪：styles/分类/风格名.md + 配图路径，请处理后续"
+)
+```
+
+**不要自己 git push。** GitHub Manager 负责：生成数据 → 创建分支 → push → PR。
 
 ---
 
-## 5. 规则速查（CI 会检查，但 Agent 应预先遵守）
+## 6. CI 检查清单
 
-| 规则 | 要求 |
-|------|------|
-| 文件名 | `snake_case.md`，全小写，无空格 |
-| 分类 | 判断规则见下方 |
-| 必填字段 | 标签、触发词、场景、**比例**、完整模板、参考配图、来源链接 |
-| 配图 URL | 必须以 `https://malongan.github.io/images/` 开头 |
-| 变量闭环 | 模板中的 `{{变量}}` 必须在「变量使用指南」中有定义 |
+创建 PR 前本地先验证：
 
-### 分类判断规则
-
-| 分类名 | 目录名（必须） | 什么风格放这里 |
-|--------|---------------|---------------|
-| 社交媒体 | `social_media/` | 小红书、朋友圈、头像、Y2K |
-| 品牌视觉 | `brand_kv/` | 品牌KV、公益海报、杂志封面 |
-| 电商 | `e-commerce/` | 产品主图、电商海报、饮料广告 |
-| 科研专业 | `science/` | 期刊封面、信息图、商业报告 |
-| 印刷品 | `print/` | 书籍封面、电影海报、浮世绘 |
-| IP/角色 | `ip_character/` | 吉祥物、Q版角色、3D头像 |
-| 旅行城市 | `travel/` | 城市海报、旅行拼贴 |
-| 时尚美容 | `fashion/` | 时尚大片、美妆海报 |
-| 创意特殊 | `creative/` | 融合、复古、手绘、实验性 |
-| VigoCookbook | `vigo_cookbook/` | Vigo Cookbook 来源 |
-
-### 变体命名规则
-
-如果提示词与已有风格相似度 >80%，不直接新建同名，改为变体命名：
+```bash
+python3 scripts/validate_all.py           # 全量格式检查
+python3 scripts/generate_data.py          # 生成 JSON 数据
+python3 scripts/build_gallery.py          # 生成画廊页面
+git diff --name-only data/styles.json gallery.html  # 确认生成文件已更新
 ```
-base_style_dark.md      ← 暗色变体
-base_style_portrait.md  ← 人像变体
-```
+
+PR 提交后 CI 自动运行 `on-push-styles.yml`，必须通过才能合并。
 
 ---
 
-## 6. ❌ 禁止做的事
+## 7. 分类判断
+
+| 分类 | 目录 | 适用场景 |
+|------|------|----------|
+| 社交媒体 | `social_media` | 小红书、朋友圈、头像、Y2K |
+| 品牌视觉 | `brand_kv` | 品牌KV、公益海报、杂志封面 |
+| 电商 | `e-commerce` | 产品主图、电商海报、美食 |
+| 科研专业 | `science` | 信息图、期刊封面、报告 |
+| 印刷品 | `print` | 书籍封面、电影海报、浮世绘 |
+| IP/角色 | `ip_character` | 吉祥物、Q版角色、3D头像 |
+| 旅行城市 | `travel` | 城市海报、旅行拼贴 |
+| 时尚美容 | `fashion` | 时尚大片、美妆海报 |
+| 创意特殊 | `creative` | 融合、复古、手绘、实验性 |
+| VigoCookbook | `vigo_cookbook` | Vigo Cookbook 来源 |
+
+---
+
+## 8. ❌ 禁止做的事
 
 | 禁止 | 原因 |
 |------|------|
-| 不要直接推 main | 走分支 → PR |
-| 不要修改 `_index.md` | CI 自动生成 |
-| 不要修改 `_collection_log.md` | CI 自动维护 |
+| 不要直接推 main | 分支保护会拦截 |
+| 不要手动修改 `_index.md` | CI 自动生成 |
+| 不要手动修改 `_collection_log.md` | CI 自动维护 |
 | 不要修改 `data/styles.json` | CI 自动生成 |
-| 不要修改 `_scene_recommend.md` | 由仓库 Owner 人工维护 |
-| 不要上传配图到非规范目录 | 统一用 `images/styles_previews/` |
+| 不要用 `{{变量}}`（双花括号） | CI 不识别这种格式 |
+| 不要上传到旧 images 仓库 | 图片直接放 style-source 内 |
 
 ---
 
-## 7. 脚本速查
+## 9. 脚本速查
 
 | 脚本 | 用途 | 调用方式 |
 |------|------|---------|
-| `check_duplicate.py` | 查重 | `--url URL` 或 `--name 风格名` |
-| `collect_init.py` | 交互式创建风格文件 | 直接运行 |
-| `upload_preview.py` | 上传配图（**依赖 `IMAGES_TOKEN`**） | `图片路径 风格名` |
-| `validate_style.py` | 校验单个文件 | `文件路径` |
+| `validate_style.py` | 校验单个文件 | `python3 scripts/validate_style.py 文件路径` |
+| `validate_all.py` | 校验全部文件 | `python3 scripts/validate_all.py` |
+| `check_duplicate.py` | 查重 | `--url URL` 或 `--name 名称` |
+| `generate_data.py` | 生成 JSON 数据 | `python3 scripts/generate_data.py` |
+| `build_gallery.py` | 构建画廊页面 | `python3 scripts/build_gallery.py` |
+| `generate_index.py` | 生成索引 | `python3 scripts/generate_index.py` |
+| `upload_preview.py` | 图片哈希命名处理 | `图片路径 风格名` |
 
 ---
 
-## 8. 常见报错处理（Agent 自我纠错）
+## 10. 常见报错
 
-当 Agent 执行过程中遇到错误，应按以下列表自动诊断和修正：
-
-### 8.1 `git push` 失败：远程有新提交
-
+### git push 失败（non-fast-forward）
 ```bash
-# 错误信息： rejected (non-fast-forward)
-# 原因：其他人先推送了更新到 main
-# 修正：
 git pull --rebase origin main
-# 如果本地分支已经 push 到远端，rebase 后必须强制推送
-git push origin add/风格名 --force-with-lease
-# 使用 --force-with-lease（而非 --force），避免覆盖同事的新提交
-# --force-with-lease 只覆盖你确认过的远程分支，不覆盖别人刚推的新提交
+git push origin 分支名 --force-with-lease
 ```
 
-### 8.2 CI 校验失败
-
-```
-# 错误信息： PR 检查显示 ❌
-# 原因：格式不符合规范
-# 修正：
-1. git checkout add/风格名
-2. 本地运行 python3 scripts/validate_style.py styles/xxx/风格名.md
-3. 根据报错信息修改文件
-4. git add && git commit --amend && git push --force
-# PR 会自动重新触发 CI 检查
-```
-
-### 8.3 `upload_preview.py` 报错
-
-```
-# 错误信息： 401 Unauthorized 或 403 Forbidden
-# 原因：Token 未设置或权限不足
-# 修正：
-1. 检查环境变量 export | grep IMAGES_TOKEN
-2. 如果为空，提示用户配置 IMAGES_TOKEN
-3. Token 需有 malongan/images 仓库的 Contents: write 权限
-```
-
-### 8.4 查重发现风格已存在
-
+### CI 校验失败
 ```bash
-# check_duplicate.py 输出已有风格名和收集者
-# 修正：
-1. 如果是完全相同的提示词 → 终止流程，告知用户「此风格已被 @xxx 收集」
-2. 如果是高度相似但有差异 → 使用变体命名（见 §5 变体命名规则）
+python3 scripts/validate_style.py styles/xxx/文件.md
+# 根据报错修改 → git add → git commit --amend → git push --force
 ```
+
+### 比例错误
+即梦提取器有时把 9:16 输出为 16:9。**以页面实际显示为准**，打开即梦页面看图片下方的标注。
