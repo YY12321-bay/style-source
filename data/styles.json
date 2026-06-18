@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": "6a26c5a-dirty",
+    "version": "b8a3f39-dirty",
     "total": 129,
-    "updated_at": "2026-06-18T02:24:25Z",
+    "updated_at": "2026-06-18T02:50:30Z",
     "categories": {
       "brand_kv": {
         "count": 15,
@@ -83,7 +83,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/avantgarde_bw_poster.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AdrianPunk115",
+      "source_url": "https://x.com/AdrianPunk115/status/2064944838035022034"
     },
     {
       "id": "cyberpunk_halftone_poster",
@@ -110,7 +112,9 @@
         "街头文化与科幻风格融合"
       ],
       "preview_urls": [],
-      "variables": {}
+      "variables": {},
+      "source_author": "💋💋💋 🅻🅸🅽🅳🅰",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7591914980476276006"
     },
     {
       "id": "diffuse_poster",
@@ -135,7 +139,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/diffuse_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AdrianPunk115",
+      "source_url": "https://x.com/i/status/2064148554940391764"
     },
     {
       "id": "digital_soul_poster",
@@ -161,7 +167,9 @@
         "先锋前卫艺术风格"
       ],
       "preview_urls": [],
-      "variables": {}
+      "variables": {},
+      "source_author": "用户4818385606662",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7573909671774391598"
     },
     {
       "id": "fashion_editorial_visual",
@@ -188,7 +196,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/fashion_editorial_visual.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "MrLarus",
+      "source_url": "https://x.com/MrLarus/status/2064661407501619625"
     },
     {
       "id": "futuristic_collage_portrait",
@@ -216,7 +226,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/futuristic_collage_portrait.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "HustleXR",
+      "source_url": "https://x.com/HustleXR/status/2064595994013303063"
     },
     {
       "id": "halftone_assemblage_psa_poster",
@@ -243,7 +255,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/halftone_assemblage_psa_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "VigoCreativeAI",
+      "source_url": "https://x.com/VigoCreativeAI/status/2064672481009435074"
     },
     {
       "id": "inkline_couture",
@@ -269,7 +283,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/inkline_couture.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "MrLarus",
+      "source_url": "https://x.com/MrLarus/status/2062077407352291518"
     },
     {
       "id": "jimeng_kasho_allstars",
@@ -297,7 +313,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/gallery/jimeng_kasho_allstars.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Ai绘画师",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7636922574777175323"
     },
     {
       "id": "luxury_beauty_side_profile_poster",
@@ -328,7 +346,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/luxury_beauty_side_profile_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "MrLarus",
+      "source_url": "https://x.com/MrLarus/status/2066188366480118027"
     },
     {
       "id": "perfume_kv",
@@ -354,7 +374,9 @@
         "真实摄影质感、电影级光影"
       ],
       "preview_urls": [],
-      "variables": {}
+      "variables": {},
+      "source_author": "MrLarus",
+      "source_url": "https://x.com/MrLarus/status/2065718671477977180"
     },
     {
       "id": "street_3d_maximalist",
@@ -381,7 +403,9 @@
         "挂饰元素：!、CONTINUE、99 等强化态度"
       ],
       "preview_urls": [],
-      "variables": {}
+      "variables": {},
+      "source_author": "小越艺术",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7582907054226935091"
     },
     {
       "id": "streetwear_lab",
@@ -406,7 +430,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/streetwear_lab.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "VigoCreativeAI",
+      "source_url": "https://x.com/VigoCreativeAI/status/2060377807688241332"
     },
     {
       "id": "sunlit_kinetic_block_type_poster",
@@ -433,7 +459,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/sunlit_kinetic_block_type_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "VigoCreativeAI",
+      "source_url": "https://x.com/VigoCreativeAI/status/2066031131674259640"
     },
     {
       "id": "urban_collage_poster",
@@ -460,7 +488,9 @@
         "散点式构图，多重图层叠加"
       ],
       "preview_urls": [],
-      "variables": {}
+      "variables": {},
+      "source_author": "文野Bot",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7549133563254328616"
     },
     {
       "id": "dark_chinese_fantasy_illustration",
@@ -484,7 +514,9 @@
         "**电影感构图** — 广角镜头全景，电影慢镜头动态捕捉，层次分明"
       ],
       "preview_urls": [],
-      "variables": {}
+      "variables": {},
+      "source_author": "白晚萌萌滴",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7646196547226504499"
     },
     {
       "id": "demon_wukong_line_art",
@@ -511,7 +543,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/jimeng_previews/demon_wukong_line_art.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "韩啸（即梦）",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7651882653125332274"
     },
     {
       "id": "east_asian_vintage_illustration",
@@ -538,7 +572,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/east_asian_vintage_illustration.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "only01clair",
+      "source_url": "https://x.com/only01clair/status/2064670555878596832?s=20"
     },
     {
       "id": "east_asian_vintage_magazine",
@@ -568,7 +604,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/east_asian_vintage_illustration.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "only01clair",
+      "source_url": "https://x.com/only01clair/status/2064670555878596832?s=20"
     },
     {
       "id": "futuristic_spring_kv",
@@ -596,7 +634,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/futuristic_spring_kv.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "会唱歌de萝卜丝（即梦）",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7623739698048945459?workDetailType=Image&itemType=9"
     },
     {
       "id": "geek_code_poster",
@@ -621,7 +661,9 @@
         "瑞士国际主义风格的三栏信息排版"
       ],
       "preview_urls": [],
-      "variables": {}
+      "variables": {},
+      "source_author": "一笔绘✏️",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7646229041049013531"
     },
     {
       "id": "glass_flower_spring_diary",
@@ -650,7 +692,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/glass_flower_spring_diary.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "悦（即梦）",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7616607728072461594?workDetailType=Image&itemType=9"
     },
     {
       "id": "kimjunggi_scifi_sketch",
@@ -680,7 +724,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/kimjunggi_scifi_sketch.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "如-Ru（即梦）",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7621024486871125274?workDetailType=Image&itemType=9"
     },
     {
       "id": "object_illustration_combo",
@@ -707,7 +753,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/object_illustration_combo.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "ShamsAmin56",
+      "source_url": "https://x.com/ShamsAmin56/status/2061689192661307402"
     },
     {
       "id": "playful_avantgarde_poster",
@@ -734,7 +782,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/playful_avantgarde_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "七七吖（即梦）",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7642149031103270170?workDetailType=Image&itemType=9"
     },
     {
       "id": "retro_future_scifi_poster",
@@ -765,7 +815,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/retro_future_scifi_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "一笔绘✏️（即梦）",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7624349671061802267?workDetailType=Image&itemType=9"
     },
     {
       "id": "scribble_poster_style",
@@ -788,7 +840,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/teenage-skate-scribble-screenprint-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "soft_clay_camping_kv",
@@ -817,7 +871,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/soft_clay_camping_kv.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "来佬野-AIGC（即梦）",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7647430982500453641?workDetailType=Image&itemType=9"
     },
     {
       "id": "soft_clay_macaron_poster",
@@ -843,7 +899,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/soft_clay_macaron_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "来佬野- AIGC",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7647430982500453641?workDetailType=Image&itemType=9"
     },
     {
       "id": "style_halftone_poster",
@@ -866,7 +924,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/halftone-assemblage-metaphor-psa-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "style_poster",
@@ -889,7 +949,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/folded-diamond-perspective-type-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "takeshi_camping_poster",
@@ -918,7 +980,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/takeshi_camping_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "LeeJiasi（即梦）",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7635342335886363930?workDetailType=Image&itemType=9"
     },
     {
       "id": "beverage_style",
@@ -941,7 +1005,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/multi-color-beverage-splash-ad-system.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "brand_miniature_architecture",
@@ -970,7 +1036,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/brand_miniature_architecture.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "PixuryAI",
+      "source_url": "https://x.com/PixuryAI/status/2064892529997414815"
     },
     {
       "id": "jade_glyph_grocer_collage",
@@ -1000,7 +1068,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/jade_glyph_grocer_collage.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "VigoCreativeAI",
+      "source_url": "https://x.com/VigoCreativeAI/status/2065013983476597187"
     },
     {
       "id": "luxury_birthday_poster",
@@ -1030,7 +1100,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/luxury_birthday_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "MissDelulu9",
+      "source_url": "https://x.com/MissDelulu9/status/2064903441806450903"
     },
     {
       "id": "luxury_product",
@@ -1055,7 +1127,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/luxury_product.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "VigoCreativeAI",
+      "source_url": "https://x.com/VigoCreativeAI/status/2060643771998720207"
     },
     {
       "id": "realistic_photo",
@@ -1080,7 +1154,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/realistic_photo.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "内部模板",
+      "source_url": "-"
     },
     {
       "id": "retro_drink_ad",
@@ -1107,7 +1183,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/retro_drink_ad.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "xiaoxiaodong01",
+      "source_url": "https://x.com/xiaoxiaodong01/status/2064000945458217220"
     },
     {
       "id": "style_product",
@@ -1130,7 +1208,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/electric-blue-silhouette-product-launch.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "editorial",
@@ -1153,7 +1233,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/sunlit-supermodel-nameplate-editorial.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "editorial_fashion",
@@ -1176,7 +1258,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/sunlit-architectural-fashion-editorial.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "editorial_luxury",
@@ -1199,7 +1283,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/luxury-perspective-checkerboard-editorial.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "fashion_archer_editorial",
@@ -1226,7 +1312,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/fashion_archer_editorial.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "you1873118",
+      "source_url": "https://x.com/you1873118/status/2064933410091774287?s=20"
     },
     {
       "id": "fashion_campaign_typography",
@@ -1253,7 +1341,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/temp/temp_20260613_001.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "MrLarus",
+      "source_url": "https://x.com/MrLarus/status/2065713153237766314"
     },
     {
       "id": "chang_e_goddess",
@@ -1267,7 +1357,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/gallery/chang_e_goddess.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "",
+      "source_url": ""
     },
     {
       "id": "exaggerated_3d_toy_illustration",
@@ -1296,7 +1388,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/exaggerated_3d_toy_illustration.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "MissDelulu9",
+      "source_url": "https://www.meigen.ai/prompt/2056323209323319324"
     },
     {
       "id": "maple_story_avatar",
@@ -1324,7 +1418,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/maple_story_avatar.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "20_v_e",
+      "source_url": "https://x.com/20_v_e/status/2064627884086689912"
     },
     {
       "id": "mascot_ip",
@@ -1350,7 +1446,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/mascot_ip.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "VigoCreativeAI",
+      "source_url": "https://x.com/VigoCreativeAI/status/2059548612108144716"
     },
     {
       "id": "pixar_cartoon_portrait",
@@ -1377,7 +1475,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/pixar_cartoon_portrait.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Noor_ul_ain43",
+      "source_url": "https://x.com/Noor_ul_ain43/status/2064760141917069361?s=20"
     },
     {
       "id": "retro_cel_animation",
@@ -1407,7 +1507,9 @@
         "https://malongan.github.io/images/styles_previews/azed_retro_cel_3.jpg",
         "https://malongan.github.io/images/styles_previews/azed_retro_cel_4.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "推文 @azed_ai",
+      "source_url": "https://x.com/azed_ai/status/2065387673028907435"
     },
     {
       "id": "sunny_3d",
@@ -1434,7 +1536,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/sunny_3d.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "VigoCreativeAI",
+      "source_url": "https://x.com/VigoCreativeAI/status/2060014177742360890"
     },
     {
       "id": "collage_logo",
@@ -1459,7 +1563,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/collage_logo.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "内部模板",
+      "source_url": "-"
     },
     {
       "id": "luxury_poster_style",
@@ -1482,7 +1588,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/quiet-luxury-furniture-nameplate-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "pet_sketch_storyboard",
@@ -1505,7 +1613,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/rough-animation-pet-sketch-storyboard.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "scarlet",
@@ -1532,7 +1642,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/scarlet.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "VigoCreativeAI",
+      "source_url": "https://x.com/VigoCreativeAI/status/2064234723220811848"
     },
     {
       "id": "stamp_movie_poster",
@@ -1561,7 +1673,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/gallery/stamp_movie_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AIwithAliya",
+      "source_url": "https://x.com/AIwithAliya/status/2065757835867144460"
     },
     {
       "id": "style_can",
@@ -1584,7 +1698,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/blue-chinese-perspective-type-canyon.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "tear_paper",
@@ -1611,7 +1727,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/tear_paper.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "xiaoxiaodong01",
+      "source_url": "https://x.com/xiaoxiaodong01/status/2060007845903655125"
     },
     {
       "id": "typography",
@@ -1636,7 +1754,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/typography.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AdrianPunk115",
+      "source_url": "https://x.com/AdrianPunk115"
     },
     {
       "id": "bloomberg_magazine",
@@ -1666,7 +1786,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/bloomberg_magazine.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AdrianPunk115",
+      "source_url": "https://x.com/AdrianPunk115/status/2064593763327234113"
     },
     {
       "id": "mckinsey_style",
@@ -1694,7 +1816,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/mckinsey_style.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AdrianPunk115",
+      "source_url": "https://x.com/AdrianPunk115/status/2062080784572534958"
     },
     {
       "id": "science_cover",
@@ -1721,7 +1845,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/science_cover.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AdrianPunk115",
+      "source_url": "https://x.com/AdrianPunk115/status/2063634489604190686"
     },
     {
       "id": "science_illustration",
@@ -1748,7 +1874,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/science_illustration.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AdrianPunk115",
+      "source_url": "https://x.com/AdrianPunk115/status/2063634489604190686"
     },
     {
       "id": "science_infographic",
@@ -1775,7 +1903,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/science_infographic.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AdrianPunk115",
+      "source_url": "https://x.com/AdrianPunk115/status/2063634489604190686"
     },
     {
       "id": "bubble_card",
@@ -1801,7 +1931,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/bubble_card.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "用户提供",
+      "source_url": "-"
     },
     {
       "id": "candy_3d_wonderland",
@@ -1829,7 +1961,9 @@
         "蓝天光影 + 波光粼粼水面 + 漂浮动态特效"
       ],
       "preview_urls": [],
-      "variables": {}
+      "variables": {},
+      "source_author": "散养设计",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7619622039854402854"
     },
     {
       "id": "chibi_q_version_character",
@@ -1854,7 +1988,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/chibi_q_version_character.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "CharaspowerAI",
+      "source_url": "https://x.com/CharaspowerAI/status/2066230454429143506"
     },
     {
       "id": "doodle_style",
@@ -1877,7 +2013,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/cozy-bedroom-doodle-companion-snapshot.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "doodle_style_poster",
@@ -1900,7 +2038,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/backseat-transit-doodle-letter-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "doodle_style_poster_1",
@@ -1923,7 +2063,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/mountain-trail-monster-doodle-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "gpt_doodle_illustration",
@@ -1949,7 +2091,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/gpt_doodle_illustration.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "oggii_0",
+      "source_url": "https://x.com/oggii_0/status/2064589838935015811"
     },
     {
       "id": "grotesque_doodle_style",
@@ -1978,7 +2122,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/temp/grotesque_doodle_style.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "AdrianPunk115",
+      "source_url": "https://x.com/AdrianPunk115/status/2065690624402280513"
     },
     {
       "id": "japanese_poetic_dreamy",
@@ -2006,7 +2152,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/japanese_poetic_dreamy.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "yyyole（沐阳）",
+      "source_url": "https://x.com/yyyole/status/2065001375898247359"
     },
     {
       "id": "k_gyaru_street_snap",
@@ -2033,7 +2181,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/k_gyaru_street_snap.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "only01clair",
+      "source_url": "https://x.com/only01clair/status/2064670555878596832?s=20"
     },
     {
       "id": "sky_blue_doodle",
@@ -2058,7 +2208,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/sky_blue_doodle.png"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "VigoCreativeAI",
+      "source_url": "https://x.com/VigoCreativeAI/status/2063863083861188693"
     },
     {
       "id": "sticker_style_poster",
@@ -2081,7 +2233,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/analog-sticker-diary-portrait-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "summer_dopamine",
@@ -2107,7 +2261,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/styles_previews/summer_dopamine_full.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "用户收藏",
+      "source_url": "-"
     },
     {
       "id": "collage_doodle_style",
@@ -2130,7 +2286,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/surreal-fish-doodle-landmark-photo-collage.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "minimalist_city_travel_poster",
@@ -2157,7 +2315,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/minimalist_city_travel_poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Goodmanprotocol",
+      "source_url": "https://www.meigen.ai/prompt/2052974175435026714"
     },
     {
       "id": "style_travel",
@@ -2180,7 +2340,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/clean-triptych-travel-vlog-thumbnail.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_analog_editorial_poster",
@@ -2203,7 +2365,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/soft-analog-future-editorial-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_black_cutout_food_card_ad",
@@ -2226,7 +2390,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/black-cutout-food-card-ad.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_blue_bubble_fisheye_action_poster",
@@ -2249,7 +2415,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/blue-bubble-fisheye-action-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_blue_halftone_ransom_zine_poster",
@@ -2272,7 +2440,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/blue-halftone-ransom-zine-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_blue_hud_macro_product_poster",
@@ -2295,7 +2465,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/blue-hud-macro-product-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_blue_kinetic_poster",
@@ -2318,7 +2490,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/blue-lime-kinetic-comic-type-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_bold_anime_reaction_thumbnail",
@@ -2341,7 +2515,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/bold-anime-reaction-thumbnail.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_bold_block_mascot_poster",
@@ -2364,7 +2540,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/bold-block-mascot-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_chromatic_fisheye_orbit_pop_poster",
@@ -2387,7 +2565,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/chromatic-fisheye-orbit-pop-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_cyan_red_shockwave_type_poster",
@@ -2410,7 +2590,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/cyan-red-shockwave-type-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_fantasy_scribble_mascot_poster",
@@ -2433,7 +2615,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/fantasy-scribble-mascot-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_fisheye_bubble_poster",
@@ -2456,7 +2640,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/sunburst-fisheye-bubble-type-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_folded_newspaper_product_ad",
@@ -2479,7 +2665,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/folded-newspaper-product-ad.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_gothic_cat_doodle_photo_collage",
@@ -2502,7 +2690,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/gothic-cat-doodle-photo-collage.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_impact_burst_halftone_comic_poster",
@@ -2525,7 +2715,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/impact-burst-halftone-comic-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_k_pop_apocalypse_ransom_zine",
@@ -2548,7 +2740,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/k-pop-apocalypse-ransom-zine.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_kinetic_geometric_doodle_cutouts",
@@ -2571,7 +2765,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/kinetic-geometric-doodle-cutouts.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_luxury_street_cover",
@@ -2594,7 +2790,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/kinetic-luxury-street-fashion-cover.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_market_brush_produce_poster",
@@ -2617,7 +2815,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/market-brush-produce-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_metro_doodle_snapshot_diary",
@@ -2640,7 +2840,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/metro-doodle-snapshot-diary.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_mondrian_style",
@@ -2672,7 +2874,9 @@
         "https://malongan.github.io/images/vigo_mondrian/longtermism.jpg",
         "https://malongan.github.io/images/vigo_mondrian/future_city.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Adrian Punk (@AdrianPunk115)",
+      "source_url": "https://x.com/AdrianPunk115/status/2065295607028412813"
     },
     {
       "id": "vigo_mono_noir_type_portrait_poster",
@@ -2695,7 +2899,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/mono-noir-type-portrait-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_naive_marker_quote_card",
@@ -2718,7 +2924,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/naive-marker-quote-card.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_neon_diary_collage",
@@ -2741,7 +2949,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/neon-outdoor-diary-longform-collage.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_neon_doodle_gallery_snapshot",
@@ -2764,7 +2974,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/neon-doodle-gallery-snapshot.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_neon_kinetic_typographic_poster",
@@ -2787,7 +2999,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/neon-kinetic-typographic-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_neon_plush_gadget_pop_3d",
@@ -2810,7 +3024,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/neon-plush-gadget-pop-3d.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_olive_scribble_sports_poster",
@@ -2833,7 +3049,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/olive-scribble-sports-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_photo_illustration_overlay_poster",
@@ -2856,7 +3074,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/photo-illustration-overlay-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_playful_marker_grounding_poster",
@@ -2879,7 +3099,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/playful-marker-grounding-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_playful_mascot_doodle_snapshot",
@@ -2902,7 +3124,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/playful-mascot-doodle-snapshot.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_plush_city_festival_mobile_poster",
@@ -2925,7 +3149,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/plush-city-festival-mobile-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_plush_comic_toy_product_poster",
@@ -2948,7 +3174,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/plush-comic-toy-product-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_pop_bubble_letter_photo_poster",
@@ -2971,7 +3199,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/pop-bubble-letter-photo-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_rough_ink_music_doodle_poster",
@@ -2994,7 +3224,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/rough-ink-music-doodle-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_rough_marker_monster_poster",
@@ -3017,7 +3249,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/rough-marker-monster-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_school_grid_paper_cutout_poster",
@@ -3040,7 +3274,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/school-grid-paper-cutout-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_sky_blue_home_life_doodle_poster",
@@ -3063,7 +3299,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/sky-blue-home-life-doodle-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_subway_doodle_photo_hybrid",
@@ -3086,7 +3324,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/subway-doodle-photo-hybrid.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_sunny_3d_avatar_campaign",
@@ -3109,7 +3349,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/sunny-3d-avatar-campaign.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_tokyo_kawaii_travel_collage_poster",
@@ -3132,7 +3374,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/tokyo-kawaii-travel-collage-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_tri_color_hardcut_portrait_poster",
@@ -3155,7 +3399,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/tri-color-hardcut-portrait-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_turquoise_red_techno_manga_poster",
@@ -3178,7 +3424,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/turquoise-red-techno-manga-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_urban_transit_doodle_diary",
@@ -3201,7 +3449,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/urban-transit-doodle-diary.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_warm_fisheye_product_impact_ad",
@@ -3224,7 +3474,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/warm-fisheye-product-impact-ad.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_y2k_grunge_hiphop_cutout_poster",
@@ -3247,7 +3499,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/y2k-grunge-hiphop-cutout-poster.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_y2k_mirror_ui_scribble_collage",
@@ -3270,7 +3524,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/y2k-mirror-ui-scribble-collage.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     },
     {
       "id": "vigo_yellow_black_manga_food_zine_ad",
@@ -3293,7 +3549,9 @@
       "preview_urls": [
         "https://malongan.github.io/images/vigo_previews/yellow-black-manga-food-zine-ad.jpg"
       ],
-      "variables": {}
+      "variables": {},
+      "source_author": "Vigo AI Visual Prompt Cookbook",
+      "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/"
     }
   ]
 }

@@ -230,8 +230,14 @@ function buildCardHTML(s) {{
   var summary = s.summary || '';
   var triggers = s.triggers || '';
   var features = (s.features || []).join('|');
-  var sourceUrl = s.sourceUrl || '';
-  var sourceAuthor = s.sourceAuthor || '';
+  var sourceUrl = s.sourceUrl || s.source_url || '';
+  var sourceAuthor = s.sourceAuthor || s.source_author || '';
+
+  var linkHtml = '';
+  if (sourceUrl) {{
+    linkHtml = '<a href="' + sourceUrl.replace(/"/g,'&quot;') + '" target="_blank" class="card-link">' +
+      (sourceAuthor ? '🔗 @' + sourceAuthor.replace(/"/g,'&quot;') : '🔗 来源') + '</a>';
+  }}
 
   return '<div class="style-card" data-id="' + s.id + '"' +
     ' data-summary="' + summary.replace(/"/g,'&quot;') + '"' +
@@ -249,6 +255,7 @@ function buildCardHTML(s) {{
       '</div>' +
       '<div class="card-footer">' +
         '<span class="card-category">' + (s.category || '') + '</span>' +
+        linkHtml +
         '<button class="favorite-btn" title="收藏">收藏</button>' +
       '</div>' +
     '</div>' +

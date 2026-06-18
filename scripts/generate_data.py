@@ -41,6 +41,16 @@ def parse_style_file(filepath: str) -> dict:
     ratio_match = re.search(r'\*\*比例\*\*\s*[：:]\s*(.+)', content)
     ratio = ratio_match.group(1).strip() if ratio_match else ''
 
+    # 提取来源
+    source_match = re.search(r'\*\*来源\*\*\s*[：:]\s*(.+)', content)
+    source_author = source_match.group(1).strip() if source_match else ''
+    # 去掉开头的 @ 符号，保持统一
+    source_author = source_author.lstrip('@').strip() if source_author else ''
+
+    # 提取链接
+    link_match = re.search(r'\*\*链接\*\*\s*[：:]\s*(.+)', content)
+    source_url = link_match.group(1).strip() if link_match else ''
+
     # 提取一句话理解
     summary_match = re.search(r'## 一句话理解\s*\n(.+?)(?:\n|$)', content)
     summary = summary_match.group(1).strip() if summary_match else ''
@@ -93,6 +103,8 @@ def parse_style_file(filepath: str) -> dict:
         'features': features,
         'preview_urls': preview_urls,  # 统一为数组
         'variables': variables,
+        'source_author': source_author,  # 来源作者
+        'source_url': source_url,        # 来源链接
     }
 
 def scan_category(cat_dir: str) -> dict:
