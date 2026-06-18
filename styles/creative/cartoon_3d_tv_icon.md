@@ -51,7 +51,7 @@
 
 ## 参考配图
 
-![3D卡通电视图标示例](https://malongan.github.io/style-source/images/styles_previews/3d_cartoon_tv_icon_7929c0d4.jpg)
+![3D卡通电视图标示例](https://malongan.github.io/style-source/images/styles_previews/cartoon_3d_tv_icon_7929c0d4.jpg)
 
 ---
 
