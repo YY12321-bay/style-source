@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": "v0.1.0-1-g1e44d30-dirty",
+    "version": "v0.1.0-2-gc28d6ff-dirty",
     "total": 129,
-    "updated_at": "2026-06-18T03:10:20Z",
+    "updated_at": "2026-06-18T03:14:38Z",
     "categories": {
       "brand_kv": {
         "count": 15,
@@ -387,7 +387,9 @@
         "少量中文文字、克制留白",
         "真实摄影质感、电影级光影"
       ],
-      "preview_urls": [],
+      "preview_urls": [
+        "https://malongan.github.io/style-source/images/styles_previews/perfume_kv_4b75ebf4.jpg"
+      ],
       "variables": {},
       "source_author": "MrLarus",
       "source_url": "https://x.com/MrLarus/status/2065718671477977180",
