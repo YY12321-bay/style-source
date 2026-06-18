@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": "v0.3.0-1-g448275f",
+    "version": "v0.3.0-3-g92b8c1e-dirty",
     "total": 131,
-    "updated_at": "2026-06-18T04:16:58Z",
+    "updated_at": "2026-06-18T04:25:06Z",
     "categories": {
       "brand_kv": {
         "count": 15,
@@ -745,7 +745,7 @@
         "超现实主义"
       ],
       "scene": "品牌海报、夏日KV、治愈系插画、社交媒体、产品场景图",
-      "ratio": "16:9",
+      "ratio": "9:16",
       "summary": "C4D 3D膨胀花朵与毛绒质感植物，夏日清新色调，极简构图与品牌海报排版。",
       "features": [
         "**C4D 3D膨胀造型** — 花朵与植物呈膨胀、圆润的3D造型，毛绒质感，色彩对比强烈又柔和",
@@ -758,7 +758,7 @@
       ],
       "variables": {},
       "source_author": "张张会发光（求关注版）",
-      "source_url": "",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7595879481982733595",
       "code": "ST000023"
     },
     {

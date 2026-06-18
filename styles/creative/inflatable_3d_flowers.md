@@ -5,6 +5,7 @@
 **适用场景**：品牌海报、夏日KV、治愈系插画、社交媒体、产品场景图
 **比例**：9:16
 **来源**：张张会发光（求关注版）
+**链接**：https://jimeng.jianying.com/ai-tool/work-detail/7595879481982733595
 **来源链接**：https://jimeng.jianying.com/ai-tool/work-detail/7595879481982733595
 
 ---
