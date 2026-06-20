@@ -3,12 +3,15 @@
 import json
 import os
 import re
+import glob
 import subprocess
 import sys
 from datetime import datetime, timezone
 
 STYLES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'styles')
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
+IMAGES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'images')
+BASE_URL = 'https://malongan.github.io/style-source'
 
 def get_version() -> str:
     """获取版本号：从 git tag 读取，无 tag 时返回 commit hash 或 v0.0.0"""
@@ -20,6 +23,32 @@ def get_version() -> str:
         return version if version else 'v0.0.0'
     except (subprocess.CalledProcessError, FileNotFoundError):
         return 'v0.0.0'
+
+def find_image_in_repo(style_id: str):
+    """在 images/ 下查找 style_id 对应的图片文件，返回相对于 images/ 的路径"""
+    patterns = [
+        f'styles_previews/{style_id}_*.jpg',
+        f'styles_previews/{style_id}_*.png',
+        f'styles_previews/{style_id}_*.webp',
+    ]
+    for pat in patterns:
+        matches = glob.glob(os.path.join(IMAGES_DIR, pat))
+        if matches:
+            return os.path.relpath(matches[0], IMAGES_DIR)
+    return None
+
+def resolve_image_url(style_id: str, yml_urls: list[str]) -> list[str]:
+    """解析图片 URL：优先用 repo 里的文件，fallback 到 yml 中的 URL"""
+    rel_path = find_image_in_repo(style_id)
+    if rel_path:
+        # 文件存在 → 生成正确的 URL（带哈希）
+        return [f'{BASE_URL}/images/{rel_path}']
+
+    # 文件不存在 → 保持 yml 中的 URL（可能是远程图床）
+    if yml_urls:
+        return yml_urls
+
+    return []
 
 def parse_style_file(filepath: str) -> dict:
     """解析单个 .md 文件，提取结构化数据"""
@@ -70,18 +99,17 @@ def parse_style_file(filepath: str) -> dict:
             if line.strip().startswith('- '):
                 features.append(line.strip()[2:])
 
-    # 提取配图 URL（统一为数组格式）
-    preview_urls = re.findall(r'!\[.*?\]\((https?://[^\s)]+)\)', content)
-    # 过滤并标准化：兼容 old images 仓库、style-source 仓库、raw.githubusercontent.com 旧格式
+    # 提取配图 URL — 从 repo 文件自动匹配（优先），fallback 到 yml 中的 URL
+    raw_urls = re.findall(r'!\[.*?\]\((https?://[^\s)]+)\)', content)
     normalized = []
-    for u in preview_urls:
+    for u in raw_urls:
         if 'malongan.github.io/images/' in u or 'malongan.github.io/style-source/images/' in u:
             normalized.append(u)
         elif 'raw.githubusercontent.com/malongan/images/' in u:
-            # 将 raw.githubusercontent.com 格式转为 github.io Pages 格式
             u_clean = u.replace('raw.githubusercontent.com/malongan/images/main/', 'malongan.github.io/images/')
             normalized.append(u_clean)
-    preview_urls = normalized
+    # ★ 优先使用 repo 中的文件自动生成正确 URL
+    preview_urls = resolve_image_url(filename, normalized)
 
     # 提取变量
     variables = {}
@@ -191,6 +219,18 @@ def main():
     print(f'   风格总数: {data["meta"]["total"]}')
     print(f'   分类数:   {len(categories)}')
     print(f'   版本:     {data["meta"]["version"]}')
+
+    # 统计图片情况
+    found = sum(1 for s in all_styles if s['preview_urls'] and BASE_URL in s['preview_urls'][0])
+    missing = sum(1 for s in all_styles if not s['preview_urls'])
+    remote = len(all_styles) - found - missing
+    print(f'   图片: 本地 {found}, 远程 {remote}, 缺失 {missing}')
+
+    if missing:
+        print(f'\n⚠️  以下 {missing} 个风格无可用的图片：')
+        for s in all_styles:
+            if not s['preview_urls']:
+                print(f'  - {s["code"]} {s["id"]}')
 
 if __name__ == '__main__':
     main()
