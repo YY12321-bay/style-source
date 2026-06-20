@@ -167,9 +167,9 @@ def main():
         categories[cat_name].update(meta)
 
     # 生成总数据
-    # 为每个风格分配固定编号码（6位数字，前缀ST方便识别）
+    # 为每个风格分配固定编号码（4位数字，前缀ST方便识别）
     for i, style in enumerate(all_styles):
-        style['code'] = f'ST{i+1:06d}'
+        style['code'] = f'ST{i+1:04d}'
 
     data = {
         'meta': {
