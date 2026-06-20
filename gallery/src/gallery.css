@@ -311,7 +311,7 @@ body {
 
 /* ==================== 风格卡片网格 - 瀑布流布局 ==================== */
 .gallery-grid {
-  columns: 4 280px;
+  columns: 5 220px;
   column-gap: 12px;
 }
 
@@ -664,6 +664,12 @@ body {
 }
 
 /* ==================== 响应式 ==================== */
+@media (max-width: 1400px) {
+  .gallery-grid {
+    columns: 4 220px;
+  }
+}
+
 @media (max-width: 1200px) {
   .gallery-grid {
     columns: 3 200px;
