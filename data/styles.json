@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": "v0.4.0-28-g3b9b26e-dirty",
+    "version": "v0.4.0-29-g46bc66d-dirty",
     "total": 137,
-    "updated_at": "2026-06-20T09:12:38Z",
+    "updated_at": "2026-06-20T09:39:40Z",
     "categories": {
       "brand_kv": {
         "count": 15,
@@ -88,6 +88,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/avantgarde_bw_poster_44361c82.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/avantgarde_bw_poster_44361c82.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/avantgarde_bw_poster_44361c82.thumb.webp",
       "variables": {},
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/AdrianPunk115/status/2064944838035022034",
@@ -120,6 +122,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/cyberpunk_halftone_poster_dcd4e5f1.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/cyberpunk_halftone_poster_dcd4e5f1.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/cyberpunk_halftone_poster_dcd4e5f1.thumb.webp",
       "variables": {},
       "source_author": "💋💋💋 🅻🅸🅽🅳🅰",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7591914980476276006",
@@ -148,6 +152,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/diffuse_poster_6fa53bcb.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/diffuse_poster_6fa53bcb.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/diffuse_poster_6fa53bcb.thumb.webp",
       "variables": {},
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/i/status/2064148554940391764",
@@ -179,6 +185,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/digital_soul_poster_a5470dc7.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/digital_soul_poster_a5470dc7.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/digital_soul_poster_a5470dc7.thumb.webp",
       "variables": {},
       "source_author": "用户4818385606662",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7573909671774391598",
@@ -209,6 +217,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/fashion_editorial_visual_295648b2.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/fashion_editorial_visual_295648b2.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/fashion_editorial_visual_295648b2.thumb.webp",
       "variables": {},
       "source_author": "MrLarus",
       "source_url": "https://x.com/MrLarus/status/2064661407501619625",
@@ -240,6 +250,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/futuristic_collage_portrait_ad90e08d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/futuristic_collage_portrait_ad90e08d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/futuristic_collage_portrait_ad90e08d.thumb.webp",
       "variables": {},
       "source_author": "HustleXR",
       "source_url": "https://x.com/HustleXR/status/2064595994013303063",
@@ -270,6 +282,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/halftone_assemblage_psa_poster_3d772170.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/halftone_assemblage_psa_poster_3d772170.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/halftone_assemblage_psa_poster_3d772170.thumb.webp",
       "variables": {},
       "source_author": "VigoCreativeAI",
       "source_url": "https://x.com/VigoCreativeAI/status/2064672481009435074",
@@ -299,6 +313,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/inkline_couture_9c26950c.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/inkline_couture_9c26950c.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/inkline_couture_9c26950c.thumb.webp",
       "variables": {},
       "source_author": "MrLarus",
       "source_url": "https://x.com/MrLarus/status/2062077407352291518",
@@ -330,6 +346,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/jimeng_kasho_allstars_ffcce07d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/jimeng_kasho_allstars_ffcce07d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/jimeng_kasho_allstars_ffcce07d.thumb.webp",
       "variables": {},
       "source_author": "Ai绘画师",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7636922574777175323",
@@ -364,6 +382,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/luxury_beauty_side_profile_poster_43b37c66.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/luxury_beauty_side_profile_poster_43b37c66.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/luxury_beauty_side_profile_poster_43b37c66.thumb.webp",
       "variables": {},
       "source_author": "MrLarus",
       "source_url": "https://x.com/MrLarus/status/2066188366480118027",
@@ -395,6 +415,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/perfume_kv_4b75ebf4.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/perfume_kv_4b75ebf4.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/perfume_kv_4b75ebf4.thumb.webp",
       "variables": {},
       "source_author": "MrLarus",
       "source_url": "https://x.com/MrLarus/status/2065718671477977180",
@@ -427,6 +449,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/street_3d_maximalist_9224fd66.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/street_3d_maximalist_9224fd66.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/street_3d_maximalist_9224fd66.thumb.webp",
       "variables": {},
       "source_author": "小越艺术",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7582907054226935091",
@@ -455,6 +479,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/streetwear_lab_1bee8bc5.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/streetwear_lab_1bee8bc5.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/streetwear_lab_1bee8bc5.thumb.webp",
       "variables": {},
       "source_author": "VigoCreativeAI",
       "source_url": "https://x.com/VigoCreativeAI/status/2060377807688241332",
@@ -485,6 +511,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/sunlit_kinetic_block_type_poster_1d65b228.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/sunlit_kinetic_block_type_poster_1d65b228.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/sunlit_kinetic_block_type_poster_1d65b228.thumb.webp",
       "variables": {},
       "source_author": "VigoCreativeAI",
       "source_url": "https://x.com/VigoCreativeAI/status/2066031131674259640",
@@ -517,6 +545,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/urban_collage_poster_f7f695e4.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/urban_collage_poster_f7f695e4.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/urban_collage_poster_f7f695e4.thumb.webp",
       "variables": {},
       "source_author": "文野Bot",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7549133563254328616",
@@ -549,6 +579,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/cartoon_3d_tv_icon_7929c0d4.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/cartoon_3d_tv_icon_7929c0d4.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/cartoon_3d_tv_icon_7929c0d4.thumb.webp",
       "variables": {},
       "source_author": "lihlii",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7616690174034054446",
@@ -578,6 +610,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/dark_chinese_fantasy_illustration_2a16076c.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/dark_chinese_fantasy_illustration_2a16076c.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/dark_chinese_fantasy_illustration_2a16076c.thumb.webp",
       "variables": {},
       "source_author": "白晚萌萌滴",
       "source_url": "",
@@ -608,6 +642,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/demon_wukong_line_art_0aef5f9d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/demon_wukong_line_art_0aef5f9d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/demon_wukong_line_art_0aef5f9d.thumb.webp",
       "variables": {},
       "source_author": "韩啸（即梦）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7651882653125332274",
@@ -638,6 +674,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/east_asian_vintage_illustration_3a8da998.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/east_asian_vintage_illustration_3a8da998.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/east_asian_vintage_illustration_3a8da998.thumb.webp",
       "variables": {},
       "source_author": "only01clair",
       "source_url": "https://x.com/only01clair/status/2064670555878596832?s=20",
@@ -671,6 +709,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/east_asian_vintage_magazine_3a8da998.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/east_asian_vintage_magazine_3a8da998.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/east_asian_vintage_magazine_3a8da998.thumb.webp",
       "variables": {},
       "source_author": "only01clair",
       "source_url": "https://x.com/only01clair/status/2064670555878596832?s=20",
@@ -702,6 +742,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/futuristic_spring_kv_c019db3e.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/futuristic_spring_kv_c019db3e.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/futuristic_spring_kv_c019db3e.thumb.webp",
       "variables": {},
       "source_author": "会唱歌de萝卜丝（即梦）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7623739698048945459?workDetailType=Image&itemType=9",
@@ -732,6 +774,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/geek_code_poster_f7da4b88.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/geek_code_poster_f7da4b88.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/geek_code_poster_f7da4b88.thumb.webp",
       "variables": {},
       "source_author": "一笔绘✏️",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7646229041049013531",
@@ -764,6 +808,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/glass_flower_spring_diary_2c1cc251.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/glass_flower_spring_diary_2c1cc251.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/glass_flower_spring_diary_2c1cc251.thumb.webp",
       "variables": {},
       "source_author": "悦（即梦）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7616607728072461594?workDetailType=Image&itemType=9",
@@ -793,6 +839,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/inflatable_3d_flowers_d186e0b6.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/inflatable_3d_flowers_d186e0b6.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/inflatable_3d_flowers_d186e0b6.thumb.webp",
       "variables": {},
       "source_author": "张张会发光（求关注版）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7595879481982733595",
@@ -826,6 +874,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/kimjunggi_scifi_sketch_1abbb496.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/kimjunggi_scifi_sketch_1abbb496.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/kimjunggi_scifi_sketch_1abbb496.thumb.webp",
       "variables": {},
       "source_author": "如-Ru（即梦）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7621024486871125274?workDetailType=Image&itemType=9",
@@ -855,6 +905,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/moebius_underwater_coral_postoffice_47b70184.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/moebius_underwater_coral_postoffice_47b70184.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/moebius_underwater_coral_postoffice_47b70184.thumb.webp",
       "variables": {},
       "source_author": "黑天鹅",
       "source_url": "",
@@ -885,6 +937,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/object_illustration_combo_e014d94f.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/object_illustration_combo_e014d94f.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/object_illustration_combo_e014d94f.thumb.webp",
       "variables": {},
       "source_author": "ShamsAmin56",
       "source_url": "https://x.com/ShamsAmin56/status/2061689192661307402",
@@ -915,6 +969,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/playful_avantgarde_poster_be32ed45.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/playful_avantgarde_poster_be32ed45.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/playful_avantgarde_poster_be32ed45.thumb.webp",
       "variables": {},
       "source_author": "七七吖（即梦）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7642149031103270170?workDetailType=Image&itemType=9",
@@ -949,6 +1005,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/retro_future_scifi_poster_7fc81506.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/retro_future_scifi_poster_7fc81506.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/retro_future_scifi_poster_7fc81506.thumb.webp",
       "variables": {},
       "source_author": "一笔绘✏️（即梦）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7624349671061802267?workDetailType=Image&itemType=9",
@@ -974,6 +1032,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/scribble_poster_style_a99f6252.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/scribble_poster_style_a99f6252.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/scribble_poster_style_a99f6252.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1006,6 +1066,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/soft_clay_camping_kv_5e36600e.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/soft_clay_camping_kv_5e36600e.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/soft_clay_camping_kv_5e36600e.thumb.webp",
       "variables": {},
       "source_author": "来佬野-AIGC（即梦）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7647430982500453641?workDetailType=Image&itemType=9",
@@ -1035,6 +1097,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/soft_clay_macaron_poster_5e36600e.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/soft_clay_macaron_poster_5e36600e.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/soft_clay_macaron_poster_5e36600e.thumb.webp",
       "variables": {},
       "source_author": "来佬野- AIGC",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7647430982500453641?workDetailType=Image&itemType=9",
@@ -1060,6 +1124,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/style_halftone_poster_3bed3468.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/style_halftone_poster_3bed3468.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/style_halftone_poster_3bed3468.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1085,6 +1151,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/style_poster_cb5d6942.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/style_poster_cb5d6942.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/style_poster_cb5d6942.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1117,6 +1185,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/takeshi_camping_poster_92097096.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/takeshi_camping_poster_92097096.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/takeshi_camping_poster_92097096.thumb.webp",
       "variables": {},
       "source_author": "LeeJiasi（即梦）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7635342335886363930?workDetailType=Image&itemType=9",
@@ -1147,6 +1217,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/y3k_cool_girl_portrait_d64d0282.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/y3k_cool_girl_portrait_d64d0282.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/y3k_cool_girl_portrait_d64d0282.thumb.webp",
       "variables": {},
       "source_author": "卢西西",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7563290563504540978",
@@ -1173,6 +1245,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/beverage_style_5c9fe052.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/beverage_style_5c9fe052.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/beverage_style_5c9fe052.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1205,6 +1279,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/brand_miniature_architecture_474fb732.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/brand_miniature_architecture_474fb732.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/brand_miniature_architecture_474fb732.thumb.webp",
       "variables": {},
       "source_author": "PixuryAI",
       "source_url": "https://x.com/PixuryAI/status/2064892529997414815",
@@ -1238,6 +1314,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/jade_glyph_grocer_collage_9b50bb4c.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/jade_glyph_grocer_collage_9b50bb4c.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/jade_glyph_grocer_collage_9b50bb4c.thumb.webp",
       "variables": {},
       "source_author": "VigoCreativeAI",
       "source_url": "https://x.com/VigoCreativeAI/status/2065013983476597187",
@@ -1271,6 +1349,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/luxury_birthday_poster_e60d0443.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/luxury_birthday_poster_e60d0443.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/luxury_birthday_poster_e60d0443.thumb.webp",
       "variables": {},
       "source_author": "MissDelulu9",
       "source_url": "https://x.com/MissDelulu9/status/2064903441806450903",
@@ -1299,6 +1379,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/luxury_product_4026eb56.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/luxury_product_4026eb56.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/luxury_product_4026eb56.thumb.webp",
       "variables": {},
       "source_author": "VigoCreativeAI",
       "source_url": "https://x.com/VigoCreativeAI/status/2060643771998720207",
@@ -1330,6 +1412,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/newyear_gift_box_6772c037.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/newyear_gift_box_6772c037.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/newyear_gift_box_6772c037.thumb.webp",
       "variables": {},
       "source_author": "暴暴蓝",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7592076890643418377",
@@ -1358,6 +1442,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/realistic_photo_dd50687b.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/realistic_photo_dd50687b.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/realistic_photo_dd50687b.thumb.webp",
       "variables": {},
       "source_author": "内部模板",
       "source_url": "-",
@@ -1388,6 +1474,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/retro_drink_ad_52652b0d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/retro_drink_ad_52652b0d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/retro_drink_ad_52652b0d.thumb.webp",
       "variables": {},
       "source_author": "xiaoxiaodong01",
       "source_url": "https://x.com/xiaoxiaodong01/status/2064000945458217220",
@@ -1413,6 +1501,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/style_product_1ed4ff87.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/style_product_1ed4ff87.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/style_product_1ed4ff87.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1439,6 +1529,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/editorial_luxury_b3460c33.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/editorial_luxury_b3460c33.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/editorial_luxury_b3460c33.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1465,6 +1557,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/editorial_fashion_584fece2.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/editorial_fashion_584fece2.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/editorial_fashion_584fece2.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1491,6 +1585,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/editorial_luxury_b3460c33.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/editorial_luxury_b3460c33.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/editorial_luxury_b3460c33.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1521,6 +1617,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/fashion_archer_editorial_f40f9983.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/fashion_archer_editorial_f40f9983.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/fashion_archer_editorial_f40f9983.thumb.webp",
       "variables": {},
       "source_author": "you1873118",
       "source_url": "https://x.com/you1873118/status/2064933410091774287?s=20",
@@ -1551,6 +1649,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/fashion_campaign_typography_9c3ceb84.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/fashion_campaign_typography_9c3ceb84.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/fashion_campaign_typography_9c3ceb84.thumb.webp",
       "variables": {},
       "source_author": "MrLarus",
       "source_url": "https://x.com/MrLarus/status/2065713153237766314",
@@ -1581,6 +1681,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/chang_e_goddess_5f99361d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/chang_e_goddess_5f99361d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/chang_e_goddess_5f99361d.thumb.webp",
       "variables": {},
       "source_author": "米奇（即梦AI）",
       "source_url": "https://jimeng.jianying.com/",
@@ -1613,6 +1715,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/exaggerated_3d_toy_illustration_435e4dea.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/exaggerated_3d_toy_illustration_435e4dea.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/exaggerated_3d_toy_illustration_435e4dea.thumb.webp",
       "variables": {},
       "source_author": "MissDelulu9",
       "source_url": "https://www.meigen.ai/prompt/2056323209323319324",
@@ -1644,6 +1748,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/maple_story_avatar_d2852785.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/maple_story_avatar_d2852785.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/maple_story_avatar_d2852785.thumb.webp",
       "variables": {},
       "source_author": "20_v_e",
       "source_url": "https://x.com/20_v_e/status/2064627884086689912",
@@ -1673,6 +1779,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/mascot_ip_445793e8.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/mascot_ip_445793e8.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/mascot_ip_445793e8.thumb.webp",
       "variables": {},
       "source_author": "VigoCreativeAI",
       "source_url": "https://x.com/VigoCreativeAI/status/2059548612108144716",
@@ -1703,6 +1811,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/pixar_cartoon_portrait_cc32688d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/pixar_cartoon_portrait_cc32688d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/pixar_cartoon_portrait_cc32688d.thumb.webp",
       "variables": {},
       "source_author": "Noor_ul_ain43",
       "source_url": "https://x.com/Noor_ul_ain43/status/2064760141917069361?s=20",
@@ -1733,6 +1843,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/retro_cel_animation_70639aef.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/retro_cel_animation_70639aef.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/retro_cel_animation_70639aef.thumb.webp",
       "variables": {},
       "source_author": "推文 @azed_ai",
       "source_url": "https://x.com/azed_ai/status/2065387673028907435",
@@ -1763,6 +1875,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/sunny_3d_0b8cad92.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/sunny_3d_0b8cad92.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/sunny_3d_0b8cad92.thumb.webp",
       "variables": {},
       "source_author": "VigoCreativeAI",
       "source_url": "https://x.com/VigoCreativeAI/status/2060014177742360890",
@@ -1791,6 +1905,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/collage_logo_208518c5.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/collage_logo_208518c5.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/collage_logo_208518c5.thumb.webp",
       "variables": {},
       "source_author": "内部模板",
       "source_url": "-",
@@ -1819,6 +1935,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/hierarchy_angels_poster_5c8918d4.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/hierarchy_angels_poster_5c8918d4.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/hierarchy_angels_poster_5c8918d4.thumb.webp",
       "variables": {},
       "source_author": "NOFUN",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7552850269973794099",
@@ -1844,6 +1962,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/luxury_poster_style_1483190d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/luxury_poster_style_1483190d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/luxury_poster_style_1483190d.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1869,6 +1989,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/pet_sketch_storyboard_dce925d4.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/pet_sketch_storyboard_dce925d4.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/pet_sketch_storyboard_dce925d4.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1899,6 +2021,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/scarlet_7a852021.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/scarlet_7a852021.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/scarlet_7a852021.thumb.webp",
       "variables": {},
       "source_author": "VigoCreativeAI",
       "source_url": "https://x.com/VigoCreativeAI/status/2064234723220811848",
@@ -1931,6 +2055,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/stamp_movie_poster_d4919843.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/stamp_movie_poster_d4919843.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/stamp_movie_poster_d4919843.thumb.webp",
       "variables": {},
       "source_author": "AIwithAliya",
       "source_url": "https://x.com/AIwithAliya/status/2065757835867144460",
@@ -1957,6 +2083,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/style_can_33201059.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/style_can_33201059.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/style_can_33201059.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -1987,6 +2115,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/tear_paper_bfecd0ba.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/tear_paper_bfecd0ba.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/tear_paper_bfecd0ba.thumb.webp",
       "variables": {},
       "source_author": "xiaoxiaodong01",
       "source_url": "https://x.com/xiaoxiaodong01/status/2060007845903655125",
@@ -2015,6 +2145,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/typography_4acfe941.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/typography_4acfe941.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/typography_4acfe941.thumb.webp",
       "variables": {},
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/AdrianPunk115",
@@ -2048,6 +2180,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/bloomberg_magazine_7cb7f648.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/bloomberg_magazine_7cb7f648.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/bloomberg_magazine_7cb7f648.thumb.webp",
       "variables": {},
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/AdrianPunk115/status/2064593763327234113",
@@ -2079,6 +2213,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/mckinsey_style_698e178a.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/mckinsey_style_698e178a.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/mckinsey_style_698e178a.thumb.webp",
       "variables": {},
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/AdrianPunk115/status/2062080784572534958",
@@ -2109,6 +2245,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/science_cover_bdeb029e.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/science_cover_bdeb029e.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/science_cover_bdeb029e.thumb.webp",
       "variables": {},
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/AdrianPunk115/status/2063634489604190686",
@@ -2139,6 +2277,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/science_illustration_bdeb029e.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/science_illustration_bdeb029e.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/science_illustration_bdeb029e.thumb.webp",
       "variables": {},
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/AdrianPunk115/status/2063634489604190686",
@@ -2169,6 +2309,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/science_infographic_bdeb029e.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/science_infographic_bdeb029e.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/science_infographic_bdeb029e.thumb.webp",
       "variables": {},
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/AdrianPunk115/status/2063634489604190686",
@@ -2198,6 +2340,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/bubble_card_cfaf8cd9.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/bubble_card_cfaf8cd9.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/bubble_card_cfaf8cd9.thumb.webp",
       "variables": {},
       "source_author": "用户提供",
       "source_url": "-",
@@ -2231,6 +2375,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/candy_3d_wonderland_5e19f125.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/candy_3d_wonderland_5e19f125.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/candy_3d_wonderland_5e19f125.thumb.webp",
       "variables": {},
       "source_author": "散养设计",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7619622039854402854",
@@ -2259,6 +2405,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/chibi_q_version_character_1f09ebcb.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/chibi_q_version_character_1f09ebcb.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/chibi_q_version_character_1f09ebcb.thumb.webp",
       "variables": {},
       "source_author": "CharaspowerAI",
       "source_url": "https://x.com/CharaspowerAI/status/2066230454429143506",
@@ -2284,6 +2432,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/doodle_style_poster_5f705d81.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/doodle_style_poster_5f705d81.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/doodle_style_poster_5f705d81.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2309,6 +2459,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/doodle_style_poster_5f705d81.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/doodle_style_poster_5f705d81.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/doodle_style_poster_5f705d81.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2334,6 +2486,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/doodle_style_poster_1_30914154.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/doodle_style_poster_1_30914154.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/doodle_style_poster_1_30914154.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2363,6 +2517,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/gpt_doodle_illustration_ce1ec0fd.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/gpt_doodle_illustration_ce1ec0fd.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/gpt_doodle_illustration_ce1ec0fd.thumb.webp",
       "variables": {},
       "source_author": "oggii_0",
       "source_url": "https://x.com/oggii_0/status/2064589838935015811",
@@ -2395,6 +2551,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/grotesque_doodle_style_09b45dc0.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/grotesque_doodle_style_09b45dc0.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/grotesque_doodle_style_09b45dc0.thumb.webp",
       "variables": {},
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/AdrianPunk115/status/2065690624402280513",
@@ -2426,6 +2584,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/japanese_poetic_dreamy_09d6409a.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/japanese_poetic_dreamy_09d6409a.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/japanese_poetic_dreamy_09d6409a.thumb.webp",
       "variables": {},
       "source_author": "yyyole（沐阳）",
       "source_url": "https://x.com/yyyole/status/2065001375898247359",
@@ -2456,6 +2616,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/k_gyaru_street_snap_3a8da998.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/k_gyaru_street_snap_3a8da998.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/k_gyaru_street_snap_3a8da998.thumb.webp",
       "variables": {},
       "source_author": "only01clair",
       "source_url": "https://x.com/only01clair/status/2064670555878596832?s=20",
@@ -2484,6 +2646,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/sky_blue_doodle_a8aa1ade.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/sky_blue_doodle_a8aa1ade.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/sky_blue_doodle_a8aa1ade.thumb.webp",
       "variables": {},
       "source_author": "VigoCreativeAI",
       "source_url": "https://x.com/VigoCreativeAI/status/2063863083861188693",
@@ -2509,6 +2673,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/sticker_style_poster_642d3f74.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/sticker_style_poster_642d3f74.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/sticker_style_poster_642d3f74.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2538,6 +2704,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/summer_dopamine_9df0ecb9.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/summer_dopamine_9df0ecb9.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/summer_dopamine_9df0ecb9.thumb.webp",
       "variables": {},
       "source_author": "用户收藏",
       "source_url": "-",
@@ -2563,6 +2731,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/collage_doodle_style_b00ae594.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/collage_doodle_style_b00ae594.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/collage_doodle_style_b00ae594.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2593,6 +2763,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/minimalist_city_travel_poster_c0edb8c5.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/minimalist_city_travel_poster_c0edb8c5.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/minimalist_city_travel_poster_c0edb8c5.thumb.webp",
       "variables": {},
       "source_author": "Goodmanprotocol",
       "source_url": "https://www.meigen.ai/prompt/2052974175435026714",
@@ -2618,6 +2790,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/style_travel_a6ec87c3.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/style_travel_a6ec87c3.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/style_travel_a6ec87c3.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2650,6 +2824,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/wilderness_wind_poster_4920aafd.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/wilderness_wind_poster_4920aafd.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/wilderness_wind_poster_4920aafd.thumb.webp",
       "variables": {},
       "source_author": "即梦AI（您可来了，赵老师~）",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7521957578377612544",
@@ -2678,6 +2854,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/climb_mountain_typography_a1b2c3d4.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/climb_mountain_typography_a1b2c3d4.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/climb_mountain_typography_a1b2c3d4.thumb.webp",
       "variables": {},
       "source_author": "即梦用户",
       "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7597771252316622107",
@@ -2703,6 +2881,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_analog_editorial_poster_6156a592.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_analog_editorial_poster_6156a592.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_analog_editorial_poster_6156a592.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2728,6 +2908,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_black_cutout_food_card_ad_56afb8b6.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_black_cutout_food_card_ad_56afb8b6.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_black_cutout_food_card_ad_56afb8b6.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2753,6 +2935,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_bubble_fisheye_action_poster_02aab45d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_bubble_fisheye_action_poster_02aab45d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_bubble_fisheye_action_poster_02aab45d.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2779,6 +2963,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_halftone_ransom_zine_poster_3bed3468.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_halftone_ransom_zine_poster_3bed3468.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_halftone_ransom_zine_poster_3bed3468.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2804,6 +2990,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_hud_macro_product_poster_1ed4ff87.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_hud_macro_product_poster_1ed4ff87.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_hud_macro_product_poster_1ed4ff87.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2830,6 +3018,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_kinetic_poster_cb5d6942.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_kinetic_poster_cb5d6942.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_kinetic_poster_cb5d6942.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2855,6 +3045,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_bold_anime_reaction_thumbnail_8e18ccef.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_bold_anime_reaction_thumbnail_8e18ccef.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_bold_anime_reaction_thumbnail_8e18ccef.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2880,6 +3072,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_bold_block_mascot_poster_b67d6f31.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_bold_block_mascot_poster_b67d6f31.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_bold_block_mascot_poster_b67d6f31.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2905,6 +3099,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_chromatic_fisheye_orbit_pop_poster_3854d163.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_chromatic_fisheye_orbit_pop_poster_3854d163.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_chromatic_fisheye_orbit_pop_poster_3854d163.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2930,6 +3126,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_cyan_red_shockwave_type_poster_d55357a0.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_cyan_red_shockwave_type_poster_d55357a0.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_cyan_red_shockwave_type_poster_d55357a0.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2956,6 +3154,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_fantasy_scribble_mascot_poster_e720bfbb.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_fantasy_scribble_mascot_poster_e720bfbb.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_fantasy_scribble_mascot_poster_e720bfbb.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -2981,6 +3181,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_fisheye_bubble_poster_fa30f6de.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_fisheye_bubble_poster_fa30f6de.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_fisheye_bubble_poster_fa30f6de.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3006,6 +3208,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_folded_newspaper_product_ad_5b462e76.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_folded_newspaper_product_ad_5b462e76.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_folded_newspaper_product_ad_5b462e76.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3031,6 +3235,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_gothic_cat_doodle_photo_collage_23faee2c.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_gothic_cat_doodle_photo_collage_23faee2c.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_gothic_cat_doodle_photo_collage_23faee2c.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3056,6 +3262,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_impact_burst_halftone_comic_poster_e070ca7c.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_impact_burst_halftone_comic_poster_e070ca7c.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_impact_burst_halftone_comic_poster_e070ca7c.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3081,6 +3289,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_k_pop_apocalypse_ransom_zine_71dcafee.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_k_pop_apocalypse_ransom_zine_71dcafee.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_k_pop_apocalypse_ransom_zine_71dcafee.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3107,6 +3317,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_kinetic_geometric_doodle_cutouts_87c9a8f6.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_kinetic_geometric_doodle_cutouts_87c9a8f6.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_kinetic_geometric_doodle_cutouts_87c9a8f6.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3133,6 +3345,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_luxury_street_cover_bd9a5f9e.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_luxury_street_cover_bd9a5f9e.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_luxury_street_cover_bd9a5f9e.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3159,6 +3373,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_market_brush_produce_poster_1858aa1d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_market_brush_produce_poster_1858aa1d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_market_brush_produce_poster_1858aa1d.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3184,6 +3400,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_metro_doodle_snapshot_diary_4218a67b.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_metro_doodle_snapshot_diary_4218a67b.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_metro_doodle_snapshot_diary_4218a67b.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3216,6 +3434,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_mondrian_style_b7542034.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_mondrian_style_b7542034.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_mondrian_style_b7542034.thumb.webp",
       "variables": {},
       "source_author": "Adrian Punk (@AdrianPunk115)",
       "source_url": "https://x.com/AdrianPunk115/status/2065295607028412813",
@@ -3242,6 +3462,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_mono_noir_type_portrait_poster_4006800d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_mono_noir_type_portrait_poster_4006800d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_mono_noir_type_portrait_poster_4006800d.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3267,6 +3489,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_naive_marker_quote_card_796c7e87.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_naive_marker_quote_card_796c7e87.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_naive_marker_quote_card_796c7e87.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3293,6 +3517,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_diary_collage_ce563a0c.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_diary_collage_ce563a0c.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_diary_collage_ce563a0c.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3318,6 +3544,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_doodle_gallery_snapshot_0964723f.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_doodle_gallery_snapshot_0964723f.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_doodle_gallery_snapshot_0964723f.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3343,6 +3571,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_kinetic_typographic_poster_427ef146.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_kinetic_typographic_poster_427ef146.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_kinetic_typographic_poster_427ef146.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3369,6 +3599,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_plush_gadget_pop_3d_5ec5f38d.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_plush_gadget_pop_3d_5ec5f38d.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_neon_plush_gadget_pop_3d_5ec5f38d.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3395,6 +3627,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_olive_scribble_sports_poster_c7b111fb.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_olive_scribble_sports_poster_c7b111fb.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_olive_scribble_sports_poster_c7b111fb.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3420,6 +3654,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_photo_illustration_overlay_poster_0b07afef.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_photo_illustration_overlay_poster_0b07afef.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_photo_illustration_overlay_poster_0b07afef.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3445,6 +3681,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_playful_marker_grounding_poster_8ef4abda.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_playful_marker_grounding_poster_8ef4abda.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_playful_marker_grounding_poster_8ef4abda.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3470,6 +3708,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_playful_mascot_doodle_snapshot_8c72b334.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_playful_mascot_doodle_snapshot_8c72b334.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_playful_mascot_doodle_snapshot_8c72b334.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3495,6 +3735,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_plush_city_festival_mobile_poster_a1f48ca6.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_plush_city_festival_mobile_poster_a1f48ca6.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_plush_city_festival_mobile_poster_a1f48ca6.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3520,6 +3762,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_plush_comic_toy_product_poster_8858fc4e.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_plush_comic_toy_product_poster_8858fc4e.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_plush_comic_toy_product_poster_8858fc4e.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3545,6 +3789,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_pop_bubble_letter_photo_poster_b895133e.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_pop_bubble_letter_photo_poster_b895133e.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_pop_bubble_letter_photo_poster_b895133e.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3571,6 +3817,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_rough_ink_music_doodle_poster_ab7f6ea1.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_rough_ink_music_doodle_poster_ab7f6ea1.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_rough_ink_music_doodle_poster_ab7f6ea1.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3597,6 +3845,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_rough_marker_monster_poster_070a6118.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_rough_marker_monster_poster_070a6118.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_rough_marker_monster_poster_070a6118.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3623,6 +3873,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_school_grid_paper_cutout_poster_c1a0b800.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_school_grid_paper_cutout_poster_c1a0b800.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_school_grid_paper_cutout_poster_c1a0b800.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3649,6 +3901,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_sky_blue_home_life_doodle_poster_f2016108.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_sky_blue_home_life_doodle_poster_f2016108.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_sky_blue_home_life_doodle_poster_f2016108.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3674,6 +3928,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_subway_doodle_photo_hybrid_5c191e5b.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_subway_doodle_photo_hybrid_5c191e5b.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_subway_doodle_photo_hybrid_5c191e5b.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3700,6 +3956,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_sunny_3d_avatar_campaign_e4196112.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_sunny_3d_avatar_campaign_e4196112.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_sunny_3d_avatar_campaign_e4196112.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3725,6 +3983,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_tokyo_kawaii_travel_collage_poster_32b3dfc6.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_tokyo_kawaii_travel_collage_poster_32b3dfc6.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_tokyo_kawaii_travel_collage_poster_32b3dfc6.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3750,6 +4010,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_tri_color_hardcut_portrait_poster_e0513f83.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_tri_color_hardcut_portrait_poster_e0513f83.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_tri_color_hardcut_portrait_poster_e0513f83.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3775,6 +4037,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_turquoise_red_techno_manga_poster_414a4374.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_turquoise_red_techno_manga_poster_414a4374.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_turquoise_red_techno_manga_poster_414a4374.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3800,6 +4064,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_urban_transit_doodle_diary_c2b25fe6.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_urban_transit_doodle_diary_c2b25fe6.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_urban_transit_doodle_diary_c2b25fe6.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3826,6 +4092,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_warm_fisheye_product_impact_ad_7d86cf27.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_warm_fisheye_product_impact_ad_7d86cf27.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_warm_fisheye_product_impact_ad_7d86cf27.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3851,6 +4119,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_y2k_grunge_hiphop_cutout_poster_416488a0.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_y2k_grunge_hiphop_cutout_poster_416488a0.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_y2k_grunge_hiphop_cutout_poster_416488a0.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3877,6 +4147,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_y2k_mirror_ui_scribble_collage_0b4db919.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_y2k_mirror_ui_scribble_collage_0b4db919.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_y2k_mirror_ui_scribble_collage_0b4db919.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",
@@ -3903,6 +4175,8 @@
       "preview_urls": [
         "https://malongan.github.io/style-source/images/styles_previews/vigo_yellow_black_manga_food_zine_ad_b71a90c2.jpg"
       ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_yellow_black_manga_food_zine_ad_b71a90c2.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_yellow_black_manga_food_zine_ad_b71a90c2.thumb.webp",
       "variables": {},
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "source_url": "https://vigozhao.github.io/AI-Visual-Prompt-Cookbook/site/",

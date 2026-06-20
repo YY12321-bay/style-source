@@ -41,14 +41,22 @@ def resolve_image_url(style_id: str, yml_urls: list[str]) -> list[str]:
     """解析图片 URL：优先用 repo 里的文件，fallback 到 yml 中的 URL"""
     rel_path = find_image_in_repo(style_id)
     if rel_path:
-        # 文件存在 → 生成正确的 URL（带哈希）
         return [f'{BASE_URL}/images/{rel_path}']
-
-    # 文件不存在 → 保持 yml 中的 URL（可能是远程图床）
     if yml_urls:
         return yml_urls
-
     return []
+
+def resolve_image_webp(style_id: str) -> dict:
+    """解析 WebP 版本 URL，返回 {'full': str|None, 'thumb': str|None}"""
+    jpeg_matches = glob.glob(os.path.join(IMAGES_DIR, f'styles_previews/{style_id}_*.jpg'))
+    if not jpeg_matches:
+        return {'full': None, 'thumb': None}
+    base = os.path.splitext(os.path.basename(jpeg_matches[0]))[0]
+    base_url = f'{BASE_URL}/images/styles_previews/{base}'
+    return {
+        'full': f'{base_url}.webp',
+        'thumb': f'{base_url}.thumb.webp',
+    }
 
 def parse_style_file(filepath: str) -> dict:
     """解析单个 .md 文件，提取结构化数据"""
@@ -110,6 +118,8 @@ def parse_style_file(filepath: str) -> dict:
             normalized.append(u_clean)
     # ★ 优先使用 repo 中的文件自动生成正确 URL
     preview_urls = resolve_image_url(filename, normalized)
+    # ★ WebP 版本 URL
+    webp_urls = resolve_image_webp(filename)
 
     # 提取变量
     variables = {}
@@ -136,7 +146,9 @@ def parse_style_file(filepath: str) -> dict:
         'ratio': ratio,
         'summary': summary,
         'features': features,
-        'preview_urls': preview_urls,  # 统一为数组
+        'preview_urls': preview_urls,  # 统一为数组（JPEG fallback）
+        'preview_webp': webp_urls['full'],   # WebP 全尺寸
+        'preview_thumb': webp_urls['thumb'], # WebP 缩略图
         'variables': variables,
         'source_author': source_author,  # 来源作者
         'source_url': source_url,        # 来源链接
@@ -225,6 +237,12 @@ def main():
     missing = sum(1 for s in all_styles if not s['preview_urls'])
     remote = len(all_styles) - found - missing
     print(f'   图片: 本地 {found}, 远程 {remote}, 缺失 {missing}')
+
+    # WebP 统计
+    webp_full = sum(1 for s in all_styles if s.get('preview_webp'))
+    webp_thumb = sum(1 for s in all_styles if s.get('preview_thumb'))
+    if webp_full:
+        print(f'   WebP: 全尺寸 {webp_full}, 缩略图 {webp_thumb}')
 
     if missing:
         print(f'\n⚠️  以下 {missing} 个风格无可用的图片：')

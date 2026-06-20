@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""上传配图到 style-source/images/styles_previews/，与风格文件一起版本管理。
+"""上传配图到 style-source/images/styles_previews/，自动生成 JPEG + WebP 版本。
 
 用法：python3 scripts/upload_preview.py <图片路径> <风格名>
 
 示例：
   python3 scripts/upload_preview.py /tmp/preview.jpg bubble_card
-  → 输出：https://malongan.github.io/style-source/images/styles_previews/bubble_card_a3f8c92e.jpg
+  → 输出：
+      JPEG: https://.../bubble_card_a3f8c92e.jpg
+      WebP: https://.../bubble_card_a3f8c92e.webp（全尺寸）
+      Thumb: https://.../bubble_card_a3f8c92e.thumb.webp（400px 缩略图）
 
 不再需要单独上传到 malongan/images 仓库，
 图片与 .md 文件在同一仓库中一起提交。
@@ -14,6 +17,7 @@ import os
 import sys
 import hashlib
 import shutil
+from PIL import Image
 
 IMAGES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'images', 'styles_previews')
 STYLE_SOURCE_URL = 'https://malongan.github.io/style-source/images/styles_previews'
@@ -29,14 +33,11 @@ def get_content_hash(image_path: str) -> str:
 def compress_image(src: str, max_width: int = 1200) -> str:
     """压缩图片到指定宽度（用系统自带 sips）"""
     import subprocess
-    # 检查是否已经是 jpg/png/webp
     ext = os.path.splitext(src)[1].lower()
     if ext not in ('.jpg', '.jpeg', '.png', '.webp'):
         print(f'⚠️  不支持的图片格式: {ext}，尝试强制转 jpg')
         ext = '.jpg'
-
-    # 压缩
-    out_path = src  # 原地压缩
+    out_path = src
     try:
         subprocess.run(
             ['sips', '-Z', str(max_width), src],
@@ -45,6 +46,30 @@ def compress_image(src: str, max_width: int = 1200) -> str:
     except subprocess.CalledProcessError as e:
         print(f'⚠️  sips 压缩失败: {e.stderr}')
     return out_path
+
+def generate_webp_versions(base_path: str, img: Image.Image):
+    """从 PIL Image 生成 WebP 版本"""
+    w, h = img.size
+
+    # 全尺寸 WebP（最大 1000px，quality=85）
+    webp_path = base_path + '.webp'
+    if max(w, h) > 1000:
+        ratio = 1000 / max(w, h)
+        img_full = img.resize((int(w * ratio), int(h * ratio)), Image.LANCZOS)
+    else:
+        img_full = img.copy()
+    img_full.save(webp_path, 'WEBP', quality=85, method=6)
+    img_full.close()
+
+    # 缩略图 WebP（最大 400px，quality=75）
+    thumb_path = base_path + '.thumb.webp'
+    if max(w, h) > 400:
+        ratio = 400 / max(w, h)
+        img_thumb = img.resize((int(w * ratio), int(h * ratio)), Image.LANCZOS)
+    else:
+        img_thumb = img.copy()
+    img_thumb.save(thumb_path, 'WEBP', quality=75, method=6)
+    img_thumb.close()
 
 def main():
     if len(sys.argv) < 3:
@@ -71,28 +96,41 @@ def main():
     if ext not in ('.jpg', '.jpeg', '.png', '.webp'):
         ext = '.jpg'
 
-    # 目标文件名
-    target_filename = f'{style_name}_{content_hash}{ext}'
-    target_path = os.path.join(IMAGES_DIR, target_filename)
-
     # 确保目录存在
     os.makedirs(IMAGES_DIR, exist_ok=True)
 
-    # 复制文件
+    # 1. 复制原始 JPEG
+    target_filename = f'{style_name}_{content_hash}{ext}'
+    target_path = os.path.join(IMAGES_DIR, target_filename)
     shutil.copy2(image_path, target_path)
-    file_size_kb = os.path.getsize(target_path) / 1024
 
-    # 输出 URL
-    image_url = f'{STYLE_SOURCE_URL}/{target_filename}'
+    # 2. 从 JPEG 生成 WebP 版本
+    base_name = os.path.splitext(target_path)[0]  # 去掉 .jpg，保留路径前缀
+    img = Image.open(target_path)
+    generate_webp_versions(base_name, img)
+    img.close()
 
-    print(f'✅ 图片已保存: {target_path}')
-    print(f'   大小: {file_size_kb:.1f}KB')
-    print(f'   URL: {image_url}')
+    # 计算各版本大小
+    jpg_size = os.path.getsize(target_path) / 1024
+    webp_path = base_name + '.webp'
+    thumb_path = base_name + '.thumb.webp'
+    webp_size = os.path.getsize(webp_path) / 1024 if os.path.exists(webp_path) else 0
+    thumb_size = os.path.getsize(thumb_path) / 1024 if os.path.exists(thumb_path) else 0
+
+    # 输出
+    jpg_url = f'{STYLE_SOURCE_URL}/{target_filename}'
+    webp_url = f'{STYLE_SOURCE_URL}/{style_name}_{content_hash}.webp'
+    thumb_url = f'{STYLE_SOURCE_URL}/{style_name}_{content_hash}.thumb.webp'
+
+    print(f'✅ 图片已保存 ({style_name})')
+    print(f'   JPEG: {jpg_url} ({jpg_size:.0f}KB)')
+    print(f'   WebP: {webp_url} ({webp_size:.0f}KB, {100 - webp_size/jpg_size*100:.0f}% 缩小)')
+    print(f'   Thumb: {thumb_url} ({thumb_size:.0f}KB)')
     print(f'')
     print(f'下一步:')
-    print(f'  1. 将以上 URL 填入风格文件的 ## 参考配图')
-    print(f'  2. git add images/styles_previews/{target_filename}')
-    print(f'  3. git commit -m "feat: add preview image for {style_name}"')
+    print(f'  1. 将 JPEG URL 填入风格文件的 ## 参考配图')
+    print(f'  2. git add images/styles_previews/{style_name}_{content_hash}*')
+    print(f'  3. git commit -m "feat: add preview for {style_name}"')
 
 if __name__ == '__main__':
     main()

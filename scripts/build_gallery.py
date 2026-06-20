@@ -31,6 +31,7 @@ def build_fallback_data(all_styles: list) -> dict:
             "name": s.get("name"),
             "category": s.get("category"),
             "preview_urls": s.get("preview_urls", []),
+            "preview_webp": s.get("preview_webp", ""),
             "summary": s.get("summary", ""),
             "triggers": s.get("triggers", ""),
             "features": s.get("features", []),
@@ -243,9 +244,10 @@ window.__FALLBACK_IMG__ = '{js_str(FALLBACK_IMG)}';
 
 /* ========== 渲染功能 ========== */
 
-/** 构建单张 style-card 的 HTML */
+/** 构建单张 style-card 的 HTML（支持 WebP &lt;picture&gt;） */
 function buildCardHTML(s) {{
   var imgUrl = s.imgUrl || (s.preview_urls || [])[0] || '';
+  var webpUrl = s.preview_webp || '';
   var tags = (s.tags || []).join(',');
   var summary = s.summary || '';
   var triggers = s.triggers || '';
@@ -259,6 +261,19 @@ function buildCardHTML(s) {{
       (sourceAuthor ? '🔗 @' + sourceAuthor.replace(/"/g,'&quot;') : '🔗 来源') + '</a>';
   }}
 
+  // 构建图片标签：有 WebP 时使用 &lt;picture&gt;，否则直接用 &lt;img&gt;
+  var imgHtml;
+  if (webpUrl) {{
+    imgHtml = '<picture>' +
+      '<source srcset="' + webpUrl + '" type="image/webp">' +
+      '<img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"' +
+      ' onerror="this.outerHTML=window.__FALLBACK_IMG__">' +
+      '</picture>';
+  }} else {{
+    imgHtml = '<img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"' +
+      ' onerror="this.outerHTML=window.__FALLBACK_IMG__">';
+  }}
+
   return '<div class="style-card" data-id="' + s.id + '"' +
     ' data-code="' + (s.code || '') + '"' +
     ' data-summary="' + summary.replace(/"/g,'&quot;') + '"' +
@@ -267,8 +282,7 @@ function buildCardHTML(s) {{
     ' data-tags="' + tags + '"' +
     ' data-number="' + (s.code || s.number || s.id || '') + '"' +
     ' data-category="' + s.category + '">' +
-    '<img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"' +
-    ' onerror="this.outerHTML=window.__FALLBACK_IMG__">' +
+    imgHtml +
     '<div class="card-content">' +
       '<div class="card-title-row">' +
         '<span class="card-number">' + (s.code ? '#' + s.code : '#' + (s.number || s.id || '')) + '</span>' +
