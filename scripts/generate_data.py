@@ -13,6 +13,7 @@ DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
 IMAGES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'images')
 BASE_URL = 'https://malongan.github.io/style-source'
 
+
 def get_version() -> str:
     """获取版本号：从 git tag 读取，无 tag 时返回 commit hash 或 v0.0.0"""
     try:
@@ -24,18 +25,23 @@ def get_version() -> str:
     except (subprocess.CalledProcessError, FileNotFoundError):
         return 'v0.0.0'
 
+
 def find_image_in_repo(style_id: str):
-    """在 images/ 下查找 style_id 对应的图片文件，返回相对于 images/ 的路径"""
+    """在 images/ 下查找 style_id 对应的图片文件，返回相对于 images/ 的路径
+    优先查找 WebP，其次 JPEG，最后 PNG"""
     patterns = [
-        f'styles_previews/{style_id}_*.jpg',
-        f'styles_previews/{style_id}_*.png',
-        f'styles_previews/{style_id}_*.webp',
+        f'styles_previews/{style_id}_*.webp',    # 新风格：WebP 优先
+        f'styles_previews/{style_id}_*.jpg',     # 旧风格：JPEG fallback
+        f'styles_previews/{style_id}_*.png',     # PNG fallback
     ]
     for pat in patterns:
-        matches = glob.glob(os.path.join(IMAGES_DIR, pat))
+        # 排除 .thumb.webp（只找全尺寸）
+        matches = [m for m in glob.glob(os.path.join(IMAGES_DIR, pat))
+                   if not m.endswith('.thumb.webp')]
         if matches:
             return os.path.relpath(matches[0], IMAGES_DIR)
     return None
+
 
 def resolve_image_url(style_id: str, yml_urls: list[str]) -> list[str]:
     """解析图片 URL：优先用 repo 里的文件，fallback 到 yml 中的 URL"""
@@ -46,10 +52,23 @@ def resolve_image_url(style_id: str, yml_urls: list[str]) -> list[str]:
         return yml_urls
     return []
 
+
 def resolve_image_webp(style_id: str) -> dict:
     """解析 WebP 版本 URL，返回 {'full': str|None, 'thumb': str|None}
-    兼容 .jpg 和 .png 源文件（共用 hash，从同名 .webp/.thumb.webp 生成 URL）"""
-    # 查找原始文件（优先 JPEG，其次 PNG）
+    优先查找已有的 .webp 文件，兼容旧 .jpg/.png 源文件"""
+    # 优先查找全尺寸 WebP
+    webp_matches = glob.glob(os.path.join(IMAGES_DIR, f'styles_previews/{style_id}_*.webp'))
+    webp_matches = [m for m in webp_matches if not m.endswith('.thumb.webp')]
+    if webp_matches:
+        base = os.path.splitext(os.path.basename(webp_matches[0]))[0]
+        base_url = f'{BASE_URL}/images/styles_previews/{base}'
+        thumb_path = os.path.join(IMAGES_DIR, 'styles_previews', f'{base}.thumb.webp')
+        return {
+            'full': f'{base_url}.webp',
+            'thumb': f'{base_url}.thumb.webp' if os.path.exists(thumb_path) else None,
+        }
+
+    # Fallback：从旧 JPG/PNG 文件推导 WebP 文件名
     jpeg_matches = glob.glob(os.path.join(IMAGES_DIR, f'styles_previews/{style_id}_*.jpg'))
     png_matches = glob.glob(os.path.join(IMAGES_DIR, f'styles_previews/{style_id}_*.png'))
     matches = jpeg_matches or png_matches
@@ -62,6 +81,7 @@ def resolve_image_webp(style_id: str) -> dict:
         'thumb': f'{base_url}.thumb.webp',
     }
 
+
 def parse_style_file(filepath: str) -> dict:
     """解析单个 .md 文件，提取结构化数据"""
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -73,8 +93,6 @@ def parse_style_file(filepath: str) -> dict:
     # 提取标签
     tags_match = re.search(r'\*\*标签\*\*\s*[：:]\s*(.+)', content)
     tags = re.findall(r'#(\S+)', tags_match.group(1)) if tags_match else []
-    # 过滤掉过长的标签（描述性句子误标为标签，如 "A#retro#skate#zine..."）
-    tags = [t for t in tags if len(t) <= 40]
 
     # 提取场景
     scene_match = re.search(r'\*\*适用场景\*\*\s*[：:]\s*(.+)', content)
@@ -120,7 +138,7 @@ def parse_style_file(filepath: str) -> dict:
         elif 'raw.githubusercontent.com/malongan/images/' in u:
             u_clean = u.replace('raw.githubusercontent.com/malongan/images/main/', 'malongan.github.io/images/')
             normalized.append(u_clean)
-    # ★ 优先使用 repo 中的文件自动生成正确 URL
+    # ★ 优先使用 repo 中的文件自动生成正确 URL（WebP 优先）
     preview_urls = resolve_image_url(filename, normalized)
     # ★ WebP 版本 URL
     webp_urls = resolve_image_webp(filename)
@@ -150,109 +168,91 @@ def parse_style_file(filepath: str) -> dict:
         'ratio': ratio,
         'summary': summary,
         'features': features,
-        'preview_urls': preview_urls,  # 统一为数组（JPEG fallback）
+        'preview_urls': preview_urls,  # 统一为数组（WebP 优先，兼容旧 JPG）
         'preview_webp': webp_urls['full'],   # WebP 全尺寸
         'preview_thumb': webp_urls['thumb'], # WebP 缩略图
         'variables': variables,
-        'source_author': source_author,  # 来源作者
-        'source_url': source_url,        # 来源链接
+        'source_author': source_author,
+        'source_url': source_url,
     }
 
-def scan_category(cat_dir: str) -> dict:
-    """扫描一个分类目录，返回分类信息和风格列表"""
-    cat_name = os.path.basename(cat_dir)
-    styles = []
-    for f in sorted(os.listdir(cat_dir)):
-        if not f.endswith('.md') or f.startswith('_'):
-            continue
-        filepath = os.path.join(cat_dir, f)
-        try:
-            style = parse_style_file(filepath)
-            styles.append(style)
-        except Exception as e:
-            print(f'⚠️  解析失败 {f}: {e}', file=sys.stderr)
-    return cat_name, styles
 
-def main():
-    if not os.path.isdir(STYLES_DIR):
-        print(f'❌ styles/ 目录不存在: {STYLES_DIR}')
-        sys.exit(1)
-
+def generate_styles_json(output_path: str):
+    """生成 styles.json"""
     all_styles = []
-    categories = {}
+    categories = set()
 
     for entry in sorted(os.listdir(STYLES_DIR)):
         entry_path = os.path.join(STYLES_DIR, entry)
         if not os.path.isdir(entry_path) or entry.startswith('_'):
             continue
-        cat_name, styles = scan_category(entry_path)
-        categories[cat_name] = {
-            'count': len(styles),
-        }
-        all_styles.extend(styles)
+        categories.add(entry)
+        for f in sorted(os.listdir(entry_path)):
+            if not f.endswith('.md') or f.startswith('_'):
+                continue
+            filepath = os.path.join(entry_path, f)
+            try:
+                style = parse_style_file(filepath)
+                all_styles.append(style)
+            except Exception as e:
+                print(f'⚠️  跳过 {f}: {e}')
 
-    # 分类显示名和图标映射
-    CATEGORY_META = {
-        'social_media': {'name': '社交媒体', 'icon': '📱'},
-        'brand_kv': {'name': '品牌视觉', 'icon': '🎨'},
-        'e-commerce': {'name': '电商', 'icon': '🛒'},
-        'science': {'name': '科研专业', 'icon': '🔬'},
-        'print': {'name': '印刷品', 'icon': '📚'},
-        'ip_character': {'name': 'IP/角色', 'icon': '🎭'},
-        'travel': {'name': '旅行城市', 'icon': '✈️'},
-        'fashion': {'name': '时尚美容', 'icon': '👔'},
-        'creative': {'name': '创意特殊', 'icon': '🎪'},
-        'vigo_cookbook': {'name': 'VigoCookbook', 'icon': '📖'},
-    }
+    # 排序（按文件名倒序，最新的优先）
+    all_styles.sort(key=lambda s: s['id'], reverse=True)
 
-    # 合并分类信息
-    for cat_name in categories:
-        meta = CATEGORY_META.get(cat_name, {'name': cat_name, 'icon': '📁'})
-        categories[cat_name].update(meta)
-
-    # 生成总数据
-    # 为每个风格分配固定编号码（4位数字，前缀ST方便识别）
-    for i, style in enumerate(all_styles):
-        style['code'] = f'ST{i+1:04d}'
+    # 分配编号
+    for i, style in enumerate(all_styles, 1):
+        style['code'] = f'ST{i:04d}'
 
     data = {
         'meta': {
             'version': get_version(),
+            'generated': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
             'total': len(all_styles),
-            'updated_at': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
-            'categories': categories,
+            'categories': sorted(categories),
         },
         'styles': all_styles,
     }
 
-    # 写入 data/styles.json
-    os.makedirs(DATA_DIR, exist_ok=True)
-    output_path = os.path.join(DATA_DIR, 'styles.json')
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print(f'✅ 已生成 {output_path}')
-    print(f'   风格总数: {data["meta"]["total"]}')
-    print(f'   分类数:   {len(categories)}')
-    print(f'   版本:     {data["meta"]["version"]}')
-
-    # 统计图片情况
-    found = sum(1 for s in all_styles if s['preview_urls'] and BASE_URL in s['preview_urls'][0])
-    missing = sum(1 for s in all_styles if not s['preview_urls'])
-    remote = len(all_styles) - found - missing
-    print(f'   图片: 本地 {found}, 远程 {remote}, 缺失 {missing}')
-
-    # WebP 统计
+    # 统计数据
     webp_full = sum(1 for s in all_styles if s.get('preview_webp'))
     webp_thumb = sum(1 for s in all_styles if s.get('preview_thumb'))
-    if webp_full:
-        print(f'   WebP: 全尺寸 {webp_full}, 缩略图 {webp_thumb}')
+    missing = sum(1 for s in all_styles if not s['preview_urls'])
 
-    if missing:
-        print(f'\n⚠️  以下 {missing} 个风格无可用的图片：')
-        for s in all_styles:
-            if not s['preview_urls']:
-                print(f'  - {s["code"]} {s["id"]}')
+    print(f'✅ 已生成 {output_path}')
+    print(f'   风格总数: {len(all_styles)}')
+    print(f'   分类数:   {len(categories)}')
+    print(f'   版本:     {data["meta"]["version"]}')
+    print(f'   图片: 本地 {sum(1 for s in all_styles if s["preview_urls"])}, 远程 0, 缺失 {missing}')
+    print(f'   WebP: 全尺寸 {webp_full}, 缩略图 {webp_thumb}')
+
+    # 检查缺失 WebP 的风格
+    no_webp = [s['id'] for s in all_styles if not s.get('preview_webp')]
+    if no_webp:
+        print(f'   ⚠️  以下风格缺少 WebP: {", ".join(no_webp)}')
+
+    return data
+
+
+def generate_plain_list(all_styles: list) -> str:
+    """生成纯文本列表"""
+    lines = [f"共 {len(all_styles)} 个风格\n"]
+    for i, s in enumerate(all_styles, 1):
+        code = s.get('code', f'ST{i:04d}')
+        name = s.get('name', '?')
+        preview = s.get('preview_urls', [])
+        url = preview[0] if preview else '(无图片)'
+        lines.append(f'{code} | {name} | {url}')
+    return '\n'.join(lines)
+
 
 if __name__ == '__main__':
-    main()
+    os.makedirs(DATA_DIR, exist_ok=True)
+    data = generate_styles_json(os.path.join(DATA_DIR, 'styles.json'))
+    list_path = os.path.join(DATA_DIR, 'styles_list.txt')
+    with open(list_path, 'w', encoding='utf-8') as f:
+        f.write(generate_plain_list(data['styles']))
+    print(f'✅ 列表已生成 {list_path}')

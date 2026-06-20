@@ -81,4 +81,4 @@
 
 ## 参考配图
 
-![钢笔点线桃子](https://malongan.github.io/style-source/images/styles_previews/pen_point_line_peach.jpg)
+![钢笔点线桃子](https://malongan.github.io/style-source/images/styles_previews/pen_ink_point_line_peaches_c269f27f.webp)

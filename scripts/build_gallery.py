@@ -89,8 +89,7 @@ def build_gallery_html(data: dict, output_path: str):
     # 预生成风格数据的 JS 数组（用于 renderGallery）—— 不再使用，数据从 CDN 加载
     styles_js = []
     for s in styles:
-        preview_urls = s.get('preview_urls', [])
-        img_url = preview_urls[0] if preview_urls else ''
+        img_url = s.get('preview_webp', '') or (s.get('preview_urls') or [''])[0]
         tags = s.get('tags', [])
         features = s.get('features', [])
         styles_js.append('{')
@@ -129,11 +128,11 @@ def build_gallery_html(data: dict, output_path: str):
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{base_url}/gallery.html">
 <meta property="og:type" content="website">
-<meta property="og:image" content="{base_url}/images/styles_previews/avantgarde_bw_poster_1e5913d0.jpg">
+<meta property="og:image" content="{base_url}/images/styles_previews/avantgarde_bw_poster_44361c82.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI 风格画廊 v{version}">
 <meta name="twitter:description" content="{description}">
-<meta name="twitter:image" content="{base_url}/images/styles_previews/avantgarde_bw_poster_1e5913d0.jpg">
+<meta name="twitter:image" content="{base_url}/images/styles_previews/avantgarde_bw_poster_44361c82.webp">
 <link rel="canonical" href="{base_url}/gallery.html">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
 <style>
@@ -245,10 +244,9 @@ window.__FALLBACK_IMG__ = '{js_str(FALLBACK_IMG)}';
 
 /* ========== 渲染功能 ========== */
 
-/** 构建单张 style-card 的 HTML（支持 WebP &lt;picture&gt;） */
+/** 构建单张 style-card 的 HTML（WebP 优先） */
 function buildCardHTML(s) {{
-  var imgUrl = s.imgUrl || (s.preview_urls || [])[0] || '';
-  var webpUrl = s.preview_webp || '';
+  var imgUrl = s.preview_webp || (s.preview_urls || [])[0] || '';
   var tags = (s.tags || []).join(',');
   var summary = s.summary || '';
   var triggers = s.triggers || '';
@@ -262,18 +260,9 @@ function buildCardHTML(s) {{
       (sourceAuthor ? '🔗 @' + sourceAuthor.replace(/"/g,'&quot;') : '🔗 来源') + '</a>';
   }}
 
-  // 构建图片标签：有 WebP 时使用 &lt;picture&gt;，否则直接用 &lt;img&gt;
-  var imgHtml;
-  if (webpUrl) {{
-    imgHtml = '<picture>' +
-      '<source srcset="' + webpUrl + '" type="image/webp">' +
-      '<img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"' +
-      ' onerror="this.outerHTML=window.__FALLBACK_IMG__">' +
-      '</picture>';
-  }} else {{
-    imgHtml = '<img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"' +
-      ' onerror="this.outerHTML=window.__FALLBACK_IMG__">';
-  }}
+  // 直接用 WebP（不再使用 <picture> 包装，节省体积）
+  var imgHtml = '<img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"'
+    + ' onerror="this.outerHTML=window.__FALLBACK_IMG__">';
 
   return '<div class="style-card" data-id="' + s.id + '"' +
     ' data-code="' + (s.code || '') + '"' +
