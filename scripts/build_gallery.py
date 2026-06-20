@@ -148,7 +148,7 @@ def build_gallery_html(data: dict, output_path: str):
     <!-- Header -->
     <header class="header">
       <div class="header-left">
-        <h1 class="header-title">AI 风格库<span class="header-update">· 最后更新：{version}</span></h1>
+        <h1 class="header-title">AI 风格库</h1>
         <span class="header-author">by malongan</span>
       </div>
       <div class="header-right">
@@ -180,6 +180,7 @@ def build_gallery_html(data: dict, output_path: str):
             ❤️ 只看收藏
           </button>
           <span class="result-count" style="margin-left: auto; color: var(--text-muted); font-size: 13px;">
+            <span class="header-update" style="margin-right: 12px;">最后更新：{version}</span>
             共 <span class="count-num">{total}</span> 个风格
           </span>
         </div>
