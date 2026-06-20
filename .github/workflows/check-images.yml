@@ -1,0 +1,27 @@
+# .github/workflows/check-images.yml
+name: 预览图检查
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'images/styles_previews/**'
+      - 'data/styles.json'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'images/styles_previews/**'
+      - 'data/styles.json'
+  schedule:
+    # 每天凌晨 3 点检查一次，防止外部 CDN 图源失效
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-image-urls:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 检查预览图 URL 可达性
+        run: python3 scripts/check_image_urls.py
