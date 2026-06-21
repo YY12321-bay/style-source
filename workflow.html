@@ -8,8 +8,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:"SF Pro Display","PingFang SC","Helvetica Neue",sans-serif;background:#eae4dc;color:#3a3530;line-height:1.7;overflow-x:hidden}
-:root{--bg:#eae4dc;--bg-card:#f2ede6;--bg-hover:#e8e0d6;--border:#cac2b8;--text-p:#3a3530;--text-s:#7a7268;--text-m:#9a9288;--blue:#4a7a9e;--teal:#5a8a88;--purple:#8a7a9a;--gold:#b8956a}
+:root{--bg:#eae4dc;--bg-card:#f2ede6;--bg-hover:#e8e0d6;--border:#cac2b8;--text-s:#7a7268;--text-m:#9a9288;--blue:#4a7a9e;--teal:#5a8a88;--purple:#8a7a9a;--gold:#b8956a}
 body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.015) 3px,rgba(0,0,0,.015) 6px);pointer-events:none;z-index:9999}
+/* Hero */
 .hero-wrap{position:relative;width:100%;height:100vh;min-height:680px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;display:block}
 .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at center,transparent 30%,rgba(234,228,220,.92) 100%);z-index:1;pointer-events:none}
@@ -29,9 +30,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 .stat-cell:hover{background:var(--bg-hover)}
 .stat-num{font-size:1.5rem;font-weight:700;color:var(--blue)}
 .stat-label{font-size:.63rem;color:var(--text-m);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+/* Sections */
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
-.section{padding:76px 0;border-bottom:1px solid var(--border)}
-.section:last-child{border-bottom:none}
+.section{padding:76px 0;border-bottom:1px solid var(--border)}.section:last-child{border-bottom:none}
 .section-header{text-align:center;margin-bottom:40px}
 .section-header h2{font-size:clamp(1.3rem,2.5vw,2rem);font-weight:600;margin-bottom:8px;color:#2a2520}
 .section-header p{color:var(--text-s);max-width:500px;margin:0 auto;font-size:.85rem;line-height:1.6}
@@ -75,17 +76,17 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 .flow-body code{font-size:.7rem;background:rgba(74,122,158,.06);padding:2px 6px;border-radius:3px;color:var(--blue)}
 .code-block{background:rgba(0,0,0,.02);border:1px solid var(--border);border-radius:5px;padding:12px;margin-top:10px;font-size:.72rem;color:var(--text-s);font-family:monospace;line-height:1.7}
 .code-result{margin-top:5px;font-size:.78rem;color:var(--blue);font-weight:500}
-.ip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:20px}
+/* IP Cards - no canvas, just images */
+.ip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:20px}
 .ip-card{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:all .3s}
 .ip-card:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 6px 20px rgba(74,122,158,.1)}
-.ip-card-image{position:relative;width:100%;aspect-ratio:1;overflow:hidden;background:var(--bg-card)}
-.ip-card-image canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}
-.ip-card-image img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s}
-.ip-card:hover img{opacity:1}
+.ip-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;filter:grayscale(.5);transition:all .5s}
+.ip-card:hover img{filter:grayscale(0)}
 .ip-card-info{padding:8px 10px 10px;border-top:1px solid var(--border)}
 .ip-card-info .ip-code{font-size:.58rem;color:var(--blue);letter-spacing:.06em;font-weight:600}
 .ip-card-info .ip-name{font-size:.78rem;font-weight:600;margin-top:1px;color:#2a2520}
 .ip-card-info .ip-brand{font-size:.65rem;color:var(--text-m)}
+/* Style grid */
 .style-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:20px}
 .style-item{position:relative;border-radius:5px;overflow:hidden;border:1px solid var(--border);transition:all .3s;aspect-ratio:1;cursor:pointer}
 .style-item:hover{transform:scale(1.03);border-color:var(--blue);z-index:2}
@@ -93,6 +94,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 .style-item:hover img{filter:grayscale(0)}
 .style-item .style-label{position:absolute;bottom:0;left:0;right:0;padding:5px 7px;background:linear-gradient(transparent,rgba(234,228,220,.96));font-size:.6rem;color:var(--text-s);line-height:1.3}
 @media(max-width:768px){.style-grid{grid-template-columns:repeat(2,1fr)}}
+/* Access */
 .url-list{display:flex;flex-direction:column;gap:5px;max-width:580px;margin:0 auto}
 .url-item{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:5px;font-size:.8rem;transition:all .3s;cursor:pointer;text-decoration:none}
 .url-item:hover{background:var(--bg-hover);border-color:var(--blue);transform:translateX(3px)}
@@ -103,7 +105,10 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 .footer{text-align:center;padding:36px 24px;color:var(--text-m);font-size:.72rem}
 .fade-in{opacity:0;transform:translateY(16px);transition:all .5s ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
-@media(max-width:768px){.section{padding:50px 0}.stats-row{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-3{grid-template-columns:1fr}.ip-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  .section{padding:50px 0}.stats-row{grid-template-columns:repeat(2,1fr)}
+  .grid-2,.grid-3{grid-template-columns:1fr}.ip-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
@@ -114,7 +119,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
   <div class="hero-content">
     <div class="hero-badge">MULTI-AGENT SYSTEM v1.0</div>
     <h1 class="hero-title">AI 创意 <span class="highlight">工作流</span></h1>
-    <p class="hero-sub">三位 AI Agent 协作 —— 从灵感收集、风格管理、角色设计到最终出图，全流程自动化，打造可复用的创意资产系统。</p>
+    <p class="hero-sub">三位 AI Agent 协作，从灵感收集、风格管理、角色设计到最终出图，全流程自动化。</p>
     <div class="hero-cta">
       <a href="#overview" class="btn btn-primary">探索体系</a>
       <a href="#workflow" class="btn btn-outline">工作流程</a>
@@ -130,40 +135,40 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 </div>
 
 <section class="section" id="overview"><div class="container">
-<div class="section-header fade-in"><div class="sec-num">01 / 体系</div><h2>三大核心资产 + 三位 AI Agent</h2><p>风格库、IP 库、AI Agent 构成完整的创意生产管线</p></div>
+<div class="section-header fade-in"><div class="sec-num">01 / 体系</div><h2>三大核心资产 + 三位 AI Agent</h2></div>
 <div class="grid-3">
-<div class="card fade-in border-blue"><div class="card-tag tag-blue">资产层 · 风格库</div><div class="card-icon">🎨</div><h3>Style Gallery</h3><p>139 种 AI 绘画风格模板。</p></div>
-<div class="card fade-in border-teal"><div class="card-tag tag-teal">资产层 · IP 库</div><div class="card-icon">🧸</div><h3>IP Gallery</h3><p>7 个 IP 角色，含品牌联名与个人原创。</p></div>
-<div class="card fade-in border-purple"><div class="card-tag tag-purple">驱动层 · AI Agent</div><div class="card-icon">🤖</div><h3>三 Agent 协作</h3><p>设计师、策划师、GitHub 助手各司其职。</p></div>
+<div class="card fade-in border-blue"><div class="card-tag tag-blue">风格库</div><div class="card-icon">🎨</div><h3>Style Gallery</h3><p>139 种 AI 绘画风格模板。</p></div>
+<div class="card fade-in border-teal"><div class="card-tag tag-teal">IP 库</div><div class="card-icon">🧸</div><h3>IP Gallery</h3><p>7 个 IP 角色，含品牌联名与个人原创。</p></div>
+<div class="card fade-in border-purple"><div class="card-tag tag-purple">AI Agent</div><div class="card-icon">🤖</div><h3>三 Agent 协作</h3><p>设计师、策划师、GitHub 助手各司其职。</p></div>
 </div></div></section>
 
 <section class="section" id="agents"><div class="container">
-<div class="section-header fade-in"><div class="sec-num">02 / 角色</div><h2>三位 Agent · 各司其职</h2></div>
+<div class="section-header fade-in"><div class="sec-num">02 / 角色</div><h2>三位 Agent</h2></div>
 <div class="agent-grid">
-<div class="agent-card fade-in"><div class="agent-avatar blue">👤</div><h4>GitHub Manager</h4><p class="role">仓库管理 · 发布 · 同步</p><ul class="agent-duties"><li>管理 style-source / ip-gallery / ip-library</li><li>调用设计师收集风格 / 生成 IP 封面</li><li>运行 generate_data.py + WebP 转换</li></ul></div>
+<div class="agent-card fade-in"><div class="agent-avatar blue">👤</div><h4>GitHub Manager</h4><p class="role">仓库管理 · 发布</p><ul class="agent-duties"><li>管理 style-source / ip-gallery</li><li>调用设计师收集风格 / 生成 IP</li><li>运行 generate_data.py + WebP</li></ul></div>
 <div class="agent-card fade-in"><div class="agent-avatar teal">🎨</div><h4>Painter · 设计师</h4><p class="role">AI 生图 · 风格收集</p><ul class="agent-duties"><li>Tuzi API 图生图 / 文生图</li><li>从推文 / 即梦提取提示词</li><li>IP 角色生成 + 海报设计</li></ul></div>
-<div class="agent-card fade-in"><div class="agent-avatar purple">✍️</div><h4>Content Creator · 策划师</h4><p class="role">文案 · 创意策划</p><ul class="agent-duties"><li>电商活动 KV 文案策划</li><li>品牌推广主题创意</li><li>Slogan + 画面描述 + 色彩建议</li></ul></div>
+<div class="agent-card fade-in"><div class="agent-avatar purple">✍️</div><h4>Content Creator · 策划师</h4><p class="role">文案 · 创意策划</p><ul class="agent-duties"><li>电商活动 KV 文案</li><li>品牌主题创意</li><li>Slogan + 画面描述</li></ul></div>
 </div></div></section>
 
 <section class="section" id="workflow"><div class="container">
 <div class="section-header fade-in"><div class="sec-num">03 / 流程</div><h2>完整工作流</h2></div>
 <div class="flow-wrap">
-<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag tag-blue">S1</div><h3>灵感 → 风格文件</h3><p>设计师从推文 / 即梦收集提示词，生成 .md 文件。</p></div></div>
-<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag tag-teal">S2</div><h3>需求 → 文案方案</h3><p>策划师输出方案，查 IP 档案。</p></div></div>
-<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag tag-purple">S3</div><h3>方案 → 图生图</h3><p>设计师带 IP 参考图做图。</p></div></div>
-<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag">S4</div><h3>提交 GitHub Manager</h3><p>设计师提交图片路径，我处理 WebP。</p></div></div>
-<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag tag-blue">S5</div><h3>Gallery 更新上线</h3><p>generate_data.py → PR → Pages 部署。</p></div></div>
+<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag tag-blue">S1</div><h3>收集 → 风格文件</h3><p>设计师从推文 / 即梦收集提示词。</p></div></div>
+<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag tag-teal">S2</div><h3>策划 → 文案方案</h3><p>策划师输出方案，查 IP 档案。</p></div></div>
+<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag tag-purple">S3</div><h3>设计 → 图生图</h3><p>设计师带 IP 参考图做图。</p></div></div>
+<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag">S4</div><h3>提交 → GitHub Manager</h3><p>提交图片路径，我处理 WebP。</p></div></div>
+<div class="flow-step fade-in"><div class="flow-body"><div class="card-tag tag-blue">S5</div><h3>上线 → Gallery 更新</h3><p>generate_data.py → PR → Pages。</p></div></div>
 </div></div></section>
 
 <section class="section" id="collab"><div class="container">
 <div class="section-header fade-in"><div class="sec-num">04 / 协作</div><h2>Agent 协作模式</h2></div>
 <div class="grid-2">
-<div class="card fade-in"><div class="card-tag tag-blue">查 IP 档案</div><h3>→ GitHub Manager</h3><div class="code-block">chat_with_agent(to_agent="github-manager", text="查 IP002")</div><div class="code-result">返回：特征、规则、参考图 URL</div></div>
-<div class="card fade-in"><div class="card-tag tag-teal">替换封面</div><h3>→ GitHub Manager</h3><div class="code-block">chat_with_agent(to_agent="github-manager", text="替换封面：/path/img.png")</div><div class="code-result">转 WebP → Push</div></div>
-<div class="card fade-in"><div class="card-tag tag-purple">策划方案</div><h3>→ 策划师</h3><div class="code-block">chat_with_agent(to_agent="content-creator", text="KV 文案")</div><div class="code-result">返回 2-3 个方案</div></div>
-<div class="card fade-in"><div class="card-tag">更新页面</div><h3>→ GitHub Manager</h3><div class="code-block">chat_with_agent(to_agent="github-manager", text="新风格已就绪")</div><div class="code-result">generate → build → PR</div></div>
-<div class="card fade-in"><div class="card-tag tag-blue">风格收集</div><h3>GitHub Mgr → 设计师</h3><div class="code-block">chat_with_agent(to_agent="painter", text="收集提示词：https://x.com/xxx")</div><div class="code-result">提取 → 生风格 → 提交回</div></div>
-<div class="card fade-in"><div class="card-tag tag-teal">创建 IP</div><h3>GitHub Mgr → 设计师</h3><div class="code-block">chat_with_agent(to_agent="painter", text="生成 IP007 头像")</div><div class="code-result">生图 → 提交回 → 转 WebP</div></div>
+<div class="card fade-in"><div class="card-tag tag-blue">查 IP 档案</div><h3>→ GitHub Manager</h3><div class="code-block">chat_with_agent(to_agent="github-manager",<br>text="查 IP002")</div><div class="code-result">返回：特征、规则、图 URL</div></div>
+<div class="card fade-in"><div class="card-tag tag-teal">替换封面</div><h3>→ GitHub Manager</h3><div class="code-block">chat_with_agent(to_agent="github-manager",<br>text="替换封面：/path/img.png")</div><div class="code-result">转 WebP → Push</div></div>
+<div class="card fade-in"><div class="card-tag tag-purple">策划方案</div><h3>→ 策划师</h3><div class="code-block">chat_with_agent(to_agent="content-creator",<br>text="KV 文案")</div><div class="code-result">返回 2-3 个方案</div></div>
+<div class="card fade-in"><div class="card-tag">更新页面</div><h3>→ GitHub Manager</h3><div class="code-block">chat_with_agent(to_agent="github-manager",<br>text="新风格已就绪")</div><div class="code-result">generate → build → PR</div></div>
+<div class="card fade-in"><div class="card-tag tag-blue">风格收集</div><h3>GitHub Mgr → 设计师</h3><div class="code-block">chat_with_agent(to_agent="painter",<br>text="收集提示词：https://x.com/xxx")</div><div class="code-result">提取 → 生风格 → 提交回</div></div>
+<div class="card fade-in"><div class="card-tag tag-teal">创建 IP</div><h3>GitHub Mgr → 设计师</h3><div class="code-block">chat_with_agent(to_agent="painter",<br>text="为 IP007 生成头像")</div><div class="code-result">生图 → 提交回 → 转 WebP</div></div>
 </div></div></section>
 
 <section class="section" id="ip-section"><div class="container">
@@ -189,72 +194,142 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 <div class="footer"><p>AI 创意工作流 · Multi-Agent System · 2026</p></div>
 
 <script>
-// ===== Hero Canvas =====
-(function(){
+// ===== 1. Hero: Simple mosaic background (no external image, no mouse) =====
+(function() {
+  console.log('[hero] started');
   var canvas = document.getElementById('heroCanvas');
-  if(!canvas) return;
+  if (!canvas) { console.error('[hero] no canvas'); return; }
   var ctx = canvas.getContext('2d');
-  var img = new Image();
-  var ok = false, mx=-9999, my=-9999, TILE=32, aid=null;
+  var W, H;
 
-  img.onerror = function(){ console.log('img failed'); };
-  img.onload = function(){ ok=true; if(aid)cancelAnimationFrame(aid); resize(); draw(); };
-  img.crossOrigin = 'anonymous';
-  img.src = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=3840&q=80';
+  function draw() {
+    var dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth * dpr;
+    H = window.innerHeight * dpr;
+    canvas.width = W;
+    canvas.height = H;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
 
-  function resize(){
-    var d=window.devicePixelRatio||1;
-    canvas.width=window.innerWidth*d; canvas.height=window.innerHeight*d;
-    canvas.style.width=window.innerWidth+'px'; canvas.style.height=window.innerHeight+'px';
+    var tile = Math.round(24 * dpr);
+    var cols = Math.ceil(W / tile);
+    var rows = Math.ceil(H / tile);
+
+    // Fill with warm gray base
+    ctx.fillStyle = '#c8c0b8';
+    ctx.fillRect(0, 0, W, H);
+
+    // Draw random mosaic tiles at 10% opacity
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        var v = Math.round(Math.random() * 50 + 30);
+        ctx.fillStyle = 'rgba(' + v + ',' + v + ',' + v + ',0.1)';
+        ctx.fillRect(c * tile, r * tile, tile + 1, tile + 1);
+      }
+    }
+    console.log('[hero] drew ' + (cols * rows) + ' tiles');
   }
 
-  function draw(){
-    if(!ok||!img.complete||!img.naturalWidth){ aid=requestAnimationFrame(draw); return; }
-    try{
-      var d=window.devicePixelRatio||1, W=canvas.width, H=canvas.height;
-      var tile=Math.round(TILE*d), cols=Math.ceil(W/tile), rows=Math.ceil(H/tile);
-      var sc=Math.max(W/img.naturalWidth,H/img.naturalHeight);
-      var iw=img.naturalWidth*sc, ih=img.naturalHeight*sc, ix=(W-iw)/2, iy=(H-ih)/2;
-      var tw=iw/cols, th=ih/rows, gr=9*tile, r2=gr*gr;
-      var mxc=mx*d, myc=my*d;
-
-      // Dark background
-      ctx.fillStyle='#c8c0b8'; ctx.fillRect(0,0,W,H);
-      ctx.imageSmoothingEnabled=false;
-
-      for(var r=0;r<rows;r++){ for(var c=0;c<cols;c++){
-        var px=c*tile, py=r*tile, sx=ix+c*tw, sy=iy+r*th;
-        ctx.drawImage(img,Math.max(0,sx),Math.max(0,sy),Math.min(tw,img.naturalWidth-Math.max(0,sx)),Math.min(th,img.naturalHeight-Math.max(0,sy)),px,py,tile+1,tile+1);
-        var p1=ctx.getImageData(px,py,1,1).data;
-        var g=(0.34*p1[0]+0.5*p1[1]+0.16*p1[2])*0.18;
-        var dx=px+tile/2-mxc, dy=py+tile/2-myc;
-        if(dx*dx+dy*dy>r2){ ctx.fillStyle='rgb('+Math.round(g)+','+Math.round(g)+','+Math.round(g)+')'; ctx.fillRect(px,py,tile,tile); }
-      }}
-
-      ctx.imageSmoothingEnabled=true;
-      for(var r=0;r<rows;r++){ for(var c=0;c<cols;c++){
-        var px=c*tile, py=r*tile, dx=px+tile/2-mxc, dy=py+tile/2-myc;
-        if(dx*dx+dy*dy<r2){ ctx.drawImage(img,Math.max(0,ix+c*tw),Math.max(0,iy+r*th),tw,th,px,py,tile,tile); }
-      }}
-    }catch(e){ console.log(e); }
-    aid=requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',function(){if(ok)resize();});
-  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
-  document.addEventListener('touchmove',function(e){if(e.touches.length){mx=e.touches[0].clientX;my=e.touches[0].clientY;}});
+  draw();
+  window.addEventListener('resize', draw);
+  console.log('[hero] done');
 })();
 
-// ===== IP Cards =====
-var IPD=[{id:"gm",code:"IP001",name:"古茗茉莉",brand:"古茗",p:"https://malongan.github.io/ip-gallery/images/preview/guming_moli_preview.webp"},{id:"ll",code:"IP002",name:"莉莉",brand:"个人",p:"https://malongan.github.io/ip-gallery/images/preview/lili_preview.webp"},{id:"mgz",code:"IP003",name:"芒果仔",brand:"芒果TV",p:"https://malongan.github.io/ip-gallery/images/preview/mangguozai_preview.webp"},{id:"mq",code:"IP004",name:"马奇",brand:"个人",p:"https://malongan.github.io/ip-gallery/images/preview/maqi_preview.webp"},{id:"mhz",code:"IP005",name:"猕猴仔",brand:"爱奇艺",p:"https://malongan.github.io/ip-gallery/images/preview/mihouzi_preview.webp"},{id:"yy",code:"IP006",name:"云一朵",brand:"百度",p:"https://malongan.github.io/ip-gallery/images/preview/yunyi_preview.webp"},{id:"deg",code:"IP007",name:"大耳狗",brand:"三丽鸥",p:"https://malongan.github.io/ip-gallery/images/preview/daergou_preview.webp"}];
-!function(){var g=document.getElementById('ipGrid');function r(ips){g.innerHTML=ips.map(function(i){var s=i.preview||i.p||'';return'<div class="ip-card fade-in"><div class="ip-card-image"><canvas class="ip-canvas"></canvas><img src="'+s+'" alt="'+i.name+'" loading="lazy"></div><div class="ip-card-info"><div class="ip-code">'+(i.code||'')+'</div><div class="ip-name">'+(i.name||'')+'</div><div class="ip-brand">'+(i.brand||'')+'</div></div></div>';}).join('');setTimeout(function(){document.querySelectorAll('.ip-canvas').forEach(function(cv){var p=cv.parentElement;var si=p.querySelector('img');if(!si||!si.complete)return;var w=p.offsetWidth,h=p.offsetHeight;if(w<10||h<10)return;cv.width=w;cv.height=h;var cx=cv.getContext('2d');cx.imageSmoothingEnabled=false;cx.drawImage(si,0,0,w,h);var pd=cx.getImageData(0,0,w,h);for(var i=0;i<pd.data.length;i+=4){var g=0.34*pd.data[i]+0.5*pd.data[i+1]+0.16*pd.data[i+2];pd.data[i]=g*0.6;pd.data[i+1]=g*0.6;pd.data[i+2]=g*0.7;}cx.putImageData(pd,0,0);});},300);}
-fetch('https://malongan.github.io/ip-gallery/data.json').then(function(r){return r.json();}).then(function(d){r(d.ips||[]);}).catch(function(){r(IPD);});}();
+// ===== 2. IP Cards (direct img, no canvas) =====
+(function() {
+  console.log('[ip] started');
+  var grid = document.getElementById('ipGrid');
+  if (!grid) { console.error('[ip] no grid'); return; }
 
-// ===== Style Showcase =====
-!function(){var g=document.getElementById('styleGrid');function r(s){var sel=(s||[]).slice(0,16);g.innerHTML=sel.map(function(st){var src=st.preview_webp||st.preview||st.preview_thumb||'';return'<div class="style-item fade-in"><img src="'+src+'" alt="'+(st.name||'')+'" loading="lazy"><div class="style-label">'+(st.code||'')+' '+(st.name||'')+'</div></div>';}).join('');}
-fetch('https://malongan.github.io/style-source/data/styles.json').then(function(r){return r.json();}).then(function(d){r(d.styles||[]);}).catch(function(){r([]);});}();
+  var fallbackIPs = [
+    {code:'IP001',name:'古茗云岭茉莉',brand:'古茗',preview:'https://malongan.github.io/ip-gallery/images/preview/guming_moli_preview.webp'},
+    {code:'IP002',name:'莉莉',brand:'个人IP',preview:'https://malongan.github.io/ip-gallery/images/preview/lili_preview.webp'},
+    {code:'IP003',name:'芒果仔',brand:'芒果TV',preview:'https://malongan.github.io/ip-gallery/images/preview/mangguozai_preview.webp'},
+    {code:'IP004',name:'马奇',brand:'个人IP',preview:'https://malongan.github.io/ip-gallery/images/preview/maqi_preview.webp'},
+    {code:'IP005',name:'猕猴仔',brand:'爱奇艺',preview:'https://malongan.github.io/ip-gallery/images/preview/mihouzi_preview.webp'},
+    {code:'IP006',name:'云一朵',brand:'百度网盘',preview:'https://malongan.github.io/ip-gallery/images/preview/yunyi_preview.webp'},
+    {code:'IP007',name:'大耳狗',brand:'三丽鸥',preview:'https://malongan.github.io/ip-gallery/images/preview/daergou_preview.webp'}
+  ];
 
-// ===== Scroll Animation =====
-!function(){var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});document.querySelectorAll('.fade-in').forEach(function(e){o.observe(e);});}();
+  function render(ips) {
+    console.log('[ip] rendering', ips.length, 'items');
+    var html = '';
+    for (var i = 0; i < ips.length; i++) {
+      var ip = ips[i];
+      var src = ip.preview || '';
+      html += '<div class="ip-card fade-in">';
+      html += '<img src="' + src + '" alt="' + (ip.name||'') + '" loading="lazy" onerror="this.style.display=\'none\'">';
+      html += '<div class="ip-card-info">';
+      html += '<div class="ip-code">' + (ip.code||'') + '</div>';
+      html += '<div class="ip-name">' + (ip.name||'') + '</div>';
+      html += '<div class="ip-brand">' + (ip.brand||'') + '</div>';
+      html += '</div></div>';
+    }
+    grid.innerHTML = html;
+    console.log('[ip] rendered OK');
+  }
+
+  // Try fetch, fallback to embedded data
+  console.log('[ip] fetching data...');
+  fetch('https://malongan.github.io/ip-gallery/data.json')
+    .then(function(resp) {
+      console.log('[ip] fetch status:', resp.status);
+      return resp.json();
+    })
+    .then(function(data) {
+      console.log('[ip] data loaded');
+      render(data.ips || []);
+    })
+    .catch(function(err) {
+      console.log('[ip] fetch failed, using fallback:', err);
+      render(fallbackIPs);
+    });
+  console.log('[ip] done');
+})();
+
+// ===== 3. Style Grid (direct img) =====
+(function() {
+  console.log('[style] started');
+  var grid = document.getElementById('styleGrid');
+  if (!grid) { console.error('[style] no grid'); return; }
+
+  function render(styles) {
+    var items = styles.slice(0, 16);
+    console.log('[style] rendering', items.length, 'items');
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var s = items[i];
+      var src = s.preview_webp || s.preview || s.preview_thumb || '';
+      html += '<div class="style-item fade-in">';
+      html += '<img src="' + src + '" alt="' + (s.name||'') + '" loading="lazy" onerror="this.style.display=\'none\'">';
+      html += '<div class="style-label">' + (s.code||'') + ' ' + (s.name||'') + '</div>';
+      html += '</div>';
+    }
+    grid.innerHTML = html;
+    console.log('[style] rendered OK');
+  }
+
+  fetch('https://malongan.github.io/style-source/data/styles.json')
+    .then(function(resp) { return resp.json(); })
+    .then(function(data) { render(data.styles || []); })
+    .catch(function(err) { console.log('[style] fetch failed:', err); render([]); });
+  console.log('[style] done');
+})();
+
+// ===== 4. Scroll Animation =====
+(function() {
+  console.log('[scroll] started');
+  var obs = new IntersectionObserver(
+    function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    },
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
+  console.log('[scroll] observed', document.querySelectorAll('.fade-in').length, 'elements');
+})();
 </script>
 </body>
 </html>
