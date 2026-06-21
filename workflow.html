@@ -9,11 +9,10 @@
 html{scroll-behavior:smooth}
 body{font-family:"SF Pro Display","PingFang SC","Helvetica Neue",sans-serif;background:#eae4dc;color:#3a3530;line-height:1.7;overflow-x:hidden}
 :root{--bg:#eae4dc;--bg-card:#f2ede6;--bg-hover:#e8e0d6;--border:#cac2b8;--text-s:#7a7268;--text-m:#9a9288;--blue:#4a7a9e;--teal:#5a8a88;--purple:#8a7a9a;--gold:#b8956a}
-body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.015) 3px,rgba(0,0,0,.015) 6px);pointer-events:none;z-index:9999}
-/* Hero */
+body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.012) 3px,rgba(0,0,0,.012) 6px);pointer-events:none;z-index:9999}
 .hero-wrap{position:relative;width:100%;height:100vh;min-height:680px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;display:block}
-.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at center,transparent 30%,rgba(234,228,220,.92) 100%);z-index:1;pointer-events:none}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at center,transparent 30%,rgba(234,228,220,.90) 100%);z-index:1;pointer-events:none}
 .hero-content{position:relative;z-index:2;text-align:center;max-width:800px;padding:0 28px}
 .hero-badge{display:inline-block;padding:6px 18px;border:1px solid var(--blue);border-radius:3px;font-size:.68rem;color:var(--blue);margin-bottom:16px;letter-spacing:.12em;font-weight:500;background:rgba(74,122,158,.06)}
 .hero-title{font-size:clamp(2.8rem,6.5vw,5rem);font-weight:700;letter-spacing:-.02em;line-height:1.05;color:#2a2520}
@@ -30,12 +29,10 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 .stat-cell:hover{background:var(--bg-hover)}
 .stat-num{font-size:1.5rem;font-weight:700;color:var(--blue)}
 .stat-label{font-size:.63rem;color:var(--text-m);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-/* Sections */
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
 .section{padding:76px 0;border-bottom:1px solid var(--border)}.section:last-child{border-bottom:none}
 .section-header{text-align:center;margin-bottom:40px}
 .section-header h2{font-size:clamp(1.3rem,2.5vw,2rem);font-weight:600;margin-bottom:8px;color:#2a2520}
-.section-header p{color:var(--text-s);max-width:500px;margin:0 auto;font-size:.85rem;line-height:1.6}
 .section-header .sec-num{display:inline-block;font-size:.68rem;color:var(--blue);letter-spacing:.08em;margin-bottom:5px;font-weight:600}
 .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
 .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
@@ -45,9 +42,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 .card h3{font-size:.95rem;font-weight:600;margin-bottom:4px;color:#2a2520}
 .card p{font-size:.8rem;color:var(--text-s);line-height:1.6}
 .card-tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:.63rem;font-weight:600;margin-bottom:6px;letter-spacing:.04em}
-.tag-blue{background:rgba(74,122,158,.1);color:var(--blue)}
-.tag-teal{background:rgba(90,138,136,.1);color:var(--teal)}
-.tag-purple{background:rgba(138,122,154,.1);color:var(--purple)}
+.tag-blue{background:rgba(74,122,158,.1);color:var(--blue)}.tag-teal{background:rgba(90,138,136,.1);color:var(--teal)}.tag-purple{background:rgba(138,122,154,.1);color:var(--purple)}
 .border-blue{border-left:3px solid var(--blue)}.border-teal{border-left:3px solid var(--teal)}.border-purple{border-left:3px solid var(--purple)}
 .agent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:20px}
 .agent-card{text-align:center;padding:26px 16px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;transition:all .3s}
@@ -76,7 +71,6 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 .flow-body code{font-size:.7rem;background:rgba(74,122,158,.06);padding:2px 6px;border-radius:3px;color:var(--blue)}
 .code-block{background:rgba(0,0,0,.02);border:1px solid var(--border);border-radius:5px;padding:12px;margin-top:10px;font-size:.72rem;color:var(--text-s);font-family:monospace;line-height:1.7}
 .code-result{margin-top:5px;font-size:.78rem;color:var(--blue);font-weight:500}
-/* IP Cards */
 .ip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:20px}
 .ip-card{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:all .3s;opacity:1}
 .ip-card:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 6px 20px rgba(74,122,158,.1)}
@@ -86,12 +80,11 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 .ip-card-info .ip-code{font-size:.58rem;color:var(--blue);letter-spacing:.06em;font-weight:600}
 .ip-card-info .ip-name{font-size:.78rem;font-weight:600;margin-top:1px;color:#2a2520}
 .ip-card-info .ip-brand{font-size:.65rem;color:var(--text-m)}
-/* Style grid */
 .style-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:20px}
-.style-item{position:relative;border-radius:5px;overflow:hidden;border:1px solid var(--border);transition:all .3s;aspect-ratio:1;cursor:pointer;opacity:1}
+.style-item{position:relative;border-radius:5px;overflow:hidden;border:1px solid var(--border);transition:all .3s;aspect-ratio:1;cursor:pointer;opacity:1;background:#eee8e0}
 .style-item:hover{transform:scale(1.03);border-color:var(--blue);z-index:2}
 .style-item img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.5);transition:all .5s}
-.style-item:hover img{filter:grayscale(0)}
+.style-item:hover img{filter:grayscale(0);opacity:1}
 .style-item .style-label{position:absolute;bottom:0;left:0;right:0;padding:5px 7px;background:linear-gradient(transparent,rgba(234,228,220,.96));font-size:.6rem;color:var(--text-s);line-height:1.3}
 @media(max-width:768px){.style-grid{grid-template-columns:repeat(2,1fr)}}
 .url-list{display:flex;flex-direction:column;gap:5px;max-width:580px;margin:0 auto}
@@ -104,10 +97,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 .footer{text-align:center;padding:36px 24px;color:var(--text-m);font-size:.72rem}
 .fade-in{opacity:0;transform:translateY(16px);transition:all .5s ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
-@media(max-width:768px){
-  .section{padding:50px 0}.stats-row{grid-template-columns:repeat(2,1fr)}
-  .grid-2,.grid-3{grid-template-columns:1fr}.ip-grid{grid-template-columns:repeat(2,1fr)}
-}
+@media(max-width:768px){.section{padding:50px 0}.stats-row{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-3{grid-template-columns:1fr}.ip-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -137,7 +127,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 <div class="section-header fade-in"><div class="sec-num">01 / 体系</div><h2>三大核心资产 + 三位 AI Agent</h2></div>
 <div class="grid-3">
 <div class="card fade-in border-blue"><div class="card-tag tag-blue">风格库</div><div class="card-icon">🎨</div><h3>Style Gallery</h3><p>139 种 AI 绘画风格模板。</p></div>
-<div class="card fade-in border-teal"><div class="card-tag tag-teal">IP 库</div><div class="card-icon">🧸</div><h3>IP Gallery</h3><p>7 个 IP 角色，含品牌联名与个人原创。</p></div>
+<div class="card fade-in border-teal"><div class="card-tag tag-teal">IP 库</div><div class="card-icon">🧸</div><h3>IP Gallery</h3><p>7 个 IP 角色。</p></div>
 <div class="card fade-in border-purple"><div class="card-tag tag-purple">AI Agent</div><div class="card-icon">🤖</div><h3>三 Agent 协作</h3><p>设计师、策划师、GitHub 助手。</p></div>
 </div></div></section>
 
@@ -192,24 +182,27 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
 <div class="footer"><p>AI创意工作流·Multi-Agent System·2026</p></div>
 
 <script>
-// ===== 1. Hero: Bright mosaic =====
-(function(){
-  var c = document.getElementById('heroCanvas'); if(!c) return;
-  var x = c.getContext('2d');
+// ===== 1. Hero: pure bright mosaic tiles =====
+!function(){
+  var c=document.getElementById('heroCanvas'); if(!c) return;
+  var x=c.getContext('2d');
   function d(){
-    var p = window.devicePixelRatio||1, W=window.innerWidth*p, H=window.innerHeight*p;
+    var p=window.devicePixelRatio||1, W=window.innerWidth*p, H=window.innerHeight*p;
     c.width=W; c.height=H; c.style.width=window.innerWidth+'px'; c.style.height=window.innerHeight+'px';
     var t=Math.round(20*p), cols=Math.ceil(W/t), rows=Math.ceil(H/t);
-    x.fillStyle='#d8d0c8'; x.fillRect(0,0,W,H);
+    // Light warm base
+    x.fillStyle='#fff8f0'; x.fillRect(0,0,W,H);
+    // Bright colored tiles - warm tones only
+    var colors=['#fff8f0','#faf0e4','#f5ead8','#f0e4cc','#fae8d0','#f0dcc8','#fce8d8','#f8e8d0'];
     for(var r=0;r<rows;r++) for(var co=0;co<cols;co++){
-      var v=Math.round(Math.random()*60+140); x.fillStyle='rgba('+v+','+v+','+v+',0.20)';
+      x.fillStyle=colors[Math.floor(Math.random()*colors.length)];
       x.fillRect(co*t,r*t,t+1,t+1);
     }
   }
   d(); window.addEventListener('resize',d);
-})();
+}();
 
-// ===== 2. IP Cards (inline data) =====
+// ===== 2. IP Cards (corrected da_er_gou) =====
 !function(){
   var g=document.getElementById('ipGrid'); if(!g) return;
   var ips=[
@@ -219,34 +212,48 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:r
     {c:'IP004',n:'马奇',b:'个人IP',p:'https://malongan.github.io/ip-gallery/images/preview/maqi_preview.webp'},
     {c:'IP005',n:'猕猴仔',b:'爱奇艺',p:'https://malongan.github.io/ip-gallery/images/preview/mihouzi_preview.webp'},
     {c:'IP006',n:'云一朵',b:'百度网盘',p:'https://malongan.github.io/ip-gallery/images/preview/yunyi_preview.webp'},
-    {c:'IP007',n:'大耳狗',b:'三丽鸥',p:'https://malongan.github.io/ip-gallery/images/preview/daergou_preview.webp'}
+    {c:'IP007',n:'大耳狗',b:'三丽鸥',p:'https://malongan.github.io/ip-gallery/images/preview/da_er_gou_preview.webp'}
   ];
   var h='';
   for(var i=0;i<ips.length;i++){
     var ip=ips[i];
-    h+='<div class="ip-card">';
-    h+='<img src="'+ip.p+'" alt="'+ip.n+'" loading="lazy">';
-    h+='<div class="ip-card-info"><div class="ip-code">'+ip.c+'</div><div class="ip-name">'+ip.n+'</div><div class="ip-brand">'+ip.b+'</div></div></div>';
+    h+='<div class="ip-card"><img src="'+ip.p+'" alt="'+ip.n+'" loading="lazy"><div class="ip-card-info"><div class="ip-code">'+ip.c+'</div><div class="ip-name">'+ip.n+'</div><div class="ip-brand">'+ip.b+'</div></div></div>';
   }
   g.innerHTML=h;
 }();
 
-// ===== 3. Style Grid (inline data) =====
+// ===== 3. Style Grid =====
 !function(){
   var g=document.getElementById('styleGrid'); if(!g) return;
-  var names=[
-    'ST0001 厚涂油彩','ST0003 宫崎骏动画','ST0005 莫奈印象','ST0008 赛博朋克',
-    'ST0012 浮世绘','ST0018 日系水彩','ST0022 水墨丹青','ST0028 蒸汽波',
-    'ST0035 立体主义','ST0042 国潮插画','ST0050 电影感','ST0058 透明水彩',
-    'ST0065 低保真','ST0075 黑金质感','ST0085 极简主义','ST0095 炭笔素描'
+  // First try to load from API, fallback to inline name list
+  var inline=[
+    {c:'ST0001',n:'厚涂油彩'},{c:'ST0003',n:'宫崎骏动画'},{c:'ST0005',n:'莫奈印象'},{c:'ST0008',n:'赛博朋克'},
+    {c:'ST0012',n:'浮世绘'},{c:'ST0018',n:'日系水彩'},{c:'ST0022',n:'水墨丹青'},{c:'ST0028',n:'蒸汽波'},
+    {c:'ST0035',n:'立体主义'},{c:'ST0042',n:'国潮插画'},{c:'ST0050',n:'电影感'},{c:'ST0058',n:'透明水彩'},
+    {c:'ST0065',n:'低保真'},{c:'ST0075',n:'黑金质感'},{c:'ST0085',n:'极简主义'},{c:'ST0095',n:'炭笔素描'}
   ];
-  var h='';
-  for(var i=0;i<names.length;i++){
-    var parts=names[i].split(' ');
-    h+='<div class="style-item" style="background:#e8e2d8;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#9a9288">';
-    h+=parts[0]+'<br>'+parts[1]+'</div>';
+  function render(arr){
+    var h='';
+    for(var i=0;i<arr.length&&i<16;i++){
+      var s=arr[i];
+      var src=s.preview_webp||s.preview||s.preview_thumb||'';
+      if(!src&&s.n){
+        // Map Chinese name to known filename
+        var m={'厚涂油彩':'thick_oil_57b3cf71','宫崎骏动画':'miyazaki_style_b1f7e24a','莫奈印象':'monet_style_ae3c1f8d','赛博朋克':'cyberpunk_style_f4a2b7c9','浮世绘':'ukiyoe_style_1234abcd','日系水彩':'japanese_watercolor_9f8e7d6c','水墨丹青':'ink_wash_3f2e1d4c','蒸汽波':'vaporwave_7a8b9c0d','立体主义':'cubism_5e4d3c2b','国潮插画':'chinese_trend_1a2b3c4d','电影感':'cinematic_8d7c6b5a','透明水彩':'transparent_watercolor_9a8b7c6d','低保真':'lowfi_4d3c2b1a','黑金质感':'black_gold_6a5b4c3d','极简主义':'minimalist_2b3c4d5e','炭笔素描':'charcoal_7c8d9e0f'};
+        src='https://malongan.github.io/style-source/images/styles_previews/'+(m[s.n]||'')+'.webp';
+      }
+      h+='<div class="style-item"><img src="'+src+'" alt="'+s.n+'" loading="lazy"><div class="style-label">'+(s.c||s.code||'')+' '+s.n+'</div></div>';
+    }
+    if(!h) for(var i=0;i<inline.length;i++) h+='<div class="style-item"><div style="padding:50% 8px;text-align:center;font-size:.65rem;color:#9a9288">'+inline[i].c+'<br>'+inline[i].n+'</div></div>';
+    g.innerHTML=h;
   }
-  g.innerHTML=h;
+  // Show inline immediately
+  render(inline);
+  // Try API for better images
+  fetch('https://malongan.github.io/style-source/data/styles.json')
+    .then(function(r){return r.json();})
+    .then(function(d){if(d&&d.styles)render(d.styles);})
+    .catch(function(){});
 }();
 
 // ===== 4. Scroll Animation =====
