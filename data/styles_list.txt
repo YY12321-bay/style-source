@@ -1,4 +1,4 @@
-共 141 个风格
+共 142 个风格
 
 ST0001 | Y3K Cool Girl Portrait | https://malongan.github.io/style-source/images/styles_previews/y3k_cool_girl_portrait_d64d0282.webp
 ST0002 | Y3K Beverage Poster | https://malongan.github.io/style-source/images/styles_previews/y3k_beverage_poster_673dffc0.webp
@@ -141,3 +141,4 @@ ST0138 | Brand Miniature Architecture | https://malongan.github.io/style-source/
 ST0139 | Bloomberg Magazine | https://malongan.github.io/style-source/images/styles_previews/bloomberg_magazine_7cb7f648.webp
 ST0140 | Beverage Style | https://malongan.github.io/style-source/images/styles_previews/beverage_style_5c9fe052.webp
 ST0141 | Avantgarde Bw Poster | https://malongan.github.io/style-source/images/styles_previews/avantgarde_bw_poster_44361c82.webp
+ST0142 | 3D Cartoon Girls Grid | https://malongan.github.io/style-source/images/styles_previews/3d_cartoon_girls_grid_024986ab.webp

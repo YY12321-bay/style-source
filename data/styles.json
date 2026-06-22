@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": "v0.5.0-22-ge8a9f9f-dirty",
-    "generated": "2026-06-22T08:47:07Z",
-    "total": 141,
+    "version": "v0.5.0-23-g28e09f3",
+    "generated": "2026-06-22T08:52:44Z",
+    "total": 142,
     "categories": [
       "brand_kv",
       "creative",
@@ -5011,6 +5011,40 @@
       "source_author": "AdrianPunk115",
       "source_url": "https://x.com/AdrianPunk115/status/2064944838035022034",
       "code": "ST0141"
+    },
+    {
+      "id": "3d_cartoon_girls_grid",
+      "name": "3D Cartoon Girls Grid",
+      "category": "ip_character",
+      "tags": [
+        "3D卡通",
+        "美少女",
+        "角色设计",
+        "阵列展示",
+        "潮流穿搭",
+        "二次元",
+        "盲盒风格"
+      ],
+      "scene": "角色展示海报、盲盒系列宣传、游戏角色阵容、潮流品牌视觉、IP角色集锦",
+      "ratio": "4:3 / 16:9 / 3:4",
+      "summary": "15个3D卡通风格美少女角色模型排列成三行，每行5人，各具不同潮流穿搭与姿势，白色背景，青春活力、时尚养眼的角色阵列展示。",
+      "features": [
+        "**三行阵列构图** — 15个角色整齐排列成上中下三行，每行5人，形成完整角色阵容视觉",
+        "**3D卡通渲染** — 卡通风格3D模型，质感圆润可爱，光影柔和，盲盒手办质感",
+        "**多样化潮流穿搭** — 每个角色拥有独立的服装搭配，涵盖街头、休闲、学院、运动等多种风格",
+        "**丰富姿势动态** — 站姿、拿物品、戴配饰等多种动作，避免单调重复感",
+        "**纯白背景** — 干净白色背景突出角色本身，适合商业展示和产品目录",
+        "**青春活力调性** — 色彩鲜明、造型时尚，给人赏心悦目的视觉体验"
+      ],
+      "preview_urls": [
+        "https://malongan.github.io/style-source/images/styles_previews/3d_cartoon_girls_grid_024986ab.webp"
+      ],
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/3d_cartoon_girls_grid_024986ab.webp",
+      "preview_thumb": "https://malongan.github.io/style-source/images/styles_previews/3d_cartoon_girls_grid_024986ab.thumb.webp",
+      "variables": {},
+      "source_author": "奇思妙想社",
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7619912903285558566?workDetailType=Image&itemType=9",
+      "code": "ST0142"
     }
   ]
 }
