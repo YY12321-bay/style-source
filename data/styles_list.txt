@@ -1,4 +1,4 @@
-共 150 个风格
+共 151 个风格
 
 ST0001 | Y3K Cool Girl Portrait | https://malongan.github.io/style-source/images/styles_previews/y3k_cool_girl_portrait_d64d0282.webp
 ST0002 | Wilderness Wind Poster | https://malongan.github.io/style-source/images/styles_previews/wilderness_wind_poster_4920aafd.webp
@@ -41,6 +41,7 @@ ST0037 | Vigo Hud Tech Spec Poster | https://malongan.github.io/style-source/ima
 ST0038 | Vigo Gothic Cat Doodle Photo Collage | https://malongan.github.io/style-source/images/styles_previews/vigo_gothic_cat_doodle_photo_collage_23faee2c.webp
 ST0039 | Vigo Folded Newspaper Product Ad | https://malongan.github.io/style-source/images/styles_previews/vigo_folded_newspaper_product_ad_5b462e76.webp
 ST0040 | Vigo Fisheye Bubble Poster | https://malongan.github.io/style-source/images/styles_previews/vigo_fisheye_bubble_poster_fa30f6de.webp
+ST0151 | Vigo Film Montage Sport Poster | https://malongan.github.io/style-source/images/styles_previews/vigo_film_montage_sport_poster_9f354591.webp
 ST0041 | Vigo Fantasy Scribble Mascot Poster | https://malongan.github.io/style-source/images/styles_previews/vigo_fantasy_scribble_mascot_poster_e720bfbb.webp
 ST0042 | Vigo Cyan Red Shockwave Type Poster | https://malongan.github.io/style-source/images/styles_previews/vigo_cyan_red_shockwave_type_poster_d55357a0.webp
 ST0043 | Vigo Chromatic Fisheye Orbit Pop Poster | https://malongan.github.io/style-source/images/styles_previews/vigo_chromatic_fisheye_orbit_pop_poster_3854d163.webp
