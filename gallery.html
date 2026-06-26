@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 风格画廊 v0.5.0-49-g2a67478-dirty</title>
-<meta name="description" content="AI 风格画廊 — 收集 129 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。">
+<title>AI 风格画廊 (156 个风格)</title>
+<meta name="description" content="AI 风格画廊 — 收集 156 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。">
 <meta name="keywords" content="AI绘画,风格提示词,Stable Diffusion,Midjourney,AI画廊,提示词库">
 <meta name="author" content="malongan">
-<meta property="og:title" content="AI 风格画廊 v0.5.0-49-g2a67478-dirty">
-<meta property="og:description" content="AI 风格画廊 — 收集 129 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。">
+<meta property="og:title" content="AI 风格画廊 (156 个风格)">
+<meta property="og:description" content="AI 风格画廊 — 收集 156 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。">
 <meta property="og:url" content="https://malongan.github.io/style-source/gallery.html">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://malongan.github.io/style-source/images/styles_previews/avantgarde_bw_poster_44361c82.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI 风格画廊 v0.5.0-49-g2a67478-dirty">
-<meta name="twitter:description" content="AI 风格画廊 — 收集 129 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。">
+<meta name="twitter:description" content="AI 风格画廊 — 收集 156 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。">
 <meta name="twitter:image" content="https://malongan.github.io/style-source/images/styles_previews/avantgarde_bw_poster_44361c82.webp">
 <link rel="canonical" href="https://malongan.github.io/style-source/gallery.html">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
@@ -326,6 +326,43 @@ body {
   border-color: var(--accent-color);
 }
 
+/* 排序下拉 */
+.sort-select {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.sort-select:hover,
+.sort-select:focus {
+  border-color: var(--accent-color);
+}
+
+/* 清除筛选按钮 */
+.clear-filter-btn {
+  opacity: 0.7;
+}
+
+.clear-filter-btn:hover {
+  opacity: 1;
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.other-tag-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-color);
+  margin: 6px 0;
+  opacity: 0.5;
+}
+
 .count-num {
   color: var(--accent-color);
   font-weight: 600;
@@ -350,8 +387,9 @@ body {
 }
 
 .style-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: var(--card-hover-shadow);
+  border-color: var(--accent-color);
 }
 
 /* 缩略图 - 宽度统一，高度自适应 */
@@ -361,6 +399,11 @@ body {
   display: block;
   background: var(--bg-secondary);
   aspect-ratio: auto;
+  transition: transform 0.3s ease;
+}
+
+.style-card:hover .card-image {
+  transform: scale(1.05);
 }
 
 .card-content {
@@ -698,6 +741,12 @@ body {
   }
 }
 
+@media (max-width: 1280px) {
+  .sidebar {
+    width: 240px;
+  }
+}
+
 @media (max-width: 1024px) {
   .main-layout {
     flex-direction: column;
@@ -868,11 +917,20 @@ body {
       <div class="content-area">
         <!-- 筛选栏 -->
         <div class="filter-bar">
+          <select id="sortSelect" class="sort-select">
+            <option value="default">默认排序</option>
+            <option value="newest">🆕 最新添加</option>
+            <option value="name-asc">📄 名称 A-Z</option>
+            <option value="name-desc">📄 名称 Z-A</option>
+          </select>
           <button class="filter-btn" id="filterFavorites">
             ❤️ 只看收藏
           </button>
+          <button class="filter-btn clear-filter-btn" id="clearFilters" style="display:none;">
+            ✕ 清除筛选
+          </button>
           <span class="result-count" style="margin-left: auto; color: var(--text-muted); font-size: 13px;">
-            <span class="header-update" style="margin-right: 12px;">最后更新：0.5.0-49-g2a67478-dirty</span>
+            <span class="header-update" style="margin-right: 12px;">最后更新：2026-06-26</span>
             共 <span class="count-num">156</span> 个风格
           </span>
         </div>
@@ -2660,11 +2718,15 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
   const state = {
     currentTag: 'all',
     currentCategory: 'all',
+    currentSort: 'default',
     searchQuery: '',
     showFavoritesOnly: false,
     favorites: JSON.parse(localStorage.getItem('galleryFavorites') || '[]'),
     theme: localStorage.getItem('galleryTheme') || 'light'
   };
+
+  // 标签最小展示频次阈值（低于此值折叠到「其他」）
+  const TAG_MIN_COUNT = 5;
 
   // ========== DOM 元素 ==========
   let elements = {};
@@ -2685,6 +2747,8 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
       searchInput: document.getElementById('searchInput'),
       themeToggle: document.getElementById('themeToggle'),
       filterFavorites: document.getElementById('filterFavorites'),
+      clearFilters: document.getElementById('clearFilters'),
+      sortSelect: document.getElementById('sortSelect'),
       galleryGrid: document.querySelector('.gallery-grid'),
       styleCards: document.querySelectorAll('.style-card'),
       lightbox: document.getElementById('lightbox'),
@@ -2730,7 +2794,24 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
       });
     });
     
-    window.galleryTags = tagsMap;
+    // 按频次分类：高频（≥5次）保留，低频折叠
+    const highFreq = {};
+    let lowFreqCount = 0;
+    Object.entries(tagsMap).forEach(([tag, count]) => {
+      if (tag === 'all') {
+        highFreq.all = count;
+      } else if (count >= TAG_MIN_COUNT) {
+        highFreq[tag] = count;
+      } else {
+        lowFreqCount += count;
+      }
+    });
+    if (lowFreqCount > 0) {
+      highFreq['_other'] = lowFreqCount;
+    }
+    
+    window.galleryTags = highFreq;
+    window.galleryTagsRaw = tagsMap; // 保留完整数据用于筛选
   }
 
   // ========== 分类提取 ==========
@@ -2816,9 +2897,16 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
     if (!sidebar) return;
 
     const tags = Object.entries(window.galleryTags || {});
-    tags.sort((a, b) => b[1] - a[1]);
+    tags.sort((a, b) => {
+      // all 排第一，_other 排最后
+      if (a[0] === 'all') return -1;
+      if (b[0] === 'all') return 1;
+      if (a[0] === '_other') return 1;
+      if (b[0] === '_other') return -1;
+      return b[1] - a[1];
+    });
 
-    const total = tags.reduce((sum, t) => sum + t[1], 0);
+    const total = Object.values(window.galleryTagsRaw || window.galleryTags || {}).reduce((sum, t) => sum + t, 0);
     
     let html = `
       <button class="tag-item ${state.currentTag === 'all' ? 'active' : ''}" data-tag="all">
@@ -2828,12 +2916,19 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
     `;
 
     tags.forEach(([tag, count]) => {
-      html += `
-        <button class="tag-item ${state.currentTag === tag ? 'active' : ''}" data-tag="${tag}">
-          ${tag}
-          <span class="tag-count">${count}</span>
-        </button>
-      `;
+      if (tag === '_other') {
+        html += `<div class="other-tag-divider"></div>`;
+        html += `<div style="width:100%;padding:4px 4px;font-size:10px;color:var(--text-muted);line-height:1.4;">
+          🔍 其余 ${count} 个低频标签可直接搜索
+        </div>`;
+      } else if (tag !== 'all') {
+        html += `
+          <button class="tag-item ${state.currentTag === tag ? 'active' : ''}" data-tag="${tag}">
+            ${tag}
+            <span class="tag-count">${count}</span>
+          </button>
+        `;
+      }
     });
 
     sidebar.innerHTML = html;
@@ -2854,6 +2949,16 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
     // 主题切换
     if (elements.themeToggle) {
       elements.themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // 排序
+    if (elements.sortSelect) {
+      elements.sortSelect.addEventListener('change', handleSortChange);
+    }
+
+    // 清除筛选
+    if (elements.clearFilters) {
+      elements.clearFilters.addEventListener('click', clearFilters);
     }
 
     // 收藏筛选
@@ -2926,9 +3031,83 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
     filterCards();
   }
 
+  function handleSortChange(e) {
+    state.currentSort = e.target.value;
+    sortCards();
+    filterCards();
+  }
+
+  function sortCards() {
+    const grid = elements.galleryGrid;
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll('.style-card'));
+    if (cards.length === 0) return;
+
+    cards.sort(function(a, b) {
+      if (state.currentSort === 'default') {
+        // 保持原始顺序（按 data-original-index）
+        return (parseInt(a.dataset.originalIndex) || 0) - (parseInt(b.dataset.originalIndex) || 0);
+      } else if (state.currentSort === 'newest') {
+        return (parseInt(b.dataset.originalIndex) || 0) - (parseInt(a.dataset.originalIndex) || 0);
+      } else if (state.currentSort === 'name-asc') {
+        var nameA = (a.querySelector('.card-title')?.textContent || '').toLowerCase();
+        var nameB = (b.querySelector('.card-title')?.textContent || '').toLowerCase();
+        return nameA.localeCompare(nameB);
+      } else if (state.currentSort === 'name-desc') {
+        var nameA = (a.querySelector('.card-title')?.textContent || '').toLowerCase();
+        var nameB = (b.querySelector('.card-title')?.textContent || '').toLowerCase();
+        return nameB.localeCompare(nameA);
+      }
+      return 0;
+    });
+
+    // 重新挂载排序后的卡片
+    cards.forEach(function(card) {
+      grid.appendChild(card);
+    });
+
+    // 刷新卡片引用
+    elements.styleCards = document.querySelectorAll('.style-card');
+  }
+
   function handleFavoriteFilter() {
     state.showFavoritesOnly = !state.showFavoritesOnly;
     elements.filterFavorites.classList.toggle('active', state.showFavoritesOnly);
+    filterCards();
+  }
+
+  // ========== 清除所有筛选 ==========
+  function clearFilters() {
+    state.currentTag = 'all';
+    state.currentCategory = 'all';
+    state.currentSort = 'default';
+    state.searchQuery = '';
+    state.showFavoritesOnly = false;
+
+    // 重置搜索框
+    if (elements.searchInput) elements.searchInput.value = '';
+
+    // 重置排序
+    if (elements.sortSelect) elements.sortSelect.value = 'default';
+
+    // 重置标签高亮
+    document.querySelectorAll('.tag-item').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.tag === 'all');
+    });
+
+    // 重置分类高亮
+    document.querySelectorAll('.category-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.category === 'all');
+    });
+
+    // 重置收藏筛选
+    state.showFavoritesOnly = false;
+    if (elements.filterFavorites) elements.filterFavorites.classList.remove('active');
+
+    // 重置排序 → 恢复原始顺序
+    sortCards();
+
+    // 重新过滤
     filterCards();
   }
 
@@ -3001,6 +3180,14 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
     const counter = document.querySelector('.count-num');
     if (counter) {
       counter.textContent = visible;
+    }
+
+    // 清除筛选按钮可见性
+    const hasActiveFilter = state.currentTag !== 'all' || state.currentCategory !== 'all' || 
+                            state.searchQuery !== '' || state.showFavoritesOnly ||
+                            state.currentSort !== 'default';
+    if (elements.clearFilters) {
+      elements.clearFilters.style.display = hasActiveFilter ? 'inline-block' : 'none';
     }
     
     // 显示无结果提示
@@ -3132,7 +3319,8 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
 /* ========== 渲染功能 ========== */
 
 /** 构建单张 style-card 的 HTML（WebP 优先） */
-function buildCardHTML(s) {
+function buildCardHTML(s, idx) {
+  idx = idx || 0;
   var imgUrl = s.preview_webp || (s.preview_urls || [])[0] || '';
   var tags = (s.tags || []).join(',');
   var summary = s.summary || '';
@@ -3158,7 +3346,8 @@ function buildCardHTML(s) {
     ' data-triggers="' + triggers.replace(/"/g,'&quot;') + '"' +
     ' data-tags="' + tags + '"' +
     ' data-number="' + (s.code || s.number || s.id || '') + '"' +
-    ' data-category="' + s.category + '">' +
+    ' data-category="' + s.category + '"' +
+    ' data-original-index="' + idx + '">' +
     imgHtml +
     '<div class="card-content">' +
       '<div class="card-title-row">' +
@@ -3186,7 +3375,7 @@ function renderGallery(data) {
   var grid = document.querySelector('.gallery-grid');
   if (!grid) return;
 
-  grid.innerHTML = styles.map(function(s) { return buildCardHTML(s); }).join('');
+  grid.innerHTML = styles.map(function(s, i) { return buildCardHTML(s, i); }).join('');
 
   // 更新结果计数
   var countEl = document.querySelector('.count-num');

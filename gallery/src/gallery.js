@@ -10,11 +10,15 @@
   const state = {
     currentTag: 'all',
     currentCategory: 'all',
+    currentSort: 'default',
     searchQuery: '',
     showFavoritesOnly: false,
     favorites: JSON.parse(localStorage.getItem('galleryFavorites') || '[]'),
     theme: localStorage.getItem('galleryTheme') || 'light'
   };
+
+  // 标签最小展示频次阈值（低于此值折叠到「其他」）
+  const TAG_MIN_COUNT = 5;
 
   // ========== DOM 元素 ==========
   let elements = {};
@@ -35,6 +39,8 @@
       searchInput: document.getElementById('searchInput'),
       themeToggle: document.getElementById('themeToggle'),
       filterFavorites: document.getElementById('filterFavorites'),
+      clearFilters: document.getElementById('clearFilters'),
+      sortSelect: document.getElementById('sortSelect'),
       galleryGrid: document.querySelector('.gallery-grid'),
       styleCards: document.querySelectorAll('.style-card'),
       lightbox: document.getElementById('lightbox'),
@@ -80,7 +86,24 @@
       });
     });
     
-    window.galleryTags = tagsMap;
+    // 按频次分类：高频（≥5次）保留，低频折叠
+    const highFreq = {};
+    let lowFreqCount = 0;
+    Object.entries(tagsMap).forEach(([tag, count]) => {
+      if (tag === 'all') {
+        highFreq.all = count;
+      } else if (count >= TAG_MIN_COUNT) {
+        highFreq[tag] = count;
+      } else {
+        lowFreqCount += count;
+      }
+    });
+    if (lowFreqCount > 0) {
+      highFreq['_other'] = lowFreqCount;
+    }
+    
+    window.galleryTags = highFreq;
+    window.galleryTagsRaw = tagsMap; // 保留完整数据用于筛选
   }
 
   // ========== 分类提取 ==========
@@ -166,9 +189,16 @@
     if (!sidebar) return;
 
     const tags = Object.entries(window.galleryTags || {});
-    tags.sort((a, b) => b[1] - a[1]);
+    tags.sort((a, b) => {
+      // all 排第一，_other 排最后
+      if (a[0] === 'all') return -1;
+      if (b[0] === 'all') return 1;
+      if (a[0] === '_other') return 1;
+      if (b[0] === '_other') return -1;
+      return b[1] - a[1];
+    });
 
-    const total = tags.reduce((sum, t) => sum + t[1], 0);
+    const total = Object.values(window.galleryTagsRaw || window.galleryTags || {}).reduce((sum, t) => sum + t, 0);
     
     let html = `
       <button class="tag-item ${state.currentTag === 'all' ? 'active' : ''}" data-tag="all">
@@ -178,12 +208,19 @@
     `;
 
     tags.forEach(([tag, count]) => {
-      html += `
-        <button class="tag-item ${state.currentTag === tag ? 'active' : ''}" data-tag="${tag}">
-          ${tag}
-          <span class="tag-count">${count}</span>
-        </button>
-      `;
+      if (tag === '_other') {
+        html += `<div class="other-tag-divider"></div>`;
+        html += `<div style="width:100%;padding:4px 4px;font-size:10px;color:var(--text-muted);line-height:1.4;">
+          🔍 其余 ${count} 个低频标签可直接搜索
+        </div>`;
+      } else if (tag !== 'all') {
+        html += `
+          <button class="tag-item ${state.currentTag === tag ? 'active' : ''}" data-tag="${tag}">
+            ${tag}
+            <span class="tag-count">${count}</span>
+          </button>
+        `;
+      }
     });
 
     sidebar.innerHTML = html;
@@ -204,6 +241,16 @@
     // 主题切换
     if (elements.themeToggle) {
       elements.themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // 排序
+    if (elements.sortSelect) {
+      elements.sortSelect.addEventListener('change', handleSortChange);
+    }
+
+    // 清除筛选
+    if (elements.clearFilters) {
+      elements.clearFilters.addEventListener('click', clearFilters);
     }
 
     // 收藏筛选
@@ -276,9 +323,83 @@
     filterCards();
   }
 
+  function handleSortChange(e) {
+    state.currentSort = e.target.value;
+    sortCards();
+    filterCards();
+  }
+
+  function sortCards() {
+    const grid = elements.galleryGrid;
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll('.style-card'));
+    if (cards.length === 0) return;
+
+    cards.sort(function(a, b) {
+      if (state.currentSort === 'default') {
+        // 保持原始顺序（按 data-original-index）
+        return (parseInt(a.dataset.originalIndex) || 0) - (parseInt(b.dataset.originalIndex) || 0);
+      } else if (state.currentSort === 'newest') {
+        return (parseInt(b.dataset.originalIndex) || 0) - (parseInt(a.dataset.originalIndex) || 0);
+      } else if (state.currentSort === 'name-asc') {
+        var nameA = (a.querySelector('.card-title')?.textContent || '').toLowerCase();
+        var nameB = (b.querySelector('.card-title')?.textContent || '').toLowerCase();
+        return nameA.localeCompare(nameB);
+      } else if (state.currentSort === 'name-desc') {
+        var nameA = (a.querySelector('.card-title')?.textContent || '').toLowerCase();
+        var nameB = (b.querySelector('.card-title')?.textContent || '').toLowerCase();
+        return nameB.localeCompare(nameA);
+      }
+      return 0;
+    });
+
+    // 重新挂载排序后的卡片
+    cards.forEach(function(card) {
+      grid.appendChild(card);
+    });
+
+    // 刷新卡片引用
+    elements.styleCards = document.querySelectorAll('.style-card');
+  }
+
   function handleFavoriteFilter() {
     state.showFavoritesOnly = !state.showFavoritesOnly;
     elements.filterFavorites.classList.toggle('active', state.showFavoritesOnly);
+    filterCards();
+  }
+
+  // ========== 清除所有筛选 ==========
+  function clearFilters() {
+    state.currentTag = 'all';
+    state.currentCategory = 'all';
+    state.currentSort = 'default';
+    state.searchQuery = '';
+    state.showFavoritesOnly = false;
+
+    // 重置搜索框
+    if (elements.searchInput) elements.searchInput.value = '';
+
+    // 重置排序
+    if (elements.sortSelect) elements.sortSelect.value = 'default';
+
+    // 重置标签高亮
+    document.querySelectorAll('.tag-item').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.tag === 'all');
+    });
+
+    // 重置分类高亮
+    document.querySelectorAll('.category-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.category === 'all');
+    });
+
+    // 重置收藏筛选
+    state.showFavoritesOnly = false;
+    if (elements.filterFavorites) elements.filterFavorites.classList.remove('active');
+
+    // 重置排序 → 恢复原始顺序
+    sortCards();
+
+    // 重新过滤
     filterCards();
   }
 
@@ -351,6 +472,14 @@
     const counter = document.querySelector('.count-num');
     if (counter) {
       counter.textContent = visible;
+    }
+
+    // 清除筛选按钮可见性
+    const hasActiveFilter = state.currentTag !== 'all' || state.currentCategory !== 'all' || 
+                            state.searchQuery !== '' || state.showFavoritesOnly ||
+                            state.currentSort !== 'default';
+    if (elements.clearFilters) {
+      elements.clearFilters.style.display = hasActiveFilter ? 'inline-block' : 'none';
     }
     
     // 显示无结果提示

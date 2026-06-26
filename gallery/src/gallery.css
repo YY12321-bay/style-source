@@ -304,6 +304,43 @@ body {
   border-color: var(--accent-color);
 }
 
+/* 排序下拉 */
+.sort-select {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.sort-select:hover,
+.sort-select:focus {
+  border-color: var(--accent-color);
+}
+
+/* 清除筛选按钮 */
+.clear-filter-btn {
+  opacity: 0.7;
+}
+
+.clear-filter-btn:hover {
+  opacity: 1;
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.other-tag-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-color);
+  margin: 6px 0;
+  opacity: 0.5;
+}
+
 .count-num {
   color: var(--accent-color);
   font-weight: 600;
@@ -328,8 +365,9 @@ body {
 }
 
 .style-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: var(--card-hover-shadow);
+  border-color: var(--accent-color);
 }
 
 /* 缩略图 - 宽度统一，高度自适应 */
@@ -339,6 +377,11 @@ body {
   display: block;
   background: var(--bg-secondary);
   aspect-ratio: auto;
+  transition: transform 0.3s ease;
+}
+
+.style-card:hover .card-image {
+  transform: scale(1.05);
 }
 
 .card-content {
@@ -673,6 +716,12 @@ body {
 @media (max-width: 1200px) {
   .gallery-grid {
     columns: 3 200px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .sidebar {
+    width: 240px;
   }
 }
 

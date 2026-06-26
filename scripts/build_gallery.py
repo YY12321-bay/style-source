@@ -111,7 +111,9 @@ def build_gallery_html(data: dict, output_path: str):
     version = meta.get('version', '0.0.0').lstrip('v')
     total = len(styles)
 
-    description = 'AI 风格画廊 — 收集 129 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。'
+    from datetime import date
+    today_str = date.today().strftime('%Y-%m-%d')
+    description = f'AI 风格画廊 — 收集 {total} 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。'
     base_url = 'https://malongan.github.io/style-source'
     img_preview = f'{base_url}/images/styles_previews/'
 
@@ -120,11 +122,11 @@ def build_gallery_html(data: dict, output_path: str):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 风格画廊 v{version}</title>
+<title>AI 风格画廊 ({total} 个风格)</title>
 <meta name="description" content="{description}">
 <meta name="keywords" content="AI绘画,风格提示词,Stable Diffusion,Midjourney,AI画廊,提示词库">
 <meta name="author" content="malongan">
-<meta property="og:title" content="AI 风格画廊 v{version}">
+<meta property="og:title" content="AI 风格画廊 ({total} 个风格)">
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{base_url}/gallery.html">
 <meta property="og:type" content="website">
@@ -175,11 +177,20 @@ def build_gallery_html(data: dict, output_path: str):
       <div class="content-area">
         <!-- 筛选栏 -->
         <div class="filter-bar">
+          <select id="sortSelect" class="sort-select">
+            <option value="default">默认排序</option>
+            <option value="newest">🆕 最新添加</option>
+            <option value="name-asc">📄 名称 A-Z</option>
+            <option value="name-desc">📄 名称 Z-A</option>
+          </select>
           <button class="filter-btn" id="filterFavorites">
             ❤️ 只看收藏
           </button>
+          <button class="filter-btn clear-filter-btn" id="clearFilters" style="display:none;">
+            ✕ 清除筛选
+          </button>
           <span class="result-count" style="margin-left: auto; color: var(--text-muted); font-size: 13px;">
-            <span class="header-update" style="margin-right: 12px;">最后更新：{version}</span>
+            <span class="header-update" style="margin-right: 12px;">最后更新：{today_str}</span>
             共 <span class="count-num">{total}</span> 个风格
           </span>
         </div>
@@ -245,7 +256,8 @@ window.__FALLBACK_IMG__ = '{js_str(FALLBACK_IMG)}';
 /* ========== 渲染功能 ========== */
 
 /** 构建单张 style-card 的 HTML（WebP 优先） */
-function buildCardHTML(s) {{
+function buildCardHTML(s, idx) {{
+  idx = idx || 0;
   var imgUrl = s.preview_webp || (s.preview_urls || [])[0] || '';
   var tags = (s.tags || []).join(',');
   var summary = s.summary || '';
@@ -271,7 +283,8 @@ function buildCardHTML(s) {{
     ' data-triggers="' + triggers.replace(/"/g,'&quot;') + '"' +
     ' data-tags="' + tags + '"' +
     ' data-number="' + (s.code || s.number || s.id || '') + '"' +
-    ' data-category="' + s.category + '">' +
+    ' data-category="' + s.category + '"' +
+    ' data-original-index="' + idx + '">' +
     imgHtml +
     '<div class="card-content">' +
       '<div class="card-title-row">' +
@@ -299,7 +312,7 @@ function renderGallery(data) {{
   var grid = document.querySelector('.gallery-grid');
   if (!grid) return;
 
-  grid.innerHTML = styles.map(function(s) {{ return buildCardHTML(s); }}).join('');
+  grid.innerHTML = styles.map(function(s, i) {{ return buildCardHTML(s, i); }}).join('');
 
   // 更新结果计数
   var countEl = document.querySelector('.count-num');
