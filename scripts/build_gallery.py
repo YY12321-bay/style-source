@@ -143,7 +143,19 @@ def build_gallery_html(data: dict, output_path: str):
 </style>
 </head>
 <body>
-  <div id="loading">🔄 加载风格画廊...</div>
+  <div id="loading" class="loading-skeleton">
+    <div class="skeleton-grid">
+      <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-bar" style="width:40%"></div><div class="skeleton-bar" style="width:70%"></div></div>
+      <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-bar" style="width:35%"></div><div class="skeleton-bar" style="width:65%"></div></div>
+      <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-bar" style="width:45%"></div><div class="skeleton-bar" style="width:60%"></div></div>
+      <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-bar" style="width:30%"></div><div class="skeleton-bar" style="width:75%"></div></div>
+      <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-bar" style="width:40%"></div><div class="skeleton-bar" style="width:55%"></div></div>
+      <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-bar" style="width:35%"></div><div class="skeleton-bar" style="width:70%"></div></div>
+      <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-bar" style="width:45%"></div><div class="skeleton-bar" style="width:60%"></div></div>
+      <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-bar" style="width:30%"></div><div class="skeleton-bar" style="width:65%"></div></div>
+    </div>
+    <div class="skeleton-loading-text">🔄 加载风格画廊...</div>
+  </div>
 
   <div class="container" id="app" style="display:none">
     <!-- Header -->
@@ -182,6 +194,7 @@ def build_gallery_html(data: dict, output_path: str):
             <option value="newest">🆕 最新添加</option>
             <option value="name-asc">📄 名称 A-Z</option>
             <option value="name-desc">📄 名称 Z-A</option>
+            <option value="favorites">❤️ 已收藏优先</option>
           </select>
           <button class="filter-btn" id="filterFavorites">
             ❤️ 只看收藏
@@ -191,7 +204,7 @@ def build_gallery_html(data: dict, output_path: str):
           </button>
           <span class="result-count" style="margin-left: auto; color: var(--text-muted); font-size: 13px;">
             <span class="header-update" style="margin-right: 12px;">最后更新：{today_str}</span>
-            共 <span class="count-num">{total}</span> 个风格
+            显示 <span class="count-num" id="countVisible">{total}</span> / <span class="count-total" id="countTotal">{total}</span> 个风格
           </span>
         </div>
 
@@ -212,7 +225,10 @@ def build_gallery_html(data: dict, output_path: str):
         <div class="lightbox-body">
           <div class="lightbox-title-row">
             <h2 class="lightbox-title"></h2>
-            <span class="lightbox-index"></span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="lightbox-index"></span>
+              <button class="favorite-btn lightbox-fav-btn" title="收藏">收藏</button>
+            </div>
           </div>
           <div class="lightbox-content">
             <div class="lightbox-section lightbox-summary-section">
@@ -256,8 +272,10 @@ window.__FALLBACK_IMG__ = '{js_str(FALLBACK_IMG)}';
 /* ========== 渲染功能 ========== */
 
 /** 构建单张 style-card 的 HTML（WebP 优先） */
-function buildCardHTML(s, idx) {{
+function buildCardHTML(s, idx, total) {{
   idx = idx || 0;
+  total = total || 0;
+  var isNew = total > 10 && idx >= total - 10;
   var imgUrl = s.preview_webp || (s.preview_urls || [])[0] || '';
   var tags = (s.tags || []).join(',');
   var summary = s.summary || '';
@@ -272,6 +290,9 @@ function buildCardHTML(s, idx) {{
       (sourceAuthor ? '🔗 @' + sourceAuthor.replace(/"/g,'&quot;') : '🔗 来源') + '</a>';
   }}
 
+  // 🆕 新风格标记（最后10个）
+  var badgeHtml = isNew ? '<span class="card-badge-new">🆕 NEW</span>' : '';
+
   // 直接用 WebP（不再使用 <picture> 包装，节省体积）
   var imgHtml = '<img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"'
     + ' onerror="this.outerHTML=window.__FALLBACK_IMG__">';
@@ -285,7 +306,10 @@ function buildCardHTML(s, idx) {{
     ' data-number="' + (s.code || s.number || s.id || '') + '"' +
     ' data-category="' + s.category + '"' +
     ' data-original-index="' + idx + '">' +
+    '<div class="card-image-wrap">' +
     imgHtml +
+    badgeHtml +
+    '</div>' +
     '<div class="card-content">' +
       '<div class="card-title-row">' +
         '<span class="card-number">' + (s.code ? '#' + s.code : '#' + (s.number || s.id || '')) + '</span>' +
@@ -294,7 +318,7 @@ function buildCardHTML(s, idx) {{
       '<h3 class="card-title">' + s.name + '</h3>' +
       '<div class="card-footer">' +
         linkHtml +
-        '<button class="favorite-btn" title="收藏">收藏</button>' +
+        '<button class="favorite-btn" data-id="' + s.id + '" title="收藏">收藏</button>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -312,11 +336,14 @@ function renderGallery(data) {{
   var grid = document.querySelector('.gallery-grid');
   if (!grid) return;
 
-  grid.innerHTML = styles.map(function(s, i) {{ return buildCardHTML(s, i); }}).join('');
+  var totalStyles = styles.length;
+  grid.innerHTML = styles.map(function(s, i) {{ return buildCardHTML(s, i, totalStyles); }}).join('');
 
-  // 更新结果计数
-  var countEl = document.querySelector('.count-num');
+  // 更新结果计数（可见数 = 总数，初始无筛选）
+  var countEl = document.getElementById('countVisible');
+  var totalEl = document.getElementById('countTotal');
   if (countEl) countEl.textContent = styles.length;
+  if (totalEl) totalEl.textContent = styles.length;
 
   // 修正 gallery.js extractCategories() 的 all 计数 bug
   window.__totalStyles = styles.length;

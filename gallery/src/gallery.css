@@ -51,7 +51,22 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* 主题切换过渡动画 */
+[data-theme] {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+[data-theme] .style-card,
+[data-theme] .header,
+[data-theme] .sidebar-section,
+[data-theme] .lightbox-card,
+[data-theme] .filter-btn,
+[data-theme] .sort-select,
+[data-theme] .tag-item,
+[data-theme] .category-btn {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
 .container {
@@ -341,6 +356,48 @@ body {
   opacity: 0.5;
 }
 
+/* 其他标签容器 */
+.other-tag-toggle {
+  opacity: 0.8;
+  font-size: 11px;
+  width: 100%;
+  justify-content: center;
+}
+
+.other-tag-toggle:hover {
+  opacity: 1;
+  background: var(--accent-color);
+  color: white;
+}
+
+.other-tag-toggle.active {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* 低频标签列表（展开后） */
+.other-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px 4px 2px 4px;
+  width: 100%;
+}
+
+.tag-item-low {
+  font-size: 10px;
+  padding: 3px 7px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  opacity: 0.85;
+}
+
+.tag-item-low:hover {
+  opacity: 1;
+  background: var(--accent-color);
+  color: white;
+}
+
 .count-num {
   color: var(--accent-color);
   font-weight: 600;
@@ -368,6 +425,30 @@ body {
   transform: translateY(-4px) scale(1.02);
   box-shadow: var(--card-hover-shadow);
   border-color: var(--accent-color);
+}
+
+/* 图片包裹（用于定位 🆕 徽章） */
+.card-image-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 🆕 新风格徽章 */
+.card-badge-new {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(239, 68, 68, 0.9);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  line-height: 1.3;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  backdrop-filter: blur(2px);
 }
 
 /* 缩略图 - 宽度统一，高度自适应 */
@@ -818,6 +899,65 @@ body {
   }
 }
 
+/* ==================== 骨架屏 ==================== */
+.loading-skeleton {
+  padding: 20px 0;
+}
+
+.skeleton-grid {
+  columns: 4 220px;
+  column-gap: 12px;
+}
+
+.skeleton-card {
+  background: var(--bg-card);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  break-inside: avoid;
+  box-shadow: var(--shadow);
+}
+
+.skeleton-image {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border-color) 50%, var(--bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-bar {
+  height: 10px;
+  margin: 8px 12px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border-color) 50%, var(--bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-bar:last-child {
+  margin-bottom: 14px;
+}
+
+.skeleton-loading-text {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 1024px) {
+  .skeleton-grid { columns: 2 180px; }
+}
+@media (max-width: 480px) {
+  .skeleton-grid { columns: 1; }
+}
+
 /* ==================== 隐藏类 ==================== */
 .hidden {
   display: none !important;
@@ -839,22 +979,23 @@ body {
 }
 
 .category-btn {
-  padding: 4px 10px;
+  padding: 5px 10px;
   font-size: 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  border: none;
+  border-radius: 6px;
+  background: var(--tag-bg);
+  color: var(--tag-color);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .category-btn:hover {
-  background: var(--bg-secondary);
+  background: var(--accent-color);
+  color: white;
+  transform: translateY(-1px);
 }
 
 .category-btn.active {
-  background: var(--accent-color);
-  color: white;
-  border-color: var(--accent-color);
+  background: var(--tag-active-bg);
+  color: var(--tag-active-color);
 }

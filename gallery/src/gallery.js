@@ -104,6 +104,10 @@
     
     window.galleryTags = highFreq;
     window.galleryTagsRaw = tagsMap; // 保留完整数据用于筛选
+    // 保存低频标签列表（用于展开显示）
+    window.galleryTagsLow = Object.entries(tagsMap)
+      .filter(([tag, count]) => tag !== 'all' && count < TAG_MIN_COUNT)
+      .sort((a, b) => b[1] - a[1]);
   }
 
   // ========== 分类提取 ==========
@@ -210,9 +214,16 @@
     tags.forEach(([tag, count]) => {
       if (tag === '_other') {
         html += `<div class="other-tag-divider"></div>`;
-        html += `<div style="width:100%;padding:4px 4px;font-size:10px;color:var(--text-muted);line-height:1.4;">
-          🔍 其余 ${count} 个低频标签可直接搜索
-        </div>`;
+        html += `<button class="tag-item tag-other-toggle" id="otherTagToggle" title="展开低频标签">
+          🔍 其他 <span class="tag-count">${count}</span>
+        </button>`;
+        html += `<div id="otherTagList" class="other-tag-list" style="display:none;">`;
+        (window.galleryTagsLow || []).forEach(([lowTag, lowCount]) => {
+          html += `<button class="tag-item tag-item-low" data-tag="${lowTag}">
+            ${lowTag} <span class="tag-count">${lowCount}</span>
+          </button>`;
+        });
+        html += `</div>`;
       } else if (tag !== 'all') {
         html += `
           <button class="tag-item ${state.currentTag === tag ? 'active' : ''}" data-tag="${tag}">
@@ -229,6 +240,30 @@
     sidebar.querySelectorAll('.tag-item').forEach(btn => {
       btn.addEventListener('click', handleTagClick);
     });
+    
+    // 绑定"其他"标签展开/折叠
+    var otherToggle = document.getElementById('otherTagToggle');
+    var otherList = document.getElementById('otherTagList');
+    if (otherToggle && otherList) {
+      otherToggle.addEventListener('click', function(e) {
+        var isHidden = otherList.style.display === 'none';
+        otherList.style.display = isHidden ? 'flex' : 'none';
+        otherToggle.classList.toggle('active', isHidden);
+        otherToggle.textContent = isHidden ? '🔼 收起' : '🔍 其他';
+        // 恢复计数
+        var countSpan = otherToggle.querySelector('.tag-count');
+        if (countSpan && isHidden) countSpan.textContent = (window.galleryTagsLow || []).reduce(function(s, t) { return s + t[1]; }, 0);
+        e.stopPropagation();
+      });
+      // 低频标签点击时自动收起
+      otherList.querySelectorAll('.tag-item-low').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          otherList.style.display = 'none';
+          otherToggle.classList.remove('active');
+          otherToggle.textContent = '🔍 其他';
+        });
+      });
+    }
   }
 
   // ========== 事件处理 ==========
@@ -349,6 +384,10 @@
         var nameA = (a.querySelector('.card-title')?.textContent || '').toLowerCase();
         var nameB = (b.querySelector('.card-title')?.textContent || '').toLowerCase();
         return nameB.localeCompare(nameA);
+      } else if (state.currentSort === 'favorites') {
+        var favA = state.favorites.includes(a.dataset.id) ? 0 : 1;
+        var favB = state.favorites.includes(b.dataset.id) ? 0 : 1;
+        return favA - favB;
       }
       return 0;
     });
@@ -407,14 +446,15 @@
     const index = state.favorites.indexOf(cardId);
     if (index > -1) {
       state.favorites.splice(index, 1);
-      btn.classList.remove('active');
-      btn.textContent = '收藏';
     } else {
       state.favorites.push(cardId);
-      btn.classList.add('active');
-      btn.textContent = '已收藏';
     }
     localStorage.setItem('galleryFavorites', JSON.stringify(state.favorites));
+    
+    // 同步更新页面上所有相同 cardId 的收藏按钮（卡片 + Lightbox）
+    document.querySelectorAll(`.favorite-btn[data-id="${cardId}"]`).forEach(function(b) {
+      updateFavoriteButton(cardId, b);
+    });
   }
 
   function updateFavoriteButton(cardId, btn) {
@@ -466,13 +506,13 @@
       card.classList.toggle('hidden', !visible);
     });
 
-    // 更新计数
-    const total = document.querySelectorAll('.style-card').length;
-    const visible = document.querySelectorAll('.style-card:not(.hidden)').length;
-    const counter = document.querySelector('.count-num');
-    if (counter) {
-      counter.textContent = visible;
-    }
+    // 更新计数（显示 可见数/总数）
+    const totalCards = document.querySelectorAll('.style-card').length;
+    const visibleCards = document.querySelectorAll('.style-card:not(.hidden)').length;
+    const counterVis = document.getElementById('countVisible');
+    const counterTotal = document.getElementById('countTotal');
+    if (counterVis) counterVis.textContent = visibleCards;
+    if (counterTotal) counterTotal.textContent = totalCards;
 
     // 清除筛选按钮可见性
     const hasActiveFilter = state.currentTag !== 'all' || state.currentCategory !== 'all' || 
@@ -503,14 +543,15 @@
 
   // ========== Lightbox 信息卡片 - 左图右文 ==========
   function openLightbox(card) {
-    const data = extractCardData(card);
+    const data = extractCardData(card, card.dataset.id);
     renderLightboxContent(data);
     elements.lightbox.classList.add('show');
     document.body.style.overflow = 'hidden';
   }
 
-  function extractCardData(card) {
+  function extractCardData(card, cardId) {
     return {
+      id: cardId || card.dataset.id || '',
       imageUrl: card.querySelector('.card-image')?.src || '',
       title: card.querySelector('.card-title')?.textContent || '',
       number: card.dataset.number || '',
@@ -529,6 +570,20 @@
     // 标题（不含编号）
     card.querySelector('.lightbox-title').textContent = data.title;
     card.querySelector('.lightbox-index').textContent = data.number ? `#${data.number}` : '';
+    
+    // 收藏按钮
+    const favBtn = card.querySelector('.lightbox-fav-btn');
+    if (favBtn && data.id) {
+      favBtn.dataset.id = data.id;
+      updateFavoriteButton(data.id, favBtn);
+      // 移除旧监听，绑定新监听
+      var newBtn = favBtn.cloneNode(true);
+      favBtn.parentNode.replaceChild(newBtn, favBtn);
+      newBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        handleFavoriteToggle(data.id, newBtn);
+      });
+    }
     
     // 图片
     const img = card.querySelector('.lightbox-image');
