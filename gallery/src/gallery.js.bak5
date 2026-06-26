@@ -286,23 +286,6 @@
       });
     }
 
-    // 键盘快捷键：Ctrl+K 或 / 聚焦搜索
-    document.addEventListener('keydown', function(e) {
-      // Ctrl+K 或 Cmd+K
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        if (elements.searchInput) elements.searchInput.focus();
-        return;
-      }
-      // / 键聚焦搜索（不在输入框中时）
-      if (e.key === '/' && !e.ctrlKey && !e.metaKey && 
-          document.activeElement?.tagName !== 'INPUT' && 
-          document.activeElement?.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        if (elements.searchInput) elements.searchInput.focus();
-      }
-    });
-
     // 主题切换
     if (elements.themeToggle) {
       elements.themeToggle.addEventListener('click', toggleTheme);
@@ -507,13 +490,6 @@
 
   // ========== 过滤逻辑 ==========
   function filterCards() {
-    // 先清除旧高亮
-    document.querySelectorAll('.style-card .card-title .search-highlight').forEach(function(m) {
-      var parent = m.parentNode;
-      parent.replaceChild(document.createTextNode(m.textContent), m);
-      parent.normalize();
-    });
-    
     elements.styleCards.forEach(card => {
       const cardId = card.dataset.id;
       const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
@@ -549,21 +525,6 @@
       }
 
       card.classList.toggle('hidden', !visible);
-      
-      // 搜索高亮 - 只在有搜索词且卡片可见时执行
-      var titleEl = card.querySelector('.card-title');
-      if (state.searchQuery && visible && titleEl) {
-        var origTitle = titleEl.dataset.origTitle || titleEl.textContent;
-        if (!titleEl.dataset.origTitle) titleEl.dataset.origTitle = origTitle;
-        var regex = new RegExp('(' + state.searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-        titleEl.innerHTML = origTitle.replace(regex, '<mark class="search-highlight">$1</mark>');
-      } else if (titleEl) {
-        // 恢复原始文本
-        if (titleEl.dataset.origTitle) {
-          titleEl.textContent = titleEl.dataset.origTitle;
-          delete titleEl.dataset.origTitle;
-        }
-      }
     });
 
     // 更新计数（显示 可见数/总数）
@@ -645,21 +606,10 @@
       });
     }
     
-    // 图片 - 点击切换全屏模式
+    // 图片
     const img = card.querySelector('.lightbox-image');
     img.src = data.imageUrl;
     img.alt = data.title;
-    img.classList.remove('lightbox-image-zoomed');
-    
-    // 移除旧图片点击监听
-    var newImg = img.cloneNode(true);
-    img.parentNode.replaceChild(newImg, img);
-    newImg.addEventListener('click', function(e) {
-      e.stopPropagation();
-      this.classList.toggle('lightbox-image-zoomed');
-      // 切换时同步 body 滚动锁定（放大时允许滚动）
-      document.body.style.overflow = this.classList.contains('lightbox-image-zoomed') ? '' : 'hidden';
-    });
     
     // 一句话理解
     const summarySection = card.querySelector('.lightbox-summary-section');
@@ -712,10 +662,6 @@
   }
 
   function closeLightbox() {
-    // 重置图片缩放
-    const zoomed = elements.lightboxCard?.querySelector('.lightbox-image-zoomed');
-    if (zoomed) zoomed.classList.remove('lightbox-image-zoomed');
-    
     elements.lightbox.classList.remove('show');
     document.body.style.overflow = '';
   }

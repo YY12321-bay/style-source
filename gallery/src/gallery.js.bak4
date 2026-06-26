@@ -37,7 +37,6 @@
   function cacheElements() {
     elements = {
       searchInput: document.getElementById('searchInput'),
-      searchClear: document.getElementById('searchClear'),
       themeToggle: document.getElementById('themeToggle'),
       filterFavorites: document.getElementById('filterFavorites'),
       clearFilters: document.getElementById('clearFilters'),
@@ -128,8 +127,8 @@
 
   // ========== 渲染分类按钮（渲染到固定的 category-bar） ==========
   function renderCategoryFilters() {
-    const catFilter = document.getElementById('categoryFilter');
-    if (!catFilter) return;
+    const categoryBar = document.getElementById('categoryBar');
+    if (!categoryBar) return;
 
     const categories = Object.entries(window.galleryCategories || {});
     categories.sort((a, b) => {
@@ -152,19 +151,21 @@
       'fashion': '👔 时尚',
       'creative': '🎪 创意',
       'vigo_cookbook': '📖 Cookbook',
+      'meigen': '⚠️ 待整理',
       'roots': '📁 未分类',
       'meigen': '⚠️ 待整理',
       'typography': '🔤 字体设计'
     };
 
-    let html = '';
+    let html = '<div class="category-filter">';
     categories.forEach(([cat, count]) => {
       const name = categoryNames[cat] || cat;
       const active = state.currentCategory === cat ? 'active' : '';
       html += `<button class="category-btn ${active}" data-category="${cat}">${name} <span class="tag-count">${count}</span></button>`;
     });
+    html += '</div>';
 
-    catFilter.innerHTML = html;
+    categoryBar.innerHTML = html;
 
     // 绑定分类按钮事件
     document.querySelectorAll('.category-btn').forEach(btn => {
@@ -272,36 +273,6 @@
     if (elements.searchInput) {
       elements.searchInput.addEventListener('input', debounce(handleSearch, 300));
     }
-    
-    // 搜索清除按钮
-    if (elements.searchClear) {
-      elements.searchClear.addEventListener('click', function() {
-        if (elements.searchInput) {
-          elements.searchInput.value = '';
-          state.searchQuery = '';
-          elements.searchClear.style.display = 'none';
-          filterCards();
-          elements.searchInput.focus();
-        }
-      });
-    }
-
-    // 键盘快捷键：Ctrl+K 或 / 聚焦搜索
-    document.addEventListener('keydown', function(e) {
-      // Ctrl+K 或 Cmd+K
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        if (elements.searchInput) elements.searchInput.focus();
-        return;
-      }
-      // / 键聚焦搜索（不在输入框中时）
-      if (e.key === '/' && !e.ctrlKey && !e.metaKey && 
-          document.activeElement?.tagName !== 'INPUT' && 
-          document.activeElement?.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        if (elements.searchInput) elements.searchInput.focus();
-      }
-    });
 
     // 主题切换
     if (elements.themeToggle) {
@@ -373,14 +344,7 @@
   }
 
   function handleSearch(e) {
-    const query = e.target.value.toLowerCase().trim();
-    state.searchQuery = query;
-    
-    // 显示/隐藏搜索清除按钮
-    if (elements.searchClear) {
-      elements.searchClear.style.display = query ? 'inline' : 'none';
-    }
-    
+    state.searchQuery = e.target.value.toLowerCase().trim();
     filterCards();
   }
 
@@ -454,7 +418,6 @@
 
     // 重置搜索框
     if (elements.searchInput) elements.searchInput.value = '';
-    if (elements.searchClear) elements.searchClear.style.display = 'none';
 
     // 重置排序
     if (elements.sortSelect) elements.sortSelect.value = 'default';
@@ -507,13 +470,6 @@
 
   // ========== 过滤逻辑 ==========
   function filterCards() {
-    // 先清除旧高亮
-    document.querySelectorAll('.style-card .card-title .search-highlight').forEach(function(m) {
-      var parent = m.parentNode;
-      parent.replaceChild(document.createTextNode(m.textContent), m);
-      parent.normalize();
-    });
-    
     elements.styleCards.forEach(card => {
       const cardId = card.dataset.id;
       const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
@@ -549,21 +505,6 @@
       }
 
       card.classList.toggle('hidden', !visible);
-      
-      // 搜索高亮 - 只在有搜索词且卡片可见时执行
-      var titleEl = card.querySelector('.card-title');
-      if (state.searchQuery && visible && titleEl) {
-        var origTitle = titleEl.dataset.origTitle || titleEl.textContent;
-        if (!titleEl.dataset.origTitle) titleEl.dataset.origTitle = origTitle;
-        var regex = new RegExp('(' + state.searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-        titleEl.innerHTML = origTitle.replace(regex, '<mark class="search-highlight">$1</mark>');
-      } else if (titleEl) {
-        // 恢复原始文本
-        if (titleEl.dataset.origTitle) {
-          titleEl.textContent = titleEl.dataset.origTitle;
-          delete titleEl.dataset.origTitle;
-        }
-      }
     });
 
     // 更新计数（显示 可见数/总数）
@@ -645,21 +586,10 @@
       });
     }
     
-    // 图片 - 点击切换全屏模式
+    // 图片
     const img = card.querySelector('.lightbox-image');
     img.src = data.imageUrl;
     img.alt = data.title;
-    img.classList.remove('lightbox-image-zoomed');
-    
-    // 移除旧图片点击监听
-    var newImg = img.cloneNode(true);
-    img.parentNode.replaceChild(newImg, img);
-    newImg.addEventListener('click', function(e) {
-      e.stopPropagation();
-      this.classList.toggle('lightbox-image-zoomed');
-      // 切换时同步 body 滚动锁定（放大时允许滚动）
-      document.body.style.overflow = this.classList.contains('lightbox-image-zoomed') ? '' : 'hidden';
-    });
     
     // 一句话理解
     const summarySection = card.querySelector('.lightbox-summary-section');
@@ -712,10 +642,6 @@
   }
 
   function closeLightbox() {
-    // 重置图片缩放
-    const zoomed = elements.lightboxCard?.querySelector('.lightbox-image-zoomed');
-    if (zoomed) zoomed.classList.remove('lightbox-image-zoomed');
-    
     elements.lightbox.classList.remove('show');
     document.body.style.overflow = '';
   }

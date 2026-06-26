@@ -550,30 +550,7 @@ body {
   font-weight: 600;
 }
 
-/* 搜索高亮 */
-.search-highlight {
-  background: #fde68a;
-  color: #1f2937;
-  padding: 0 2px;
-  border-radius: 2px;
-}
-
-[data-theme="dark"] .search-highlight {
-  background: #92400e;
-  color: #fef3c7;
-}
-
-/* 画廊淡入动画 */
-#app {
-  animation: galleryFadeIn 0.4s ease-out;
-}
-
-@keyframes galleryFadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ==================== 瀑布流布局（CSS Columns） ==================== */
+/* ==================== 风格卡片网格 - 瀑布流布局 ==================== */
 .gallery-grid {
   columns: 5 220px;
   column-gap: 12px;
@@ -810,11 +787,6 @@ body {
   flex-shrink: 0;
   position: relative;
   background: var(--bg-secondary);
-  overflow: hidden;
-}
-
-.lightbox-image-wrap:has(.lightbox-image-zoomed) {
-  overflow: visible;
 }
 
 .lightbox-image {
@@ -822,29 +794,12 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
-  cursor: zoom-in;
-  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-  z-index: 1;
-  position: relative;
-}
-
-/* Lightbox 图片全屏放大模式 */
-.lightbox-image-zoomed {
-  cursor: zoom-out;
-  transform: scale(1.8);
-  z-index: 10;
-}
-
-.lightbox-image-zoomed ~ * {
-  opacity: 0.15;
-  pointer-events: none;
 }
 
 .lightbox-close {
   position: absolute;
   top: 12px;
   right: 12px;
-  z-index: 20;
   background: rgba(0,0,0,0.6);
   border: none;
   color: white;
@@ -988,12 +943,6 @@ body {
 }
 
 /* ==================== 响应式 ==================== */
-@media (max-width: 1600px) {
-  .gallery-grid {
-    columns: 4 220px;
-  }
-}
-
 @media (max-width: 1400px) {
   .gallery-grid {
     columns: 4 220px;

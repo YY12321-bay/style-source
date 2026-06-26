@@ -18,7 +18,7 @@
   };
 
   // 标签最小展示频次阈值（低于此值折叠到「其他」）
-  const TAG_MIN_COUNT = 3;
+  const TAG_MIN_COUNT = 5;
 
   // ========== DOM 元素 ==========
   let elements = {};
@@ -37,7 +37,6 @@
   function cacheElements() {
     elements = {
       searchInput: document.getElementById('searchInput'),
-      searchClear: document.getElementById('searchClear'),
       themeToggle: document.getElementById('themeToggle'),
       filterFavorites: document.getElementById('filterFavorites'),
       clearFilters: document.getElementById('clearFilters'),
@@ -105,10 +104,6 @@
     
     window.galleryTags = highFreq;
     window.galleryTagsRaw = tagsMap; // 保留完整数据用于筛选
-    // 保存低频标签列表（用于展开显示）
-    window.galleryTagsLow = Object.entries(tagsMap)
-      .filter(([tag, count]) => tag !== 'all' && count < TAG_MIN_COUNT)
-      .sort((a, b) => b[1] - a[1]);
   }
 
   // ========== 分类提取 ==========
@@ -126,10 +121,11 @@
     window.galleryCategories = categoriesMap;
   }
 
-  // ========== 渲染分类按钮（渲染到固定的 category-bar） ==========
+  // ========== 渲染分类按钮 ==========
   function renderCategoryFilters() {
-    const catFilter = document.getElementById('categoryFilter');
-    if (!catFilter) return;
+    // 在 filter-bar 后添加分类筛选栏
+    const filterBar = document.querySelector('.filter-bar');
+    if (!filterBar) return;
 
     const categories = Object.entries(window.galleryCategories || {});
     categories.sort((a, b) => {
@@ -152,19 +148,19 @@
       'fashion': '👔 时尚',
       'creative': '🎪 创意',
       'vigo_cookbook': '📖 Cookbook',
-      'roots': '📁 未分类',
       'meigen': '⚠️ 待整理',
-      'typography': '🔤 字体设计'
+      'root': '📁 未分类'
     };
 
-    let html = '';
+    let html = '<div class="category-filter">';
     categories.forEach(([cat, count]) => {
       const name = categoryNames[cat] || cat;
       const active = state.currentCategory === cat ? 'active' : '';
       html += `<button class="category-btn ${active}" data-category="${cat}">${name} <span class="tag-count">${count}</span></button>`;
     });
+    html += '</div>';
 
-    catFilter.innerHTML = html;
+    filterBar.insertAdjacentHTML('afterend', html);
 
     // 绑定分类按钮事件
     document.querySelectorAll('.category-btn').forEach(btn => {
@@ -214,16 +210,9 @@
     tags.forEach(([tag, count]) => {
       if (tag === '_other') {
         html += `<div class="other-tag-divider"></div>`;
-        html += `<button class="tag-item tag-other-toggle" id="otherTagToggle" title="展开低频标签">
-          🔍 其他 <span class="tag-count">${count}</span>
-        </button>`;
-        html += `<div id="otherTagList" class="other-tag-list" style="display:none;">`;
-        (window.galleryTagsLow || []).forEach(([lowTag, lowCount]) => {
-          html += `<button class="tag-item tag-item-low" data-tag="${lowTag}">
-            ${lowTag} <span class="tag-count">${lowCount}</span>
-          </button>`;
-        });
-        html += `</div>`;
+        html += `<div style="width:100%;padding:4px 4px;font-size:10px;color:var(--text-muted);line-height:1.4;">
+          🔍 其余 ${count} 个低频标签可直接搜索
+        </div>`;
       } else if (tag !== 'all') {
         html += `
           <button class="tag-item ${state.currentTag === tag ? 'active' : ''}" data-tag="${tag}">
@@ -240,30 +229,6 @@
     sidebar.querySelectorAll('.tag-item').forEach(btn => {
       btn.addEventListener('click', handleTagClick);
     });
-    
-    // 绑定"其他"标签展开/折叠
-    var otherToggle = document.getElementById('otherTagToggle');
-    var otherList = document.getElementById('otherTagList');
-    if (otherToggle && otherList) {
-      otherToggle.addEventListener('click', function(e) {
-        var isHidden = otherList.style.display === 'none';
-        otherList.style.display = isHidden ? 'flex' : 'none';
-        otherToggle.classList.toggle('active', isHidden);
-        otherToggle.textContent = isHidden ? '🔼 收起' : '🔍 其他';
-        // 恢复计数
-        var countSpan = otherToggle.querySelector('.tag-count');
-        if (countSpan && isHidden) countSpan.textContent = (window.galleryTagsLow || []).reduce(function(s, t) { return s + t[1]; }, 0);
-        e.stopPropagation();
-      });
-      // 低频标签点击时自动收起
-      otherList.querySelectorAll('.tag-item-low').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          otherList.style.display = 'none';
-          otherToggle.classList.remove('active');
-          otherToggle.textContent = '🔍 其他';
-        });
-      });
-    }
   }
 
   // ========== 事件处理 ==========
@@ -272,36 +237,6 @@
     if (elements.searchInput) {
       elements.searchInput.addEventListener('input', debounce(handleSearch, 300));
     }
-    
-    // 搜索清除按钮
-    if (elements.searchClear) {
-      elements.searchClear.addEventListener('click', function() {
-        if (elements.searchInput) {
-          elements.searchInput.value = '';
-          state.searchQuery = '';
-          elements.searchClear.style.display = 'none';
-          filterCards();
-          elements.searchInput.focus();
-        }
-      });
-    }
-
-    // 键盘快捷键：Ctrl+K 或 / 聚焦搜索
-    document.addEventListener('keydown', function(e) {
-      // Ctrl+K 或 Cmd+K
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        if (elements.searchInput) elements.searchInput.focus();
-        return;
-      }
-      // / 键聚焦搜索（不在输入框中时）
-      if (e.key === '/' && !e.ctrlKey && !e.metaKey && 
-          document.activeElement?.tagName !== 'INPUT' && 
-          document.activeElement?.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        if (elements.searchInput) elements.searchInput.focus();
-      }
-    });
 
     // 主题切换
     if (elements.themeToggle) {
@@ -373,14 +308,7 @@
   }
 
   function handleSearch(e) {
-    const query = e.target.value.toLowerCase().trim();
-    state.searchQuery = query;
-    
-    // 显示/隐藏搜索清除按钮
-    if (elements.searchClear) {
-      elements.searchClear.style.display = query ? 'inline' : 'none';
-    }
-    
+    state.searchQuery = e.target.value.toLowerCase().trim();
     filterCards();
   }
 
@@ -421,10 +349,6 @@
         var nameA = (a.querySelector('.card-title')?.textContent || '').toLowerCase();
         var nameB = (b.querySelector('.card-title')?.textContent || '').toLowerCase();
         return nameB.localeCompare(nameA);
-      } else if (state.currentSort === 'favorites') {
-        var favA = state.favorites.includes(a.dataset.id) ? 0 : 1;
-        var favB = state.favorites.includes(b.dataset.id) ? 0 : 1;
-        return favA - favB;
       }
       return 0;
     });
@@ -454,7 +378,6 @@
 
     // 重置搜索框
     if (elements.searchInput) elements.searchInput.value = '';
-    if (elements.searchClear) elements.searchClear.style.display = 'none';
 
     // 重置排序
     if (elements.sortSelect) elements.sortSelect.value = 'default';
@@ -484,15 +407,14 @@
     const index = state.favorites.indexOf(cardId);
     if (index > -1) {
       state.favorites.splice(index, 1);
+      btn.classList.remove('active');
+      btn.textContent = '收藏';
     } else {
       state.favorites.push(cardId);
+      btn.classList.add('active');
+      btn.textContent = '已收藏';
     }
     localStorage.setItem('galleryFavorites', JSON.stringify(state.favorites));
-    
-    // 同步更新页面上所有相同 cardId 的收藏按钮（卡片 + Lightbox）
-    document.querySelectorAll(`.favorite-btn[data-id="${cardId}"]`).forEach(function(b) {
-      updateFavoriteButton(cardId, b);
-    });
   }
 
   function updateFavoriteButton(cardId, btn) {
@@ -507,13 +429,6 @@
 
   // ========== 过滤逻辑 ==========
   function filterCards() {
-    // 先清除旧高亮
-    document.querySelectorAll('.style-card .card-title .search-highlight').forEach(function(m) {
-      var parent = m.parentNode;
-      parent.replaceChild(document.createTextNode(m.textContent), m);
-      parent.normalize();
-    });
-    
     elements.styleCards.forEach(card => {
       const cardId = card.dataset.id;
       const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
@@ -549,30 +464,15 @@
       }
 
       card.classList.toggle('hidden', !visible);
-      
-      // 搜索高亮 - 只在有搜索词且卡片可见时执行
-      var titleEl = card.querySelector('.card-title');
-      if (state.searchQuery && visible && titleEl) {
-        var origTitle = titleEl.dataset.origTitle || titleEl.textContent;
-        if (!titleEl.dataset.origTitle) titleEl.dataset.origTitle = origTitle;
-        var regex = new RegExp('(' + state.searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-        titleEl.innerHTML = origTitle.replace(regex, '<mark class="search-highlight">$1</mark>');
-      } else if (titleEl) {
-        // 恢复原始文本
-        if (titleEl.dataset.origTitle) {
-          titleEl.textContent = titleEl.dataset.origTitle;
-          delete titleEl.dataset.origTitle;
-        }
-      }
     });
 
-    // 更新计数（显示 可见数/总数）
-    const totalCards = document.querySelectorAll('.style-card').length;
-    const visibleCards = document.querySelectorAll('.style-card:not(.hidden)').length;
-    const counterVis = document.getElementById('countVisible');
-    const counterTotal = document.getElementById('countTotal');
-    if (counterVis) counterVis.textContent = visibleCards;
-    if (counterTotal) counterTotal.textContent = totalCards;
+    // 更新计数
+    const total = document.querySelectorAll('.style-card').length;
+    const visible = document.querySelectorAll('.style-card:not(.hidden)').length;
+    const counter = document.querySelector('.count-num');
+    if (counter) {
+      counter.textContent = visible;
+    }
 
     // 清除筛选按钮可见性
     const hasActiveFilter = state.currentTag !== 'all' || state.currentCategory !== 'all' || 
@@ -603,15 +503,14 @@
 
   // ========== Lightbox 信息卡片 - 左图右文 ==========
   function openLightbox(card) {
-    const data = extractCardData(card, card.dataset.id);
+    const data = extractCardData(card);
     renderLightboxContent(data);
     elements.lightbox.classList.add('show');
     document.body.style.overflow = 'hidden';
   }
 
-  function extractCardData(card, cardId) {
+  function extractCardData(card) {
     return {
-      id: cardId || card.dataset.id || '',
       imageUrl: card.querySelector('.card-image')?.src || '',
       title: card.querySelector('.card-title')?.textContent || '',
       number: card.dataset.number || '',
@@ -631,35 +530,10 @@
     card.querySelector('.lightbox-title').textContent = data.title;
     card.querySelector('.lightbox-index').textContent = data.number ? `#${data.number}` : '';
     
-    // 收藏按钮
-    const favBtn = card.querySelector('.lightbox-fav-btn');
-    if (favBtn && data.id) {
-      favBtn.dataset.id = data.id;
-      updateFavoriteButton(data.id, favBtn);
-      // 移除旧监听，绑定新监听
-      var newBtn = favBtn.cloneNode(true);
-      favBtn.parentNode.replaceChild(newBtn, favBtn);
-      newBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        handleFavoriteToggle(data.id, newBtn);
-      });
-    }
-    
-    // 图片 - 点击切换全屏模式
+    // 图片
     const img = card.querySelector('.lightbox-image');
     img.src = data.imageUrl;
     img.alt = data.title;
-    img.classList.remove('lightbox-image-zoomed');
-    
-    // 移除旧图片点击监听
-    var newImg = img.cloneNode(true);
-    img.parentNode.replaceChild(newImg, img);
-    newImg.addEventListener('click', function(e) {
-      e.stopPropagation();
-      this.classList.toggle('lightbox-image-zoomed');
-      // 切换时同步 body 滚动锁定（放大时允许滚动）
-      document.body.style.overflow = this.classList.contains('lightbox-image-zoomed') ? '' : 'hidden';
-    });
     
     // 一句话理解
     const summarySection = card.querySelector('.lightbox-summary-section');
@@ -712,10 +586,6 @@
   }
 
   function closeLightbox() {
-    // 重置图片缩放
-    const zoomed = elements.lightboxCard?.querySelector('.lightbox-image-zoomed');
-    if (zoomed) zoomed.classList.remove('lightbox-image-zoomed');
-    
     elements.lightbox.classList.remove('show');
     document.body.style.overflow = '';
   }

@@ -113,17 +113,9 @@ def build_gallery_html(data: dict, output_path: str):
 
     from datetime import date
     today_str = date.today().strftime('%Y-%m-%d')
-    cache_hash = today_str.replace('-', '')  # 20260626 用于缓存版本
     description = f'AI 风格画廊 — 收集 {total} 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。'
     base_url = 'https://malongan.github.io/style-source'
     img_preview = f'{base_url}/images/styles_previews/'
-
-    # 写出独立 CSS 文件（用于缓存）
-    css_path = os.path.join(os.path.dirname(output_path), 'gallery.css')
-    with open(css_path, 'w', encoding='utf-8') as f:
-        f.write(f'/* gallery.css v{cache_hash} — 由 build_gallery.py 生成 */\n')
-        f.write(inline_css)
-    print(f'  📝 写出独立 CSS: {css_path}')
 
     html = f'''<!DOCTYPE html>
 <html lang="zh-CN">
@@ -145,17 +137,10 @@ def build_gallery_html(data: dict, output_path: str):
 <meta name="twitter:image" content="{base_url}/images/styles_previews/avantgarde_bw_poster_44361c82.webp">
 <link rel="canonical" href="{base_url}/gallery.html">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
-<link rel="stylesheet" href="gallery.css?v={cache_hash}">
 <style>
-/* ★ 首屏关键样式（防 FOUC，完整样式从 gallery.css 加载） */
-:root {{ --bg-primary:#f0f2f5;--bg-card:#fff;--text-primary:#1f2937;--text-muted:#9ca3af;--accent-color:#3b82f6; }}
-[data-theme="dark"] {{ --bg-primary:#111827;--bg-card:#1f2937;--text-primary:#f9fafb;--accent-color:#60a5fa; }}
-* {{ margin:0;padding:0;box-sizing:border-box; }}
-body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary); }}
-#app {{ display:none; }}
-.loading-skeleton {{ padding:20px 0;text-align:center;color:var(--text-muted); }}
+/* ★ 样式内联 — 来自 gallery/src/gallery.css */
+{inline_css}
 </style>
-<noscript><link rel="stylesheet" href="gallery.css?v={cache_hash}"></noscript>
 </head>
 <body>
   <div id="loading" class="loading-skeleton">
@@ -181,7 +166,7 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
       <div class="header-right">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="搜索风格、标签、作者..." autofocus>
+          <input type="text" id="searchInput" placeholder="搜索风格、标签、作者...">
           <span class="search-clear" id="searchClear" style="display:none;">✕</span>
         </div>
         <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
