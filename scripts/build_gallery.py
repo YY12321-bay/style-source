@@ -289,8 +289,8 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
   <button class="back-to-top" id="backToTop" title="回到顶部">↑</button>
 
 <script>
-/* ★ FALLBACK DATA — 部署时内嵌 */
-window.__FALLBACK_DATA__ = {json.dumps(fallback, ensure_ascii=False, indent=2)};
+/* ★ FALLBACK DATA — 部署时内嵌（紧凑格式节省体积） */
+window.__FALLBACK_DATA__ = {json.dumps(fallback, ensure_ascii=False, separators=(',', ':'))};
 window.__FALLBACK_IMG__ = '{js_str(FALLBACK_IMG)}';
 </script>
 <script src="gallery-runtime.js?v={cache_hash}"></script>
