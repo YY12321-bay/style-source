@@ -2502,8 +2502,44 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
     const card = elements.lightboxCard;
     
     // 标题（不含编号）
+    const indexEl = card.querySelector('.lightbox-index');
     card.querySelector('.lightbox-title').textContent = data.title;
-    card.querySelector('.lightbox-index').textContent = data.number ? `#${data.number}` : '';
+    if (data.number) {
+      indexEl.textContent = `#${data.number}`;
+      indexEl.style.cursor = 'pointer';
+      indexEl.title = '点击复制编号';
+      // 复制编号
+      indexEl.onclick = function(e) {
+        e.stopPropagation();
+        navigator.clipboard.writeText(data.number).then(function() {
+          var orig = indexEl.textContent;
+          indexEl.textContent = '✅ 已复制';
+          indexEl.style.color = 'var(--accent-color)';
+          setTimeout(function() {
+            indexEl.textContent = orig;
+            indexEl.style.color = '';
+          }, 1500);
+        }).catch(function() {
+          // fallback
+          var ta = document.createElement('textarea');
+          ta.value = data.number;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          var orig = indexEl.textContent;
+          indexEl.textContent = '✅ 已复制';
+          setTimeout(function() {
+            indexEl.textContent = orig;
+          }, 1500);
+        });
+      };
+    } else {
+      indexEl.textContent = '';
+      indexEl.onclick = null;
+    }
     
     // 收藏按钮
     const favBtn = card.querySelector('.lightbox-fav-btn');
@@ -2519,21 +2555,10 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
       });
     }
     
-    // 图片 - 点击切换全屏模式
+    // 图片
     const img = card.querySelector('.lightbox-image');
     img.src = data.imageUrl;
     img.alt = data.title;
-    img.classList.remove('lightbox-image-zoomed');
-    
-    // 移除旧图片点击监听
-    var newImg = img.cloneNode(true);
-    img.parentNode.replaceChild(newImg, img);
-    newImg.addEventListener('click', function(e) {
-      e.stopPropagation();
-      this.classList.toggle('lightbox-image-zoomed');
-      // 切换时同步 body 滚动锁定（放大时允许滚动）
-      document.body.style.overflow = this.classList.contains('lightbox-image-zoomed') ? '' : 'hidden';
-    });
     
     // 一句话理解
     const summarySection = card.querySelector('.lightbox-summary-section');
@@ -2585,11 +2610,7 @@ window.__FALLBACK_IMG__ = '<div class="img-fallback" style="width:100%;aspect-ra
     }
   }
 
-  function closeLightbox() {
-    // 重置图片缩放
-    const zoomed = elements.lightboxCard?.querySelector('.lightbox-image-zoomed');
-    if (zoomed) zoomed.classList.remove('lightbox-image-zoomed');
-    
+  function closeLightbox() {    
     elements.lightbox.classList.remove('show');
     document.body.style.overflow = '';
   }
