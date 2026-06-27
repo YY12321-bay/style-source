@@ -86,28 +86,7 @@ def build_gallery_html(data: dict, output_path: str):
             "  window.init = init;\n})();"
         )
 
-    # 预生成风格数据的 JS 数组（用于 renderGallery）—— 不再使用，数据从 CDN 加载
-    styles_js = []
-    for s in styles:
-        img_url = s.get('preview_webp', '') or (s.get('preview_urls') or [''])[0]
-        tags = s.get('tags', [])
-        features = s.get('features', [])
-        styles_js.append('{')
-        styles_js.append(f"  id: '{js_str(s.get('id', ''))}',")
-        styles_js.append(f"  code: '{js_str(s.get('code', ''))}',")
-        styles_js.append(f"  name: '{js_str(s.get('name', ''))}',")
-        styles_js.append(f"  category: '{js_str(s.get('category', ''))}',")
-        styles_js.append(f"  imgUrl: '{js_str(img_url)}',")
-        styles_js.append(f"  summary: '{js_str(s.get('summary', ''))}',")
-        styles_js.append(f"  triggers: '{js_str(s.get('triggers', ''))}',")
-        styles_js.append(f"  features: {json.dumps(features, ensure_ascii=False)},")
-        styles_js.append(f"  tags: {json.dumps(tags, ensure_ascii=False)},")
-        styles_js.append(f"  sourceUrl: '{js_str(s.get('source_url', ''))}',")
-        styles_js.append(f"  sourceAuthor: '{js_str(s.get('source_author', ''))}'")
-        styles_js.append('},')
-
-    styles_json_array = '\n    '.join(styles_js)
-
+    # 风格数据不再内联到 HTML，由 gallery-runtime.js 从 CDN 加载
     version = meta.get('version', '0.0.0').lstrip('v')
     total = len(styles)
 

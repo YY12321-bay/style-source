@@ -1,4 +1,4 @@
-/* gallery.css v20260626 — 由 build_gallery.py 生成 */
+/* gallery.css v20260627 — 由 build_gallery.py 生成 */
 /* ==================== 主题变量 ==================== */
 :root {
   /* 浅色主题 - 灰色调 */
@@ -649,21 +649,6 @@ body {
 }
 
 /* 卡片编号 - 点击可复制 */
-.card-number {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: color 0.2s;
-  user-select: all;
-}
-.card-number:hover {
-  color: var(--accent-color);
-}
-.card-number.copied {
-  color: #22c55e;
-}
-
 /* 卡片标题行：编号 + 名称 + 分类标签 */
 .card-title-row {
   display: flex;
@@ -1133,7 +1118,7 @@ body {
 }
 
 .skeleton-grid {
-  columns: 4 220px;
+  columns: 5 220px;
   column-gap: 12px;
 }
 
@@ -1179,8 +1164,20 @@ body {
   100% { background-position: -200% 0; }
 }
 
+@media (max-width: 1600px) {
+  .skeleton-grid { columns: 4 220px; }
+}
+@media (max-width: 1400px) {
+  .skeleton-grid { columns: 4 220px; }
+}
+@media (max-width: 1200px) {
+  .skeleton-grid { columns: 3 200px; }
+}
 @media (max-width: 1024px) {
   .skeleton-grid { columns: 2 180px; }
+}
+@media (max-width: 768px) {
+  .skeleton-grid { columns: 2 150px; }
 }
 @media (max-width: 480px) {
   .skeleton-grid { columns: 1; }

@@ -1,4 +1,4 @@
-/* gallery-runtime.js v20260626 — 由 build_gallery.py 生成 */
+/* gallery-runtime.js v20260627 — 由 build_gallery.py 生成 */
 /**
  * Gallery 功能脚本 v3
  * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式
@@ -95,7 +95,7 @@
       });
     });
     
-    // 按频次分类：高频（≥5次）保留，低频折叠
+    // 按频次分类：高频（≥TAG_MIN_COUNT次）保留，低频折叠
     const highFreq = {};
     let lowFreqCount = 0;
     Object.entries(tagsMap).forEach(([tag, count]) => {
@@ -637,10 +637,10 @@
       elements.clearFilters.style.display = hasActiveFilter ? 'inline-block' : 'none';
     }
     
-    // 显示无结果提示
+    // 显示无结果提示（用可见卡片计数判断，不用 forEach 内部变量）
     let noResults = document.querySelector('.no-results');
     
-    if (visible === 0) {
+    if (visibleCards === 0) {
       if (!noResults) {
         noResults = document.createElement('div');
         noResults.className = 'no-results';
