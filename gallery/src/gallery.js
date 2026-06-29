@@ -574,6 +574,7 @@
       const tagsStr = card.dataset.tags || '';
       const triggers = card.dataset.triggers?.toLowerCase() || '';
       const category = card.dataset.category || '';
+      const code = (card.dataset.code || '').toLowerCase();
       
       let visible = true;
 
@@ -593,7 +594,8 @@
         visible = visible && (
           title.includes(state.searchQuery) ||
           tagsStr.toLowerCase().includes(state.searchQuery) ||
-          triggers.includes(state.searchQuery)
+          triggers.includes(state.searchQuery) ||
+          code.includes(state.searchQuery)
         );
       }
 
