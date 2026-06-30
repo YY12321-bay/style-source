@@ -229,7 +229,7 @@ def generate_styles_json(output_path: str):
 
     # 统计数据
     webp_full = sum(1 for s in all_styles if s.get('preview_webp'))
-    webp_thumb = sum(1 for s in all_styles if s.get('preview_thumb'))
+    webp_thumb = sum(1 for s in all_styles if s.get('preview_webp_thumb'))
     missing = sum(1 for s in all_styles if not s['preview_urls'])
 
     print(f'✅ 已生成 {output_path}')
