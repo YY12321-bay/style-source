@@ -37,9 +37,69 @@
     extractCategories();
     renderSidebarTags();
     renderCategoryFilters();
+    // URL 参数路由：加载后读取 URL params 并应用筛选
+    readURLParams();
+    // 同步下拉选择器的值
+    if (elements.sortSelect) elements.sortSelect.value = state.currentSort;
     setupLazyLoading();
     // Hash 路由：页面加载后检查 URL hash
     setTimeout(handleHashRoute, 100);
+  }
+
+  // ========== URL 参数路由 ==========
+  /** 从 URL search params 读取筛选状态并应用 */
+  function readURLParams() {
+    var params = new URLSearchParams(window.location.search);
+    var hasFilter = false;
+
+    if (params.has('q')) {
+      state.searchQuery = params.get('q');
+      if (elements.searchInput) {
+        elements.searchInput.value = state.searchQuery;
+        elements.searchClear.style.display = state.searchQuery ? 'block' : 'none';
+      }
+      hasFilter = true;
+    }
+    if (params.has('category')) {
+      state.currentCategory = params.get('category');
+      // 高亮对应的分类按钮
+      document.querySelectorAll('.category-btn').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.category === state.currentCategory);
+      });
+      hasFilter = true;
+    }
+    if (params.has('tag')) {
+      state.currentTag = params.get('tag');
+      hasFilter = true;
+    }
+    if (params.has('sort')) {
+      state.currentSort = params.get('sort');
+      if (elements.sortSelect) elements.sortSelect.value = state.currentSort;
+      hasFilter = true;
+    }
+    if (params.has('fav') && params.get('fav') === '1') {
+      state.showFavoritesOnly = true;
+      if (elements.filterFavorites) elements.filterFavorites.classList.add('active');
+      hasFilter = true;
+    }
+
+    if (hasFilter) {
+      filterCards();
+    }
+  }
+
+  /** 将当前筛选状态同步到 URL search params */
+  function updateURLParams() {
+    var params = new URLSearchParams();
+    if (state.searchQuery) params.set('q', state.searchQuery);
+    if (state.currentCategory !== 'all') params.set('category', state.currentCategory);
+    if (state.currentTag !== 'all') params.set('tag', state.currentTag);
+    if (state.currentSort !== 'default') params.set('sort', state.currentSort);
+    if (state.showFavoritesOnly) params.set('fav', '1');
+
+    var qs = params.toString();
+    var newURL = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+    history.replaceState(null, '', newURL);
   }
 
   function cacheElements() {
@@ -416,6 +476,7 @@
     }
 
     // 浏览器前进/后退按钮（hash 变化）
+    // 浏览器前进/后退按钮：处理 hash 变化和 URL params 变化
     window.addEventListener('popstate', function() {
       var hash = window.location.hash.replace('#', '');
       if (hash) {
@@ -428,14 +489,44 @@
           closeLightbox();
         }
       }
+      // 重新读取 URL params 并应用（当用户通过浏览器前进/后退改变筛选时）
+      readURLParams();
+    });
+
+    // ========== 键盘导航 ==========
+    document.addEventListener('keydown', function(e) {
+      // 搜索框内按 Escape 清空并失焦
+      if (e.key === 'Escape' && document.activeElement === elements.searchInput) {
+        elements.searchInput.value = '';
+        elements.searchInput.blur();
+        state.searchQuery = '';
+        filterCards();
+      }
+      // 卡片上有焦点时，按 Enter 或 Space 打开详情
+      if ((e.key === 'Enter' || e.key === ' ') && document.activeElement) {
+        var focusedCard = document.activeElement.closest('.style-card');
+        if (focusedCard && !e.target.closest('.favorite-btn') && !e.target.closest('.card-link')) {
+          e.preventDefault();
+          openLightbox(focusedCard);
+        }
+      }
     });
 
     // 回到顶部按钮
     var backToTop = document.getElementById('backToTop');
     if (backToTop) {
-      window.addEventListener('scroll', debounce(function() {
-        backToTop.classList.toggle('visible', window.scrollY > 400);
-      }, 100));
+      // 用 IntersectionObserver 替代 scroll 事件
+      var sentinel = document.createElement('div');
+      sentinel.id = 'scroll-sentinel';
+      sentinel.style.cssText = 'position:fixed;top:1px;left:0;width:1px;height:1px;pointer-events:none;opacity:0;';
+      document.body.appendChild(sentinel);
+
+      var scrollObserver = new IntersectionObserver(function(entries) {
+        // sentinel 不可见 → 已滚动超过 1px
+        backToTop.classList.toggle('visible', !entries[0].isIntersecting);
+      }, { threshold: 0 });
+      scrollObserver.observe(sentinel);
+
       backToTop.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
@@ -701,6 +792,9 @@
     } else if (noResults) {
       noResults.style.display = 'none';
     }
+
+    // 更新 URL 参数
+    updateURLParams();
   }
 
   // ========== Lightbox 信息卡片 - 左图右文 ==========
@@ -793,6 +887,9 @@
     const img = card.querySelector('.lightbox-image');
     img.src = data.imageUrl;
     img.alt = data.title;
+    // 同步更新 <picture> 的 <source> 标签
+    const source = card.querySelector('.lightbox-source');
+    if (source) source.srcset = data.imageUrl;
     
     // 一句话理解
     const summarySection = card.querySelector('.lightbox-summary-section');

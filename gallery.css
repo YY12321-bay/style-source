@@ -1,4 +1,4 @@
-/* gallery.css v202607021053 — 由 build_gallery.py 生成 */
+/* gallery.css v202607021108 — 由 build_gallery.py 生成 */
 /* ==================== 主题变量 ==================== */
 :root {
   /* 浅色主题 - 灰色调 */
@@ -599,6 +599,14 @@ body {
 
 .style-card:hover {
   transform: translateY(-6px) scale(1.015);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--accent-color);
+}
+
+.style-card:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  transform: translateY(-4px) scale(1.01);
   box-shadow: var(--card-hover-shadow);
   border-color: var(--accent-color);
 }

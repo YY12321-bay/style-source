@@ -602,6 +602,14 @@ body {
   border-color: var(--accent-color);
 }
 
+.style-card:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--accent-color);
+}
+
 /* 图片包裹（用于定位 🆕 徽章） */
 .card-image-wrap {
   position: relative;

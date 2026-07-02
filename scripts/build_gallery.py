@@ -115,9 +115,9 @@ function buildCardHTML(s, idx, total) {{
       (sourceAuthor ? '🔗 @' + sourceAuthor.replace(/"/g,'&quot;') : '🔗 来源') + '</a>';
   }}
   var badgeHtml = isNew ? '<span class="card-badge-new">🆕 NEW</span>' : '';
-  var imgHtml = '<img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"'
-    + ' onerror="this.outerHTML=window.__FALLBACK_IMG__">';
-  return '<div class="style-card" data-id="' + s.id + '"' +
+  var imgHtml = '<picture><source srcset="' + imgUrl + '" type="image/webp"><img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"'
+    + ' onerror="this.outerHTML=window.__FALLBACK_IMG__"></picture>';
+  return '<div class="style-card" tabindex="0" role="button" data-id="' + s.id + '"' +
     ' data-code="' + (s.code || '') + '"' +
     ' data-summary="' + summary.replace(/"/g,'&quot;') + '"' +
     ' data-features="' + features.replace(/"/g,'&quot;') + '"' +
@@ -323,7 +323,7 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
       <button class="lightbox-nav lightbox-nav-next" id="lightboxNext" title="下一个 (→)">▶</button>
       <div class="lightbox-card">
         <div class="lightbox-image-wrap">
-          <img src="" alt="" class="lightbox-image">
+        <picture><source srcset="" type="image/webp" class="lightbox-source"><img src="" alt="" class="lightbox-image"></picture>
           <button class="lightbox-close" id="lightboxClose">✕</button>
         </div>
         <div class="lightbox-body">
