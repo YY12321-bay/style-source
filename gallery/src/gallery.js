@@ -130,6 +130,29 @@
       categoriesMap[category]++;
     });
     
+    // 统计特殊分类（基于标签关键词）
+    const paintingKeywords = ['painting', '绘画', '水彩', '油画', '手绘', '插画', '画'];
+    const d3Keywords = ['3d', 'c4d', '三维', '建模', 'cgi', 'render', '3d渲染'];
+    
+    let paintingCount = 0;
+    let d3Count = 0;
+    
+    elements.styleCards.forEach(card => {
+      const tagsStr = (card.dataset.tags || '').toLowerCase();
+      const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+      const searchText = tagsStr + ' ' + title;
+      
+      if (paintingKeywords.some(k => searchText.includes(k))) {
+        paintingCount++;
+      }
+      if (d3Keywords.some(k => searchText.includes(k))) {
+        d3Count++;
+      }
+    });
+    
+    categoriesMap['painting'] = paintingCount;
+    categoriesMap['3d'] = d3Count;
+    
     window.galleryCategories = categoriesMap;
   }
 
@@ -161,7 +184,9 @@
       'vigo_cookbook': '📖 Cookbook',
       'roots': '📁 未分类',
       'meigen': '⚠️ 待整理',
-      'typography': '🔤 字体设计'
+      'typography': '🔤 字体设计',
+      'painting': '🖌️ 绘画',
+      '3d': '📐 3D'
     };
 
     let html = '';
@@ -587,7 +612,18 @@
 
       // 分类筛选
       if (state.currentCategory !== 'all') {
-        visible = visible && category === state.currentCategory;
+        // 特殊分类（painting, 3d）基于标签筛选
+        if (state.currentCategory === 'painting') {
+          const paintingKeywords = ['painting', '绘画', '水彩', '油画', '手绘', '插画', '画'];
+          const cardTagsLower = tagsStr.toLowerCase();
+          visible = visible && paintingKeywords.some(k => cardTagsLower.includes(k));
+        } else if (state.currentCategory === '3d') {
+          const d3Keywords = ['3d', 'c4d', '三维', '建模', 'cgi', 'render', '3d渲染'];
+          const cardTagsLower = tagsStr.toLowerCase();
+          visible = visible && d3Keywords.some(k => cardTagsLower.includes(k));
+        } else {
+          visible = visible && category === state.currentCategory;
+        }
       }
 
       // 标签筛选
