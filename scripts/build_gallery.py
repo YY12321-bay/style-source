@@ -135,8 +135,6 @@ function buildCardHTML(s, idx, total) {{
       '</div>' +
       '<h3 class="card-title">' + s.name + '</h3>' +
       '<div class="card-footer">' + linkHtml +
-        '<button class="favorite-btn" data-id="' + s.id + '" title="收藏">收藏</button>' +
-        '<button class="copy-prompt-btn" data-id="' + s.id + '" title="复制提示词">📋 复制提示词</button>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -330,6 +328,7 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
             <div style="display:flex;align-items:center;gap:8px;">
               <span class="lightbox-index"></span>
               <button class="favorite-btn lightbox-fav-btn" title="收藏">收藏</button>
+              <button class="copy-prompt-btn lightbox-copy-btn" title="复制提示词" data-id="">📋 复制提示词</button>
             </div>
           </div>
           <div class="lightbox-content">

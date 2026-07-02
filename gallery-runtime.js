@@ -1,4 +1,4 @@
-/* gallery-runtime.js v202607022321 — 由 build_gallery.py 生成 */
+/* gallery-runtime.js v202607022351 — 由 build_gallery.py 生成 */
 /**
  * Gallery 功能脚本 v4
  * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式、无限滚动、复制提示词
@@ -621,12 +621,6 @@
         var card = e.target.closest('.style-card');
         if (!card) return;
         
-        // 收藏按钮
-        if (e.target.closest('.favorite-btn')) return; // 由下面的收藏按钮事件处理
-        
-        // 复制提示词按钮
-        if (e.target.closest('.copy-prompt-btn')) return; // 由下面的按钮事件处理
-        
         // 卡片链接（让默认行为处理）
         if (e.target.closest('.card-link')) return;
         
@@ -708,7 +702,7 @@
       // 卡片上有焦点时，按 Enter 或 Space 打开详情
       if ((e.key === 'Enter' || e.key === ' ') && document.activeElement) {
         var focusedCard = document.activeElement.closest('.style-card');
-        if (focusedCard && !e.target.closest('.favorite-btn') && !e.target.closest('.card-link')) {
+        if (focusedCard && !e.target.closest('.card-link')) {
           e.preventDefault();
           openLightbox(focusedCard);
         }
@@ -735,36 +729,32 @@
       });
     }
 
-    // 收藏按钮 — 事件委托
-    if (elements.galleryGrid) {
-      elements.galleryGrid.addEventListener('click', function(e) {
-        var btn = e.target.closest('.favorite-btn');
-        if (!btn) return;
-        e.stopPropagation();
-        handleFavoriteToggle(btn.dataset.id, btn);
-      });
-    }
+    // 收藏按钮 — 事件委托（卡片 + Lightbox）
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.favorite-btn');
+      if (!btn) return;
+      e.stopPropagation();
+      handleFavoriteToggle(btn.dataset.id, btn);
+    });
 
-    // 复制提示词按钮 — 事件委托
-    if (elements.galleryGrid) {
-      elements.galleryGrid.addEventListener('click', function(e) {
-        var btn = e.target.closest('.copy-prompt-btn');
-        if (!btn) return;
-        e.stopPropagation();
-        var styleId = btn.dataset.id;
-        var styles = window.__allStyles || [];
-        var s = styles.find(function(st) { return st.id === styleId; });
-        if (!s) return;
-        var promptText = s.prompt || '';
-        if (!promptText) {
-          var parts = [s.name];
-          if (s.triggers) parts.push('Triggers: ' + s.triggers);
-          if (s.summary) parts.push(s.summary);
-          promptText = parts.join('\n');
-        }
-        copyToClipboard(promptText, btn);
-      });
-    }
+    // 复制提示词按钮 — 事件委托（Lightbox 内）
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.copy-prompt-btn');
+      if (!btn) return;
+      e.stopPropagation();
+      var styleId = btn.dataset.id;
+      var styles = window.__allStyles || [];
+      var s = styles.find(function(st) { return st.id === styleId; });
+      if (!s) return;
+      var promptText = s.prompt || '';
+      if (!promptText) {
+        var parts = [s.name];
+        if (s.triggers) parts.push('Triggers: ' + s.triggers);
+        if (s.summary) parts.push(s.summary);
+        promptText = parts.join('\n');
+      }
+      copyToClipboard(promptText, btn);
+    });
   }
 
   /** 复制文本到剪贴板（带反馈） */
@@ -998,6 +988,12 @@
       });
     }
     
+    // 复制提示词按钮（Lightbox）
+    const copyBtn = card.querySelector('.lightbox-copy-btn');
+    if (copyBtn && data.id) {
+      copyBtn.dataset.id = data.id;
+    }
+    
     // 图片
     const img = card.querySelector('.lightbox-image');
     img.src = data.imageUrl;
@@ -1192,8 +1188,6 @@ function buildCardHTML(s, idx, total) {
       '</div>' +
       '<h3 class="card-title">' + s.name + '</h3>' +
       '<div class="card-footer">' + linkHtml +
-        '<button class="favorite-btn" data-id="' + s.id + '" title="收藏">收藏</button>' +
-        '<button class="copy-prompt-btn" data-id="' + s.id + '" title="复制提示词">📋 复制提示词</button>' +
       '</div>' +
     '</div>' +
   '</div>';
