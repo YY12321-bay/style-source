@@ -620,6 +620,15 @@
         var card = e.target.closest('.style-card');
         if (!card) return;
         
+        // 点击编号复制
+        if (e.target.closest('.card-number')) {
+          var num = card.dataset.number || '';
+          if (num) {
+            copyToClipboard(num, e.target.closest('.card-number'));
+          }
+          return;
+        }
+        
         // 卡片链接（让默认行为处理）
         if (e.target.closest('.card-link')) return;
         

@@ -1,4 +1,4 @@
-/* gallery-runtime.js v202607022351 — 由 build_gallery.py 生成 */
+/* gallery-runtime.js v202607022354 — 由 build_gallery.py 生成 */
 /**
  * Gallery 功能脚本 v4
  * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式、无限滚动、复制提示词
@@ -621,6 +621,15 @@
         var card = e.target.closest('.style-card');
         if (!card) return;
         
+        // 点击编号复制
+        if (e.target.closest('.card-number')) {
+          var num = card.dataset.number || '';
+          if (num) {
+            copyToClipboard(num, e.target.closest('.card-number'));
+          }
+          return;
+        }
+        
         // 卡片链接（让默认行为处理）
         if (e.target.closest('.card-link')) return;
         
@@ -1183,7 +1192,7 @@ function buildCardHTML(s, idx, total) {
     '<div class="card-image-wrap">' + imgHtml + badgeHtml + '</div>' +
     '<div class="card-content">' +
       '<div class="card-title-row">' +
-        '<span class="card-number">' + (s.code ? '#' + s.code : '#' + (s.number || s.id || '')) + '</span>' +
+        '<span class="card-number" title="点击复制编号">' + (s.code ? '#' + s.code : '#' + (s.number || s.id || '')) + '</span>' +
         '<span class="card-category">' + (s.category || '') + '</span>' +
       '</div>' +
       '<h3 class="card-title">' + s.name + '</h3>' +

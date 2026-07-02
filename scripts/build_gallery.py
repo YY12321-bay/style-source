@@ -130,7 +130,7 @@ function buildCardHTML(s, idx, total) {{
     '<div class="card-image-wrap">' + imgHtml + badgeHtml + '</div>' +
     '<div class="card-content">' +
       '<div class="card-title-row">' +
-        '<span class="card-number">' + (s.code ? '#' + s.code : '#' + (s.number || s.id || '')) + '</span>' +
+        '<span class="card-number" title="点击复制编号">' + (s.code ? '#' + s.code : '#' + (s.number || s.id || '')) + '</span>' +
         '<span class="card-category">' + (s.category || '') + '</span>' +
       '</div>' +
       '<h3 class="card-title">' + s.name + '</h3>' +
