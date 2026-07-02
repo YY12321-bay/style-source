@@ -237,7 +237,19 @@
       }
       // 分类筛选
       if (state.currentCategory !== 'all') {
-        if ((s.category || 'root') !== state.currentCategory) return false;
+        const tagsStr = (s.tags || []).join(' ').toLowerCase();
+        const title = (s.name || '').toLowerCase();
+        const searchText = tagsStr + ' ' + title;
+        
+        if (state.currentCategory === 'painting') {
+          const paintingKeywords = ['painting', '绘画', '水彩', '油画', '手绘', '插画', '画'];
+          if (!paintingKeywords.some(k => searchText.includes(k))) return false;
+        } else if (state.currentCategory === '3d') {
+          const d3Keywords = ['3d', 'c4d', '三维', '建模', 'cgi', 'render', '3d渲染'];
+          if (!d3Keywords.some(k => searchText.includes(k))) return false;
+        } else {
+          if ((s.category || 'root') !== state.currentCategory) return false;
+        }
       }
       // 搜索
       if (query) {
@@ -770,10 +782,32 @@
     if (cb) cb();
   }
 
+  function handleSearch(e) {
+    const query = e.target.value.toLowerCase().trim();
+    state.searchQuery = query;
+    
+    // 显示/隐藏搜索清除按钮
+    if (elements.searchClear) {
+      elements.searchClear.style.display = query ? 'inline' : 'none';
+    }
+    
+    filterCards();
+  }
+
+  function handleTagClick(e) {
+    const btn = e.currentTarget;
+    state.currentTag = btn.dataset.tag;
+    
+    // 更新所有标签按钮状态
+    document.querySelectorAll('.tag-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tag-item[data-tag="' + state.currentTag + '"]').forEach(b => b.classList.add('active'));
+    
+    filterCards();
+  }
+
   function handleSortChange(e) {
     state.currentSort = e.target.value;
-    sortCards();
-    filterCards();
+    filterCards();  // sortCards + filterCards 合并为一次 reRenderGrid
   }
 
   function sortCards() {
