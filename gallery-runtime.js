@@ -1,4 +1,4 @@
-/* gallery-runtime.js v202607020852 — 由 build_gallery.py 生成 */
+/* gallery-runtime.js v202607020935 — 由 build_gallery.py 生成 */
 /**
  * Gallery 功能脚本 v3
  * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式
@@ -81,11 +81,15 @@
   function extractTags() {
     const tagsMap = { all: 0 };
     
-    elements.styleCards.forEach(card => {
-      const tagsStr = card.dataset.tags || '';
-      const tags = tagsStr.split(',').filter(t => t.trim());
+    // 优先从虚拟列表数据源读取（完整数据），fallback 到 DOM
+    const styles = (window.__virtualList && window.__virtualList.styles) 
+      ? window.__virtualList.styles 
+      : Array.from(elements.styleCards).map(card => ({ tags: (card.dataset.tags || '').split(',') }));
+    
+    styles.forEach(style => {
+      const tags = Array.isArray(style.tags) ? style.tags : (style.tags || '').split(',');
       tags.forEach(tag => {
-        const tagText = tag.trim();
+        const tagText = (tag || '').trim();
         if (tagText) {
           if (!tagsMap[tagText]) {
             tagsMap[tagText] = 0;
@@ -123,8 +127,13 @@
   function extractCategories() {
     const categoriesMap = { all: 0 };
     
-    elements.styleCards.forEach(card => {
-      const category = card.dataset.category || 'root';
+    // 优先从虚拟列表数据源读取（完整数据），fallback 到 DOM
+    const styles = (window.__virtualList && window.__virtualList.styles) 
+      ? window.__virtualList.styles 
+      : Array.from(elements.styleCards).map(card => ({ category: card.dataset.category }));
+    
+    styles.forEach(style => {
+      const category = style.category || 'root';
       if (!categoriesMap[category]) {
         categoriesMap[category] = 0;
       }
@@ -954,6 +963,6 @@
   }
 
   // ========== 启动 ==========
-  // auto-init disabled, init() called by renderGallery
+    // auto-init disabled
   window.init = init;
 })();

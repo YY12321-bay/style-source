@@ -80,11 +80,15 @@
   function extractTags() {
     const tagsMap = { all: 0 };
     
-    elements.styleCards.forEach(card => {
-      const tagsStr = card.dataset.tags || '';
-      const tags = tagsStr.split(',').filter(t => t.trim());
+    // 优先从虚拟列表数据源读取（完整数据），fallback 到 DOM
+    const styles = (window.__virtualList && window.__virtualList.styles) 
+      ? window.__virtualList.styles 
+      : Array.from(elements.styleCards).map(card => ({ tags: (card.dataset.tags || '').split(',') }));
+    
+    styles.forEach(style => {
+      const tags = Array.isArray(style.tags) ? style.tags : (style.tags || '').split(',');
       tags.forEach(tag => {
-        const tagText = tag.trim();
+        const tagText = (tag || '').trim();
         if (tagText) {
           if (!tagsMap[tagText]) {
             tagsMap[tagText] = 0;
@@ -122,8 +126,13 @@
   function extractCategories() {
     const categoriesMap = { all: 0 };
     
-    elements.styleCards.forEach(card => {
-      const category = card.dataset.category || 'root';
+    // 优先从虚拟列表数据源读取（完整数据），fallback 到 DOM
+    const styles = (window.__virtualList && window.__virtualList.styles) 
+      ? window.__virtualList.styles 
+      : Array.from(elements.styleCards).map(card => ({ category: card.dataset.category }));
+    
+    styles.forEach(style => {
+      const category = style.category || 'root';
       if (!categoriesMap[category]) {
         categoriesMap[category] = 0;
       }
