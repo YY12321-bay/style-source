@@ -78,7 +78,7 @@ def build_gallery_html(data: dict, output_path: str):
     if auto_init_block_value in inline_js_raw:
         inline_js = inline_js_raw.replace(
             auto_init_block_value,
-            "  // auto-init disabled, init() called by renderGallery\n  window.init = init;"
+            "  // auto-init disabled\n  window.init = init;\n})();"
         )
     else:
         # fallback: replace just the closing
