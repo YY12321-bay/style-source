@@ -207,6 +207,27 @@ body {
   background: var(--border-color);
 }
 
+/* 顶部导航链接（如 IP 预览） */
+.header-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+.header-nav-link:hover {
+  background: var(--border-color);
+  color: var(--accent-color);
+}
+
 /* ==================== 分类固定栏（sticky） ==================== */
 .category-bar {
   position: sticky;
