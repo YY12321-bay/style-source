@@ -1,4 +1,4 @@
-/* gallery-runtime.js v202607020935 — 由 build_gallery.py 生成 */
+/* gallery-runtime.js v202607020946 — 由 build_gallery.py 生成 */
 /**
  * Gallery 功能脚本 v3
  * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式
@@ -513,7 +513,7 @@
     // 虚拟列表：刷新后继续渲染剩余卡片
     if (window.__virtualList) {
       var vl = window.__virtualList;
-      var grid = document.querySelector('.gallery-grid');
+      var gridEl = document.querySelector('.gallery-grid');
       var sentinel = document.getElementById('virtual-sentinel');
       
       // 如果有未渲染的卡片，继续渲染
@@ -527,7 +527,7 @@
         if (sentinel) {
           sentinel.insertAdjacentHTML('beforebegin', batchHTML);
         } else {
-          grid.insertAdjacentHTML('beforeend', batchHTML);
+          gridEl.insertAdjacentHTML('beforeend', batchHTML);
         }
         vl.renderedCount = end;
         

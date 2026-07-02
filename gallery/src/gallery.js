@@ -512,7 +512,7 @@
     // 虚拟列表：刷新后继续渲染剩余卡片
     if (window.__virtualList) {
       var vl = window.__virtualList;
-      var grid = document.querySelector('.gallery-grid');
+      var gridEl = document.querySelector('.gallery-grid');
       var sentinel = document.getElementById('virtual-sentinel');
       
       // 如果有未渲染的卡片，继续渲染
@@ -526,7 +526,7 @@
         if (sentinel) {
           sentinel.insertAdjacentHTML('beforebegin', batchHTML);
         } else {
-          grid.insertAdjacentHTML('beforeend', batchHTML);
+          gridEl.insertAdjacentHTML('beforeend', batchHTML);
         }
         vl.renderedCount = end;
         
