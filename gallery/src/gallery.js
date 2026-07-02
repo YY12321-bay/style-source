@@ -1,6 +1,6 @@
 /**
- * Gallery 功能脚本 v3
- * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式
+ * Gallery 功能脚本 v4
+ * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式、无限滚动、复制提示词
  */
 
 (function() {
@@ -22,6 +22,9 @@
   // 标签最小展示频次阈值（低于此值折叠到「其他」）
   const TAG_MIN_COUNT = 3;
 
+  // 渲染批次大小
+  const RENDER_BATCH = 30;
+
   // ========== DOM 元素 ==========
   let elements = {};
 
@@ -33,8 +36,9 @@
     cacheElements();
     loadTheme();
     bindEvents();
-    extractTags();
-    extractCategories();
+    // 从 __allStyles 数据提取标签和分类（DOM 可能只有部分卡片）
+    extractTagsFromData();
+    extractCategoriesFromData();
     renderSidebarTags();
     renderCategoryFilters();
     // URL 参数路由：加载后读取 URL params 并应用筛选
@@ -42,6 +46,8 @@
     // 同步下拉选择器的值
     if (elements.sortSelect) elements.sortSelect.value = state.currentSort;
     setupLazyLoading();
+    // 无限的滚动监听
+    setupInfiniteScroll();
     // Hash 路由：页面加载后检查 URL hash
     setTimeout(handleHashRoute, 100);
   }
@@ -111,13 +117,13 @@
       clearFilters: document.getElementById('clearFilters'),
       sortSelect: document.getElementById('sortSelect'),
       galleryGrid: document.querySelector('.gallery-grid'),
-      styleCards: document.querySelectorAll('.style-card'),
       lightbox: document.getElementById('lightbox'),
       lightboxCard: document.querySelector('.lightbox-card'),
       lightboxClose: document.getElementById('lightboxClose'),
       lightboxPrev: document.getElementById('lightboxPrev'),
       lightboxNext: document.getElementById('lightboxNext')
     };
+    // styleCards 不缓存 — 随无限滚动渲染动态变化
   }
 
   // ========== 主题切换 ==========
@@ -139,25 +145,30 @@
     }
   }
 
-  // ========== 标签提取 - 从 dataset 中提取 ==========
-  function extractTags() {
+  // ========== 从数据提取标签和分类（不再依赖 DOM） ==========
+
+  /** 获取当前显示的样式列表（全部或已筛选） */
+  function getDisplayStyles() {
+    return window.__filteredStyles || window.__allStyles || [];
+  }
+
+  /** 从 __allStyles 数据提取标签 */
+  function extractTagsFromData() {
+    const styles = window.__allStyles || [];
     const tagsMap = { all: 0 };
     
-    elements.styleCards.forEach(card => {
-      const tagsStr = card.dataset.tags || '';
-      const tags = tagsStr.split(',').filter(t => t.trim());
+    styles.forEach(s => {
+      const tags = s.tags || [];
       tags.forEach(tag => {
         const tagText = tag.trim();
         if (tagText) {
-          if (!tagsMap[tagText]) {
-            tagsMap[tagText] = 0;
-          }
+          if (!tagsMap[tagText]) tagsMap[tagText] = 0;
           tagsMap[tagText]++;
         }
       });
     });
     
-    // 按频次分类：高频（≥TAG_MIN_COUNT次）保留，低频折叠
+    // 按频次分类
     const highFreq = {};
     let lowFreqCount = 0;
     Object.entries(tagsMap).forEach(([tag, count]) => {
@@ -174,49 +185,211 @@
     }
     
     window.galleryTags = highFreq;
-    window.galleryTagsRaw = tagsMap; // 保留完整数据用于筛选
-    // 保存低频标签列表（用于展开显示）
+    window.galleryTagsRaw = tagsMap;
     window.galleryTagsLow = Object.entries(tagsMap)
       .filter(([tag, count]) => tag !== 'all' && count < TAG_MIN_COUNT)
       .sort((a, b) => b[1] - a[1]);
   }
 
-  // ========== 分类提取 ==========
-  function extractCategories() {
-    const categoriesMap = { all: 0 };
+  /** 从 __allStyles 数据提取分类 */
+  function extractCategoriesFromData() {
+    const styles = window.__allStyles || [];
+    const categoriesMap = { all: styles.length };
     
-    elements.styleCards.forEach(card => {
-      const category = card.dataset.category || 'root';
-      if (!categoriesMap[category]) {
-        categoriesMap[category] = 0;
-      }
+    styles.forEach(s => {
+      const category = s.category || 'root';
+      if (!categoriesMap[category]) categoriesMap[category] = 0;
       categoriesMap[category]++;
     });
     
-    // 统计特殊分类（基于标签关键词）
+    // 特殊分类（基于 tags 关键词）
     const paintingKeywords = ['painting', '绘画', '水彩', '油画', '手绘', '插画', '画'];
     const d3Keywords = ['3d', 'c4d', '三维', '建模', 'cgi', 'render', '3d渲染'];
     
     let paintingCount = 0;
     let d3Count = 0;
     
-    elements.styleCards.forEach(card => {
-      const tagsStr = (card.dataset.tags || '').toLowerCase();
-      const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+    styles.forEach(s => {
+      const tagsStr = (s.tags || []).join(' ').toLowerCase();
+      const title = (s.name || '').toLowerCase();
       const searchText = tagsStr + ' ' + title;
       
-      if (paintingKeywords.some(k => searchText.includes(k))) {
-        paintingCount++;
-      }
-      if (d3Keywords.some(k => searchText.includes(k))) {
-        d3Count++;
-      }
+      if (paintingKeywords.some(k => searchText.includes(k))) paintingCount++;
+      if (d3Keywords.some(k => searchText.includes(k))) d3Count++;
     });
     
     categoriesMap['painting'] = paintingCount;
     categoriesMap['3d'] = d3Count;
     
     window.galleryCategories = categoriesMap;
+  }
+
+  /** 获取匹配当前筛选条件的 styles 列表 */
+  function getMatchingStyles() {
+    const all = window.__allStyles || [];
+    const query = state.searchQuery.toLowerCase().trim();
+    
+    return all.filter(function(s) {
+      // 标签筛选
+      if (state.currentTag !== 'all') {
+        const tags = (s.tags || []).map(t => t.toLowerCase());
+        if (!tags.includes(state.currentTag.toLowerCase())) return false;
+      }
+      // 分类筛选
+      if (state.currentCategory !== 'all') {
+        if ((s.category || 'root') !== state.currentCategory) return false;
+      }
+      // 搜索
+      if (query) {
+        const searchable = (s.name + ' ' + (s.summary || '') + ' ' + (s.tags || []).join(' ') + ' ' + (s.triggers || '') + ' ' + (s.features || []).join(' ')).toLowerCase();
+        if (!searchable.includes(query)) return false;
+      }
+      // 收藏筛选
+      if (state.showFavoritesOnly) {
+        if (!state.favorites.includes(s.id)) return false;
+      }
+      return true;
+    });
+  }
+
+  /** 对 styles 列表按当前排序方式排序 */
+  function sortStyles(styles) {
+    if (state.currentSort === 'default' || state.currentSort === 'date-desc') {
+      // date-desc: 按 created_at 倒序
+      return styles.slice().sort(function(a, b) {
+        const dateA = a.created_at || '';
+        const dateB = b.created_at || '';
+        if (dateA && dateB) return dateB.localeCompare(dateA);
+        return 0;
+      });
+    } else if (state.currentSort === 'name-asc') {
+      return styles.slice().sort(function(a, b) { return (a.name || '').localeCompare(b.name || ''); });
+    } else if (state.currentSort === 'name-desc') {
+      return styles.slice().sort(function(a, b) { return (b.name || '').localeCompare(a.name || ''); });
+    } else if (state.currentSort === 'favorites') {
+      return styles.slice().sort(function(a, b) {
+        const favA = state.favorites.includes(a.id) ? 0 : 1;
+        const favB = state.favorites.includes(b.id) ? 0 : 1;
+        return favA - favB;
+      });
+    }
+    return styles; // default: no sort
+  }
+
+  /** 重新渲染网格：清除现有卡片 + 渲染第一批 + 重置无限滚动 */
+  function reRenderGrid() {
+    const matching = sortStyles(getMatchingStyles());
+    window.__filteredStyles = matching;
+    
+    const grid = elements.galleryGrid;
+    if (!grid) return;
+    
+    // 清空网格
+    grid.innerHTML = '';
+    
+    // 渲染第一批
+    window.__renderedUpTo = 0;
+    renderNextBatch();
+    
+    // 更新计数
+    const allTotal = (window.__allStyles || []).length;
+    document.getElementById('countVisible').textContent = matching.length;
+    document.getElementById('countTotal').textContent = allTotal;
+    
+    // 更新清除按钮
+    const hasActiveFilter = state.currentTag !== 'all' || state.currentCategory !== 'all' || 
+                            state.searchQuery !== '' || state.showFavoritesOnly ||
+                            state.currentSort !== 'default';
+    if (elements.clearFilters) {
+      elements.clearFilters.style.display = hasActiveFilter ? 'inline-block' : 'none';
+    }
+    
+    // 无结果提示
+    showNoResults(matching.length === 0);
+    
+    // 更新收藏按钮状态
+    updateAllFavButtons();
+    
+    // 更新 URL 参数
+    updateURLParams();
+  }
+
+  /** 渲染下一批卡片（追加到网格末尾） */
+  function renderNextBatch() {
+    const styles = window.__filteredStyles || window.__allStyles || [];
+    const grid = elements.galleryGrid;
+    if (!grid || window.__renderedUpTo >= styles.length) return;
+    
+    const start = window.__renderedUpTo;
+    const end = Math.min(start + RENDER_BATCH, styles.length);
+    const total = styles.length;
+    
+    var html = '';
+    for (var i = start; i < end; i++) {
+      html += buildCardHTML(styles[i], i, total);
+    }
+    grid.insertAdjacentHTML('beforeend', html);
+    window.__renderedUpTo = end;
+    
+    // 同步收藏按钮状态
+    updateAllFavButtons();
+    
+    // 更新无限滚动 sentinel 位置
+    updateSentinel();
+  }
+
+  /** 显示/隐藏无结果提示 */
+  function showNoResults(visible) {
+    let el = document.querySelector('.no-results');
+    if (visible) {
+      if (!el) {
+        el = document.createElement('div');
+        el.className = 'no-results';
+        el.innerHTML = '<div class="no-results-icon">🔍</div><p>没有找到匹配的风格</p>';
+        elements.galleryGrid.appendChild(el);
+      }
+      el.style.display = 'block';
+    } else if (el) {
+      el.style.display = 'none';
+    }
+  }
+
+  /** 设置无限滚动 IntersectionObserver */
+  function setupInfiniteScroll() {
+    // 创建 sentinel 元素
+    var sentinel = document.createElement('div');
+    sentinel.id = 'infinite-scroll-sentinel';
+    sentinel.style.cssText = 'width:100%;height:1px;pointer-events:none;';
+    elements.galleryGrid.after(sentinel);
+    
+    window.__scrollObserver = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        renderNextBatch();
+      }
+    }, { rootMargin: '400px' });
+    window.__scrollObserver.observe(sentinel);
+  }
+
+  /** 更新 sentinel 位置到网格末尾 */
+  function updateSentinel() {
+    var sentinel = document.getElementById('infinite-scroll-sentinel');
+    if (sentinel) {
+      sentinel.parentNode.appendChild(sentinel); // move to end
+    }
+  }
+
+  /** 同步页面上所有收藏按钮状态 */
+  function updateAllFavButtons() {
+    document.querySelectorAll('.favorite-btn').forEach(function(btn) {
+      const id = btn.dataset.id;
+      if (state.favorites.includes(id)) {
+        btn.classList.add('active');
+        btn.textContent = '已收藏';
+      } else {
+        btn.classList.remove('active');
+        btn.textContent = '收藏';
+      }
+    });
   }
 
   // ========== 渲染分类按钮（渲染到固定的 category-bar） ==========
@@ -418,19 +591,25 @@
       elements.filterFavorites.addEventListener('click', handleFavoriteFilter);
     }
 
-    // 图片点击 - 打开信息卡片
-    elements.styleCards.forEach(card => {
-      const img = card.querySelector('.card-image');
-      if (img) {
-        img.addEventListener('click', () => openLightbox(card));
-      }
-      // 点击整个卡片也能打开详情
-      card.addEventListener('click', (e) => {
-        if (!e.target.closest('.favorite-btn') && !e.target.closest('.card-link')) {
-          openLightbox(card);
-        }
+    // 卡片交互 — 事件委托（无需重新绑定）
+    if (elements.galleryGrid) {
+      elements.galleryGrid.addEventListener('click', function(e) {
+        var card = e.target.closest('.style-card');
+        if (!card) return;
+        
+        // 收藏按钮
+        if (e.target.closest('.favorite-btn')) return; // 由下面的收藏按钮事件处理
+        
+        // 复制提示词按钮
+        if (e.target.closest('.copy-prompt-btn')) return; // 由下面的按钮事件处理
+        
+        // 卡片链接（让默认行为处理）
+        if (e.target.closest('.card-link')) return;
+        
+        // 打开详情
+        openLightbox(card);
       });
-    });
+    }
 
     // Lightbox 关闭
     if (elements.lightbox) {
@@ -532,40 +711,63 @@
       });
     }
 
-    // 收藏按钮
-    elements.styleCards.forEach(card => {
-      const favBtn = card.querySelector('.favorite-btn');
-      if (favBtn) {
-        favBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          handleFavoriteToggle(card.dataset.id, favBtn);
-        });
-        updateFavoriteButton(card.dataset.id, favBtn);
-      }
-    });
-  }
-
-  function handleSearch(e) {
-    const query = e.target.value.toLowerCase().trim();
-    state.searchQuery = query;
-    
-    // 显示/隐藏搜索清除按钮
-    if (elements.searchClear) {
-      elements.searchClear.style.display = query ? 'inline' : 'none';
+    // 收藏按钮 — 事件委托
+    if (elements.galleryGrid) {
+      elements.galleryGrid.addEventListener('click', function(e) {
+        var btn = e.target.closest('.favorite-btn');
+        if (!btn) return;
+        e.stopPropagation();
+        handleFavoriteToggle(btn.dataset.id, btn);
+      });
     }
-    
-    filterCards();
+
+    // 复制提示词按钮 — 事件委托
+    if (elements.galleryGrid) {
+      elements.galleryGrid.addEventListener('click', function(e) {
+        var btn = e.target.closest('.copy-prompt-btn');
+        if (!btn) return;
+        e.stopPropagation();
+        var styleId = btn.dataset.id;
+        var styles = window.__allStyles || [];
+        var s = styles.find(function(st) { return st.id === styleId; });
+        if (!s) return;
+        var promptText = s.prompt || '';
+        if (!promptText) {
+          var parts = [s.name];
+          if (s.triggers) parts.push('Triggers: ' + s.triggers);
+          if (s.summary) parts.push(s.summary);
+          promptText = parts.join('\n');
+        }
+        copyToClipboard(promptText, btn);
+      });
+    }
   }
 
-  function handleTagClick(e) {
-    const btn = e.currentTarget;
-    state.currentTag = btn.dataset.tag;
-    
-    // 更新所有标签按钮状态
-    document.querySelectorAll('.tag-item').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll(`.tag-item[data-tag="${state.currentTag}"]`).forEach(b => b.classList.add('active'));
-    
-    filterCards();
+  /** 复制文本到剪贴板（带反馈） */
+  function copyToClipboard(text, btn) {
+    var origText = btn.textContent;
+    function done() {
+      btn.textContent = '✅ 已复制';
+      setTimeout(function() { btn.textContent = origText; }, 2000);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function() {
+        fallbackCopy(text, done);
+      });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+
+  function fallbackCopy(text, cb) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (cb) cb();
   }
 
   function handleSortChange(e) {
@@ -575,47 +777,8 @@
   }
 
   function sortCards() {
-    const grid = elements.galleryGrid;
-    if (!grid) return;
-    const cards = Array.from(grid.querySelectorAll('.style-card'));
-    if (cards.length === 0) return;
-
-    cards.sort(function(a, b) {
-      if (state.currentSort === 'default') {
-        // 保持原始顺序（按 data-original-index）
-        return (parseInt(a.dataset.originalIndex) || 0) - (parseInt(b.dataset.originalIndex) || 0);
-      } else if (state.currentSort === 'newest') {
-        // 按创建时间倒序（最新添加的在前）
-        var dateA = a.dataset.createdAt || '';
-        var dateB = b.dataset.createdAt || '';
-        if (dateA && dateB) {
-          return dateB.localeCompare(dateA);
-        }
-        // fallback: 按 original-index 倒序
-        return (parseInt(b.dataset.originalIndex) || 0) - (parseInt(a.dataset.originalIndex) || 0);
-      } else if (state.currentSort === 'name-asc') {
-        var nameA = (a.querySelector('.card-title')?.textContent || '').toLowerCase();
-        var nameB = (b.querySelector('.card-title')?.textContent || '').toLowerCase();
-        return nameA.localeCompare(nameB);
-      } else if (state.currentSort === 'name-desc') {
-        var nameA = (a.querySelector('.card-title')?.textContent || '').toLowerCase();
-        var nameB = (b.querySelector('.card-title')?.textContent || '').toLowerCase();
-        return nameB.localeCompare(nameA);
-      } else if (state.currentSort === 'favorites') {
-        var favA = state.favorites.includes(a.dataset.id) ? 0 : 1;
-        var favB = state.favorites.includes(b.dataset.id) ? 0 : 1;
-        return favA - favB;
-      }
-      return 0;
-    });
-
-    // 重新挂载排序后的卡片
-    cards.forEach(function(card) {
-      grid.appendChild(card);
-    });
-
-    // 刷新卡片引用
-    elements.styleCards = document.querySelectorAll('.style-card');
+    // 排序通过 filterCards 完成（数据驱动，重新渲染）
+    filterCards();
   }
 
   function handleFavoriteFilter() {
@@ -653,10 +816,7 @@
     state.showFavoritesOnly = false;
     if (elements.filterFavorites) elements.filterFavorites.classList.remove('active');
 
-    // 重置排序 → 恢复原始顺序
-    sortCards();
-
-    // 重新过滤
+    // 重新渲染（数据驱动，包含排序恢复）
     filterCards();
   }
 
@@ -686,114 +846,23 @@
   }
 
   // ========== 过滤逻辑 ==========
+  // ========== 过滤逻辑（数据驱动 → 重新渲染网格） ==========
   function filterCards() {
-    // 先清除旧高亮
-    document.querySelectorAll('.style-card .card-title .search-highlight').forEach(function(m) {
-      var parent = m.parentNode;
-      parent.replaceChild(document.createTextNode(m.textContent), m);
-      parent.normalize();
-    });
-    
-    elements.styleCards.forEach(card => {
-      const cardId = card.dataset.id;
-      const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
-      const tagsStr = card.dataset.tags || '';
-      const triggers = card.dataset.triggers?.toLowerCase() || '';
-      const category = card.dataset.category || '';
-      const code = (card.dataset.code || '').toLowerCase();
-      
-      let visible = true;
+    reRenderGrid();
 
-      // 分类筛选
-      if (state.currentCategory !== 'all') {
-        // 特殊分类（painting, 3d）基于标签筛选
-        if (state.currentCategory === 'painting') {
-          const paintingKeywords = ['painting', '绘画', '水彩', '油画', '手绘', '插画', '画'];
-          const cardTagsLower = tagsStr.toLowerCase();
-          visible = visible && paintingKeywords.some(k => cardTagsLower.includes(k));
-        } else if (state.currentCategory === '3d') {
-          const d3Keywords = ['3d', 'c4d', '三维', '建模', 'cgi', 'render', '3d渲染'];
-          const cardTagsLower = tagsStr.toLowerCase();
-          visible = visible && d3Keywords.some(k => cardTagsLower.includes(k));
-        } else {
-          visible = visible && category === state.currentCategory;
+    // 搜索高亮：新渲染的卡片还没有 search-highlight，需要处理
+    var query = state.searchQuery.toLowerCase().trim();
+    if (query) {
+      document.querySelectorAll('.style-card:not(.hidden) .card-title').forEach(function(titleEl) {
+        var text = titleEl.textContent;
+        var regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+        if (regex.test(text)) {
+          if (!titleEl.dataset.origTitle) titleEl.dataset.origTitle = text;
+          titleEl.innerHTML = text.replace(regex, '<mark class="search-highlight">$1</mark>');
         }
-      }
-
-      // 标签筛选
-      if (state.currentTag !== 'all') {
-        const cardTags = tagsStr.split(',').map(t => t.trim());
-        visible = visible && cardTags.includes(state.currentTag);
-      }
-
-      // 搜索筛选
-      if (state.searchQuery) {
-        visible = visible && (
-          title.includes(state.searchQuery) ||
-          tagsStr.toLowerCase().includes(state.searchQuery) ||
-          triggers.includes(state.searchQuery) ||
-          code.includes(state.searchQuery)
-        );
-      }
-
-      // 收藏筛选
-      if (state.showFavoritesOnly) {
-        visible = visible && state.favorites.includes(cardId);
-      }
-
-      card.classList.toggle('hidden', !visible);
-      
-      // 搜索高亮 - 只在有搜索词且卡片可见时执行
-      var titleEl = card.querySelector('.card-title');
-      if (state.searchQuery && visible && titleEl) {
-        var origTitle = titleEl.dataset.origTitle || titleEl.textContent;
-        if (!titleEl.dataset.origTitle) titleEl.dataset.origTitle = origTitle;
-        var regex = new RegExp('(' + state.searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-        titleEl.innerHTML = origTitle.replace(regex, '<mark class="search-highlight">$1</mark>');
-      } else if (titleEl) {
-        // 恢复原始文本
-        if (titleEl.dataset.origTitle) {
-          titleEl.textContent = titleEl.dataset.origTitle;
-          delete titleEl.dataset.origTitle;
-        }
-      }
-    });
-
-    // 更新计数（显示 可见数/总数）
-    const totalCards = document.querySelectorAll('.style-card').length;
-    const visibleCards = document.querySelectorAll('.style-card:not(.hidden)').length;
-    const counterVis = document.getElementById('countVisible');
-    const counterTotal = document.getElementById('countTotal');
-    if (counterVis) counterVis.textContent = visibleCards;
-    if (counterTotal) counterTotal.textContent = totalCards;
-
-    // 清除筛选按钮可见性
-    const hasActiveFilter = state.currentTag !== 'all' || state.currentCategory !== 'all' || 
-                            state.searchQuery !== '' || state.showFavoritesOnly ||
-                            state.currentSort !== 'default';
-    if (elements.clearFilters) {
-      elements.clearFilters.style.display = hasActiveFilter ? 'inline-block' : 'none';
-    }
-    
-    // 显示无结果提示（用可见卡片计数判断，不用 forEach 内部变量）
-    let noResults = document.querySelector('.no-results');
-    
-    if (visibleCards === 0) {
-      if (!noResults) {
-        noResults = document.createElement('div');
-        noResults.className = 'no-results';
-        noResults.innerHTML = `
-          <div class="no-results-icon">🔍</div>
-          <p>没有找到匹配的风格</p>
-        `;
-        elements.galleryGrid.appendChild(noResults);
-      }
-      noResults.style.display = 'block';
-    } else if (noResults) {
-      noResults.style.display = 'none';
+      });
     }
 
-    // 更新 URL 参数
     updateURLParams();
   }
 
@@ -954,7 +1023,7 @@
   // ========== Lightbox 左右导航 ==========
   /** 获取当前可见卡片列表（按 DOM 顺序） */
   function getVisibleCards() {
-    return Array.from(elements.styleCards).filter(c => !c.classList.contains('hidden'));
+    return Array.from(document.querySelectorAll('.style-card')).filter(function(c) { return !c.classList.contains('hidden'); });
   }
 
   /** 根据当前卡片更新索引并刷新导航按钮状态 */

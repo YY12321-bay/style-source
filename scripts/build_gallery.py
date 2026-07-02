@@ -136,6 +136,7 @@ function buildCardHTML(s, idx, total) {{
       '<h3 class="card-title">' + s.name + '</h3>' +
       '<div class="card-footer">' + linkHtml +
         '<button class="favorite-btn" data-id="' + s.id + '" title="收藏">收藏</button>' +
+        '<button class="copy-prompt-btn" data-id="' + s.id + '" title="复制提示词">📋 复制提示词</button>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -143,14 +144,28 @@ function buildCardHTML(s, idx, total) {{
 
 function renderGallery(data) {{
   var styles = data.styles || [];
+  window.__allStyles = styles;
+  window.__filteredStyles = null;
+  window.__renderedUpTo = 0;
+
   var loading = document.getElementById('loading');
   var app = document.getElementById('app');
   if (loading) loading.style.display = 'none';
   if (app) app.style.display = 'block';
   var grid = document.querySelector('.gallery-grid');
   if (!grid) return;
+
+  // 只渲染第一批（无限滚动按需追加）
+  grid.innerHTML = '';
   var totalStyles = styles.length;
-  grid.innerHTML = styles.map(function(s, i) {{ return buildCardHTML(s, i, totalStyles); }}).join('');
+  var firstBatch = Math.min(totalStyles, 30);
+  var html = '';
+  for (var i = 0; i < firstBatch; i++) {{
+    html += buildCardHTML(styles[i], i, totalStyles);
+  }}
+  grid.innerHTML = html;
+  window.__renderedUpTo = firstBatch;
+
   var countEl = document.getElementById('countVisible');
   var totalEl = document.getElementById('countTotal');
   if (countEl) countEl.textContent = styles.length;
@@ -166,30 +181,6 @@ function renderGallery(data) {{
         if (countSpan) countSpan.textContent = window.galleryCategories.all;
       }}
     }});
-    document.querySelectorAll('.card-number').forEach(function(el) {{
-      el.addEventListener('click', function(e) {{
-        e.stopPropagation();
-        var code = this.textContent.replace('#', '').trim();
-        if (!code) return;
-        if (navigator.clipboard && navigator.clipboard.writeText) {{
-          navigator.clipboard.writeText(code).then(function() {{
-            el.classList.add('copied');
-            setTimeout(function() {{ el.classList.remove('copied'); }}, 1500);
-          }}).catch(function() {{ fallbackCopy(code, el); }});
-        }} else {{ fallbackCopy(code, el); }}
-      }});
-    }});
-  }}
-  function fallbackCopy(text, el) {{
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    el.classList.add('copied');
-    setTimeout(function() {{ el.classList.remove('copied'); }}, 1500);
   }}
 }}
 

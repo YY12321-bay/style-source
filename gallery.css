@@ -1,4 +1,4 @@
-/* gallery.css v202607021108 — 由 build_gallery.py 生成 */
+/* gallery.css v202607021504 — 由 build_gallery.py 生成 */
 /* ==================== 主题变量 ==================== */
 :root {
   /* 浅色主题 - 灰色调 */
@@ -635,7 +635,7 @@ body {
   backdrop-filter: blur(2px);
 }
 
-/* 缩略图 - 宽度统一，高度自适应 */
+/* 缩略图 - 宽度统一，高度自适应 + 渐进式加载（fade-in） */
 .card-image {
   width: 100%;
   height: auto;
@@ -646,6 +646,12 @@ body {
   backface-visibility: hidden;
   transform: scale(1);
   transition: transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation: imageFadeIn 0.35s ease forwards;
+}
+
+@keyframes imageFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .style-card:hover .card-image {
@@ -752,6 +758,31 @@ body {
   background: var(--accent-color);
   color: white;
   border-color: var(--accent-color);
+}
+
+/* 复制提示词按钮 */
+.copy-prompt-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: 4px;
+}
+
+.copy-prompt-btn:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.copy-prompt-btn.copied {
+  background: #22c55e;
+  color: white;
+  border-color: #22c55e;
 }
 
 /* ==================== 无结果 ==================== */
