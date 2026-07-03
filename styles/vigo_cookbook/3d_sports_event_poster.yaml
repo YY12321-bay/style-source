@@ -1,0 +1,55 @@
+# 3D运动赛事海报
+
+id: 3d_sports_event_poster
+name: "3D运动赛事海报"
+category: vigo_cookbook
+
+tags:
+  - 3D
+  - 运动
+  - 赛事
+  - 卡通
+  - 体育场
+  - 海报
+
+triggers:
+  - 3D运动海报
+  - 赛事海报
+  - 运动员海报
+  - 体育活动
+
+features:
+  - "**3D卡通运动员** — 夸张比例、大头、粗壮肌肉、红脸蛋、坚定表情，Pixar/DreamWorks质感"
+  - "**写实3D体育场背景** — 真实观众、专业灯光、湿润反光地面，与卡通角色形成对比"
+  - "**双色标题排版** — 深紫+霓虹绿双色粗体斜体字，角色位于标题字母后方"
+  - "**红色2D图形斜线** — 粗体红橙色对角线图形条纹叠加在3D场景中"
+  - "**前景运动道具特写** — 运动装备极端特写，大于角色头部，带运动模糊"
+
+scene: "体育赛事海报、运动会宣传、电竞活动、品牌联名运动主题"
+ratio: "16:9 横版"
+summary: "3D卡通运动员 + 写实体育场背景 + 双色标题 + 红橙图形斜线， Pixar质感运动赛事海报"
+
+prompt: |
+  Create a 16:9 horizontal 3D sports event poster.
+
+  Style rules:
+  - Character: 3D CGI cartoon athlete with exaggerated proportions — oversized head, stocky muscular build, flushed red cheeks, fierce/determined expression. Quality: Pixar/DreamWorks/AAA mobile game cutscene. NOT realistic.
+  - Character outfit: deep purple + neon lime green — MUST match title typography colors exactly.
+  - Background: photorealistic 3D stadium — real-feeling crowd, professional arena lighting, wet reflective surfaces, official event signage. Realistic render quality (deliberate contrast with cartoon character).
+  - Title: 2 words, fills upper portion — WORD 1 in deep purple, WORD 2 in neon lime/chartreuse. Bold condensed italic display type. Character appears BEHIND title letters, title appears IN FRONT OF background stadium.
+  - Depth order: [back] realistic stadium → title text → cartoon character → sport prop extreme foreground [front]
+  - Graphic slashes: bold diagonal red-orange 2D graphic streaks layered into the 3D scene — 2-3 slashes per image
+  - Foreground prop: sport equipment at extreme close range, larger than character's head — motion blur
+  - Sub-brand label: lower right — white bold condensed text on orange-red diagonal stripe chevron
+  - Color system: 3 colors only — deep purple + neon lime green + red-orange. Purple+green shared by character AND title. Orange-red = graphic accent + label only.
+
+  Scene: {sport} — {character} in action with {foreground_prop}.
+  Title: "{title}"
+  Sub-brand: "{sub_brand}"
+
+  Negative: realistic human athlete, fully cartoon environment, flat text overlay on top of everything, neutral color palette, static standing pose.
+
+source_url: "https://x.com/VigoCreativeAI/status/2071799923763187860"
+source_author: "VigoCreativeAI"
+
+# 配图: images/styles_previews/3d_sports_event_poster_13193fbe.webp

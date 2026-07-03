@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
-"""本地构建 gallery.html：读取 data/styles.json，生成 gallery.html（内联 CSS/JS + FALLBACK_DATA + 完整 UI 结构）。
-
-支持 --local 标志：将图片 URL 改为相对路径，便于本地预览。"""
+"""本地构建 gallery.html：读取 data/styles.json，异步加载数据 + 骨架屏 + UI。"""
 import json
 import os
 import shutil
 import argparse
 import sys
+import re
 
-FALLBACK_LIMIT = 50
 FALLBACK_IMG = '<div class="img-fallback" style="width:100%;aspect-ratio:3/4;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:12px;">图片加载失败</div>'
 
 DIST_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'dist')
@@ -21,27 +19,6 @@ def clean_dist():
     if os.path.exists(DIST_DIR):
         shutil.rmtree(DIST_DIR)
     os.makedirs(DIST_DIR, exist_ok=True)
-
-
-def build_fallback_data(all_styles: list) -> dict:
-    sorted_styles = sorted(all_styles, key=lambda x: x.get('id', ''), reverse=True)[:FALLBACK_LIMIT]
-    return {
-        "meta": {"version": "v0.0.0", "total": len(all_styles), "fallback_count": len(sorted_styles)},
-        "styles": [{
-            "id": s.get("id"),
-            "code": s.get("code", ""),
-            "name": s.get("name"),
-            "category": s.get("category"),
-            "preview_urls": s.get("preview_urls", []),
-            "preview_webp": s.get("preview_webp", ""),
-            "summary": s.get("summary", ""),
-            "triggers": s.get("triggers", ""),
-            "features": s.get("features", []),
-            "tags": s.get("tags", []),
-            "source_url": s.get("source_url", ""),
-            "source_author": s.get("source_author", ""),
-        } for s in sorted_styles]
-    }
 
 
 def read_source(filename):
@@ -62,7 +39,6 @@ def js_str(s):
 def build_gallery_html(data: dict, output_path: str):
     meta = data.get('meta', {})
     styles = data.get('styles', [])
-    fallback = build_fallback_data(styles)
 
     inline_css = read_source('gallery.css')
     inline_js_raw = read_source('gallery.js')
@@ -79,54 +55,171 @@ def build_gallery_html(data: dict, output_path: str):
     if auto_init_block in inline_js_raw:
         inline_js = inline_js_raw.replace(
             auto_init_block,
-            "  // auto-init disabled, init() called by renderGallery\n  window.init = init;"
+            "  // auto-init when cards are already rendered (async loading)\n"
+            "  if (document.querySelector('.style-card')) {\n"
+            "    init();\n"
+            "  } else {\n"
+            "    window.init = init;\n"
+            "  }"
         )
     else:
         # fallback: 替换尾声
         inline_js = inline_js_raw.replace(
             "})();",
-            "  window.init = init;\n})();"
+            "  if (document.querySelector('.style-card')) {\n"
+            "    init();\n"
+            "  } else {\n"
+            "    window.init = init;\n"
+            "  }\n"
+            "})();"
         )
 
-    # 预生成风格数据的 JS 数组（用于 renderGallery）—— 不再使用，数据从 CDN 加载
-    styles_js = []
-    for s in styles:
-        img_url = s.get('preview_webp', '') or (s.get('preview_urls') or [''])[0]
-        tags = s.get('tags', [])
-        features = s.get('features', [])
-        styles_js.append('{')
-        styles_js.append(f"  id: '{js_str(s.get('id', ''))}',")
-        styles_js.append(f"  code: '{js_str(s.get('code', ''))}',")
-        styles_js.append(f"  name: '{js_str(s.get('name', ''))}',")
-        styles_js.append(f"  category: '{js_str(s.get('category', ''))}',")
-        styles_js.append(f"  imgUrl: '{js_str(img_url)}',")
-        styles_js.append(f"  summary: '{js_str(s.get('summary', ''))}',")
-        styles_js.append(f"  triggers: '{js_str(s.get('triggers', ''))}',")
-        styles_js.append(f"  features: {json.dumps(features, ensure_ascii=False)},")
-        styles_js.append(f"  tags: {json.dumps(tags, ensure_ascii=False)},")
-        styles_js.append(f"  sourceUrl: '{js_str(s.get('source_url', ''))}',")
-        styles_js.append(f"  sourceAuthor: '{js_str(s.get('source_author', ''))}'")
-        styles_js.append('},')
-
-    styles_json_array = '\n    '.join(styles_js)
-
+    # 风格数据不再内联到 HTML，由 gallery-runtime.js 从 CDN 加载
     version = meta.get('version', '0.0.0').lstrip('v')
     total = len(styles)
 
-    description = 'AI 风格画廊 — 收集 129 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。'
+    from datetime import datetime
+    now = datetime.now()
+    today_str = now.strftime('%Y-%m-%d %H:%M')
+    cache_hash = now.strftime('%Y%m%d%H%M')  # 用于缓存版本（精确到分钟）
+    description = f'AI 风格画廊 — 收集 {total} 个 AI 绘画风格提示词，涵盖品牌KV、社交媒体、IP角色、时尚、创意等多种分类。支持预览、搜索、标签筛选、收藏。'
     base_url = 'https://malongan.github.io/style-source'
     img_preview = f'{base_url}/images/styles_previews/'
+
+    # 写出独立 CSS 文件（用于缓存）
+    css_path = os.path.join(os.path.dirname(output_path), 'gallery.css')
+    with open(css_path, 'w', encoding='utf-8') as f:
+        f.write(f'/* gallery.css v{cache_hash} — 由 build_gallery.py 生成 */\n')
+        f.write(inline_css)
+    print(f'  📝 写出独立 CSS: {css_path}')
+
+    # 写出独立 JS 文件（用于缓存）— gallery.js IIFE + 渲染函数
+    js_path = os.path.join(os.path.dirname(output_path), 'gallery-runtime.js')
+    # 构建渲染模板（从 gallery.js IIFE 中提取 renderGallery/buildCardHTML 替换 })
+    render_js = f'''
+/* ========== 卡片渲染 ========== */
+function buildCardHTML(s, idx, total) {{
+  idx = idx || 0;
+  total = total || 0;
+  var isNew = total > 10 && idx >= total - 10;
+  var imgUrl = s.preview_webp || (s.preview_urls || [])[0] || '';
+  var tags = (s.tags || []).join(',');
+  var summary = s.summary || '';
+  var triggers = Array.isArray(s.triggers) ? s.triggers.join(', ') : (s.triggers || '');
+  var features = (s.features || []).join('|');
+  var sourceUrl = s.sourceUrl || s.source_url || '';
+  var sourceAuthor = s.sourceAuthor || s.source_author || '';
+  var linkHtml = '';
+  if (sourceUrl) {{
+    linkHtml = '<a href="' + sourceUrl.replace(/"/g,'&quot;') + '" target="_blank" class="card-link">' +
+      (sourceAuthor ? '🔗 @' + sourceAuthor.replace(/"/g,'&quot;') : '🔗 来源') + '</a>';
+  }}
+  var badgeHtml = isNew ? '<span class="card-badge-new">🆕 NEW</span>' : '';
+  var imgHtml = '<picture><source srcset="' + imgUrl + '" type="image/webp"><img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"'
+    + ' onerror="this.outerHTML=window.__FALLBACK_IMG__"></picture>';
+  return '<div class="style-card" tabindex="0" role="button" data-id="' + s.id + '"' +
+    ' data-code="' + (s.code || '') + '"' +
+    ' data-summary="' + summary.replace(/"/g,'&quot;') + '"' +
+    ' data-features="' + features.replace(/"/g,'&quot;') + '"' +
+    ' data-triggers="' + triggers.replace(/"/g,'&quot;') + '"' +
+    ' data-tags="' + tags + '"' +
+    ' data-number="' + (s.code || s.number || s.id || '') + '"' +
+    ' data-category="' + s.category + '"' +
+    ' data-created-at="' + (s.created_at || '') + '"' +
+    ' data-original-index="' + idx + '">' +
+    '<div class="card-image-wrap">' + imgHtml + badgeHtml + '</div>' +
+    '<div class="card-content">' +
+      '<div class="card-title-row">' +
+        '<span class="card-number" title="点击复制编号">' + (s.code ? '#' + s.code : '#' + (s.number || s.id || '')) + '</span>' +
+        '<span class="card-category">' + (s.category || '') + '</span>' +
+      '</div>' +
+      '<h3 class="card-title">' + s.name + '</h3>' +
+      '<div class="card-footer">' + linkHtml +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}}
+
+function renderGallery(data) {{
+  var styles = data.styles || [];
+  window.__allStyles = styles;
+  window.__filteredStyles = null;
+  window.__renderedUpTo = 0;
+
+  var loading = document.getElementById('loading');
+  var app = document.getElementById('app');
+  if (loading) loading.style.display = 'none';
+  if (app) app.style.display = 'block';
+  var grid = document.querySelector('.gallery-grid');
+  if (!grid) return;
+
+  // 只渲染第一批（无限滚动按需追加）
+  grid.innerHTML = '';
+  var totalStyles = styles.length;
+  var firstBatch = Math.min(totalStyles, 30);
+  var html = '';
+  for (var i = 0; i < firstBatch; i++) {{
+    html += buildCardHTML(styles[i], i, totalStyles);
+  }}
+  grid.innerHTML = html;
+  window.__renderedUpTo = firstBatch;
+
+  var countEl = document.getElementById('countVisible');
+  var totalEl = document.getElementById('countTotal');
+  if (countEl) countEl.textContent = styles.length;
+  if (totalEl) totalEl.textContent = styles.length;
+  window.__totalStyles = styles.length;
+  if (typeof window.init === 'function') window.init();
+  if (window.galleryCategories) {{
+    window.galleryCategories.all = window.__totalStyles || styles.length;
+    var catBtns = document.querySelectorAll('.category-btn');
+    catBtns.forEach(function(b) {{
+      if (b.dataset.category === 'all') {{
+        var countSpan = b.querySelector('.tag-count');
+        if (countSpan) countSpan.textContent = window.galleryCategories.all;
+      }}
+    }});
+  }}
+}}
+
+async function loadGallery() {{
+  try {{
+    const resp = await fetch('https://malongan.github.io/style-source/data/styles.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    renderGallery(data);
+  }} catch(e) {{
+    console.warn('JSON 加载失败', e);
+  }}
+}}
+
+loadGallery();
+'''
+    with open(js_path, 'w', encoding='utf-8') as f:
+        f.write(f'/* gallery-runtime.js v{cache_hash} — 由 build_gallery.py 生成 */\n')
+        f.write(inline_js)
+        f.write(render_js)
+    print(f'  📝 写出独立 JS:  {js_path}')
+
+    # 生成骨架屏卡片（10 张，随机宽度模拟内容）
+    import random
+    random.seed(cache_hash)
+    widths = [(random.randint(25, 55), random.randint(55, 85)) for _ in range(10)]
+    skeleton_cards = '\n'.join(
+        f'      <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-bar" style="width:{w1}%"></div><div class="skeleton-bar" style="width:{w2}%"></div></div>'
+        for w1, w2 in widths
+    )
 
     html = f'''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 风格画廊 v{version}</title>
+<title>AI 风格画廊 ({total} 个风格)</title>
 <meta name="description" content="{description}">
 <meta name="keywords" content="AI绘画,风格提示词,Stable Diffusion,Midjourney,AI画廊,提示词库">
 <meta name="author" content="malongan">
-<meta property="og:title" content="AI 风格画廊 v{version}">
+<meta property="og:title" content="AI 风格画廊 ({total} 个风格)">
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{base_url}/gallery.html">
 <meta property="og:type" content="website">
@@ -137,35 +230,75 @@ def build_gallery_html(data: dict, output_path: str):
 <meta name="twitter:image" content="{base_url}/images/styles_previews/avantgarde_bw_poster_44361c82.webp">
 <link rel="canonical" href="{base_url}/gallery.html">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+<link rel="preconnect" href="https://malongan.github.io" crossorigin>
+<link rel="preload" href="gallery.css?v={cache_hash}" as="style">
+<link rel="preload" href="gallery-runtime.js?v={cache_hash}" as="script">
+<link rel="stylesheet" href="gallery.css?v={cache_hash}">
 <style>
-/* ★ 样式内联 — 来自 gallery/src/gallery.css */
-{inline_css}
+/* ★ 首屏关键样式（防 FOUC，完整样式从 gallery.css 加载） */
+:root {{ --bg-primary:#f0f2f5;--bg-card:#fff;--text-primary:#1f2937;--text-muted:#9ca3af;--accent-color:#3b82f6; }}
+[data-theme="dark"] {{ --bg-primary:#111827;--bg-card:#1f2937;--text-primary:#f9fafb;--accent-color:#60a5fa; }}
+* {{ margin:0;padding:0;box-sizing:border-box; }}
+body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary); }}
+#app {{ display:none; }}
+.loading-skeleton {{ padding:20px 0;text-align:center;color:var(--text-muted); }}
 </style>
+<noscript><link rel="stylesheet" href="gallery.css?v={cache_hash}"></noscript>
 </head>
 <body>
-  <div id="loading">🔄 加载风格画廊...</div>
+  <div id="loading" class="loading-skeleton">
+    <div class="skeleton-grid">
+      {skeleton_cards}
+    </div>
+    <div class="skeleton-loading-text">🔄 加载风格画廊...</div>
+  </div>
 
   <div class="container" id="app" style="display:none">
     <!-- Header -->
     <header class="header">
       <div class="header-left">
-        <h1 class="header-title">AI 风格库</h1>
-        <span class="header-author">by malongan</span>
+        <h1 class="header-title">🎨 AI 风格库 <span class="header-update" id="headerVersion">v{today_str}</span> <span class="header-author">by malongan</span></h1>
       </div>
       <div class="header-right">
+        <a href="https://malongan.github.io/ip-gallery/" target="_blank" class="header-nav-link" title="IP 预览">🎭 IP</a>
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="搜索风格...">
+          <input type="text" id="searchInput" placeholder="搜索风格、标签、作者..." autofocus>
+          <span class="search-clear" id="searchClear" style="display:none;">✕</span>
         </div>
         <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
       </div>
     </header>
 
+    <!-- 分类固定栏（sticky）：左分类 + 右计数 -->
+    <div class="category-bar" id="categoryBar">
+      <div class="category-filter" id="categoryFilter">
+        <!-- 由 renderCategoryFilters() 动态填充 -->
+      </div>
+      <span class="result-count">
+        显示 <span class="count-num" id="countVisible">{total}</span> / <span class="count-total" id="countTotal">{total}</span> 个风格
+      </span>
+    </div>
+
     <!-- 主布局：左侧标签 + 右侧内容 -->
     <div class="main-layout">
-      <!-- 左侧标签栏 -->
+      <!-- 左侧侧边栏：排序+收藏 + 标签 -->
       <aside class="sidebar">
         <div class="sidebar-section">
+          <div class="sidebar-actions">
+            <select id="sortSelect" class="sort-select">
+              <option value="default">默认排序</option>
+              <option value="newest">🆕 最新添加</option>
+              <option value="name-asc">📄 名称 A-Z</option>
+              <option value="name-desc">📄 名称 Z-A</option>
+              <option value="favorites">❤️ 已收藏优先</option>
+            </select>
+            <div class="sidebar-action-row">
+              <button class="filter-btn" id="filterFavorites">❤️ 只看收藏</button>
+              <button class="filter-btn clear-filter-btn" id="clearFilters" style="display:none;">✕ 清除</button>
+            </div>
+          </div>
+          <div class="sidebar-divider"></div>
           <h3 class="sidebar-title">🏷️ 标签筛选</h3>
           <div class="tag-list">
             <!-- 标签由 JS 动态生成 -->
@@ -173,20 +306,8 @@ def build_gallery_html(data: dict, output_path: str):
         </div>
       </aside>
 
-      <!-- 右侧内容区 -->
+      <!-- 右侧内容区：风格卡片网格 -->
       <div class="content-area">
-        <!-- 筛选栏 -->
-        <div class="filter-bar">
-          <button class="filter-btn" id="filterFavorites">
-            ❤️ 只看收藏
-          </button>
-          <span class="result-count" style="margin-left: auto; color: var(--text-muted); font-size: 13px;">
-            <span class="header-update" style="margin-right: 12px;">最后更新：{version}</span>
-            共 <span class="count-num">{total}</span> 个风格
-          </span>
-        </div>
-
-        <!-- 风格卡片网格（由 renderGallery 填充） -->
         <div id="gallery" class="gallery-grid">
           <!-- renderGallery 将在此生成 .style-card -->
         </div>
@@ -195,15 +316,21 @@ def build_gallery_html(data: dict, output_path: str):
 
     <!-- Lightbox 详情弹窗 -->
     <div class="lightbox" id="lightbox">
+      <button class="lightbox-nav lightbox-nav-prev" id="lightboxPrev" title="上一个 (←)">◀</button>
+      <button class="lightbox-nav lightbox-nav-next" id="lightboxNext" title="下一个 (→)">▶</button>
       <div class="lightbox-card">
         <div class="lightbox-image-wrap">
-          <img src="" alt="" class="lightbox-image">
+        <picture><source srcset="" type="image/webp" class="lightbox-source"><img src="" alt="" class="lightbox-image"></picture>
           <button class="lightbox-close" id="lightboxClose">✕</button>
         </div>
         <div class="lightbox-body">
           <div class="lightbox-title-row">
             <h2 class="lightbox-title"></h2>
-            <span class="lightbox-index"></span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="lightbox-index"></span>
+              <button class="favorite-btn lightbox-fav-btn" title="收藏">收藏</button>
+              <button class="copy-prompt-btn lightbox-copy-btn" title="复制提示词" data-id="">📋 复制提示词</button>
+            </div>
           </div>
           <div class="lightbox-content">
             <div class="lightbox-section lightbox-summary-section">
@@ -236,162 +363,31 @@ def build_gallery_html(data: dict, output_path: str):
     <p>by malongan · <a href="https://github.com/malongan/style-source" target="_blank" style="color:var(--accent-color)">GitHub</a></p>
   </div>
 
+  <!-- 回到顶部按钮 -->
+  <button class="back-to-top" id="backToTop" title="回到顶部">↑</button>
+
 <script>
-/* ★ FALLBACK DATA — 部署时内嵌 */
-window.__FALLBACK_DATA__ = {json.dumps(fallback, ensure_ascii=False, indent=2)};
+/* ★ 图片加载失败时的兜底 HTML */
 window.__FALLBACK_IMG__ = '{js_str(FALLBACK_IMG)}';
-
-/* ★ JS 交互 — 来自 gallery/src/gallery.js */
-{inline_js}
-
-/* ========== 渲染功能 ========== */
-
-/** 构建单张 style-card 的 HTML（WebP 优先） */
-function buildCardHTML(s) {{
-  var imgUrl = s.preview_webp || (s.preview_urls || [])[0] || '';
-  var tags = (s.tags || []).join(',');
-  var summary = s.summary || '';
-  var triggers = s.triggers || '';
-  var features = (s.features || []).join('|');
-  var sourceUrl = s.sourceUrl || s.source_url || '';
-  var sourceAuthor = s.sourceAuthor || s.source_author || '';
-
-  var linkHtml = '';
-  if (sourceUrl) {{
-    linkHtml = '<a href="' + sourceUrl.replace(/"/g,'&quot;') + '" target="_blank" class="card-link">' +
-      (sourceAuthor ? '🔗 @' + sourceAuthor.replace(/"/g,'&quot;') : '🔗 来源') + '</a>';
-  }}
-
-  // 直接用 WebP（不再使用 <picture> 包装，节省体积）
-  var imgHtml = '<img src="' + imgUrl + '" alt="' + s.name + '" class="card-image" loading="lazy"'
-    + ' onerror="this.outerHTML=window.__FALLBACK_IMG__">';
-
-  return '<div class="style-card" data-id="' + s.id + '"' +
-    ' data-code="' + (s.code || '') + '"' +
-    ' data-summary="' + summary.replace(/"/g,'&quot;') + '"' +
-    ' data-features="' + features.replace(/"/g,'&quot;') + '"' +
-    ' data-triggers="' + triggers.replace(/"/g,'&quot;') + '"' +
-    ' data-tags="' + tags + '"' +
-    ' data-number="' + (s.code || s.number || s.id || '') + '"' +
-    ' data-category="' + s.category + '">' +
-    imgHtml +
-    '<div class="card-content">' +
-      '<div class="card-title-row">' +
-        '<span class="card-number">' + (s.code ? '#' + s.code : '#' + (s.number || s.id || '')) + '</span>' +
-        '<span class="card-category">' + (s.category || '') + '</span>' +
-      '</div>' +
-      '<h3 class="card-title">' + s.name + '</h3>' +
-      '<div class="card-footer">' +
-        linkHtml +
-        '<button class="favorite-btn" title="收藏">收藏</button>' +
-      '</div>' +
-    '</div>' +
-  '</div>';
-}}
-
-/** 从 JSON 数据渲染瀑布流卡片 */
-function renderGallery(data) {{
-  var styles = data.styles || [];
-  var loading = document.getElementById('loading');
-  var app = document.getElementById('app');
-
-  if (loading) loading.style.display = 'none';
-  if (app) app.style.display = 'block';
-
-  var grid = document.querySelector('.gallery-grid');
-  if (!grid) return;
-
-  grid.innerHTML = styles.map(function(s) {{ return buildCardHTML(s); }}).join('');
-
-  // 更新结果计数
-  var countEl = document.querySelector('.count-num');
-  if (countEl) countEl.textContent = styles.length;
-
-  // 修正 gallery.js extractCategories() 的 all 计数 bug
-  window.__totalStyles = styles.length;
-
-  // 渲染完成后调用 gallery.js 的 init() 绑定事件
-  if (typeof window.init === 'function') window.init();
-
-  // 修复 all 计数（gallery.js 的 extractCategories 不递增 all）
-  if (window.galleryCategories) {{
-    window.galleryCategories.all = window.__totalStyles || styles.length;
-    // 重新渲染分类按钮以显示正确计数
-    var catBtns = document.querySelectorAll('.category-btn');
-    catBtns.forEach(function(b) {{
-      if (b.dataset.category === 'all') {{
-        var countSpan = b.querySelector('.tag-count');
-        if (countSpan) countSpan.textContent = window.galleryCategories.all;
-      }}
-    }});
-
-    // 绑定编号点击复制
-    document.querySelectorAll('.card-number').forEach(function(el) {{
-      el.addEventListener('click', function(e) {{
-        e.stopPropagation();
-        var code = this.textContent.replace('#', '').trim();
-        if (!code) return;
-        if (navigator.clipboard && navigator.clipboard.writeText) {{
-          navigator.clipboard.writeText(code).then(function() {{
-            el.classList.add('copied');
-            setTimeout(function() {{ el.classList.remove('copied'); }}, 1500);
-          }}).catch(function() {{ fallbackCopy(code, el); }});
-        }} else {{
-          fallbackCopy(code, el);
-        }}
-      }});
-    }});
-  }}
-
-  function fallbackCopy(text, el) {{
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    el.classList.add('copied');
-    setTimeout(function() {{ el.classList.remove('copied'); }}, 1500);
-  }}
-}}
-
-/** 从 JSON 或回退数据渲染 */
-async function loadGallery() {{
-  try {{
-    const resp = await fetch('data/styles.json?t=' + Date.now());
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const data = await resp.json();
-    // 本地预览：将图片 URL 改为相对路径
-    if (data && data.styles) {{
-      data.styles.forEach(function(s) {{
-        if (s.preview_webp) s.preview_webp = s.preview_webp.replace('https://malongan.github.io/style-source/', '');
-        if (s.preview_urls) s.preview_urls = s.preview_urls.map(function(u) {{ return u.replace('https://malongan.github.io/style-source/', ''); }});
-      }});
-    }}
-    renderGallery(data);
-  }} catch(e) {{
-    console.warn('JSON 加载失败，使用备用数据', e);
-    if (window.__FALLBACK_DATA__) renderGallery(window.__FALLBACK_DATA__);
-  }}
-}}
-
-loadGallery();
 </script>
+<script defer src="gallery-runtime.js?v={cache_hash}"></script>
 </body>
 </html>'''
+
+    # 压缩 HTML：去除标签间空白和注释（保留骨架屏 <div> 结构）
+    html = re.sub(r'>\s+<', '><', html)
+    html = re.sub(r'\s{2,}', ' ', html)
+    html = re.sub(r'\n\s*', '', html)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html)
     size_kb = len(html.encode('utf-8')) / 1024
-    print(f'✅ 已生成 {output_path} ({size_kb:.1f}KB, 备选 {FALLBACK_LIMIT} 个风格)')
+    print(f'✅ 已生成 {output_path} ({size_kb:.1f}KB)')
 
 
 def main():
     parser = argparse.ArgumentParser(description='构建 gallery.html')
     parser.add_argument('--output', default=GALLERY_HTML, help='输出路径')
-    parser.add_argument('--local', action='store_true', help='本地预览模式：图片URL改为相对路径')
     args = parser.parse_args()
 
     clean_dist()
@@ -405,18 +401,6 @@ def main():
 
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
     build_gallery_html(data, args.output)
-
-    # 本地预览模式：替换图片URL为相对路径
-    if args.local:
-        with open(args.output, 'r', encoding='utf-8') as f:
-            html = f.read()
-        html = html.replace(
-            'https://malongan.github.io/style-source/images/',
-            'images/'
-        )
-        with open(args.output, 'w', encoding='utf-8') as f:
-            f.write(html)
-        print('  本地模式：图片URL已替换为相对路径')
 
 
 if __name__ == '__main__':
