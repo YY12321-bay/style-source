@@ -7,6 +7,7 @@ import argparse
 import sys
 import re
 
+FALLBACK_LIMIT = 999  # 包含全部风格（避免新增风格排到50名后被截掉）
 FALLBACK_IMG = '<div class="img-fallback" style="width:100%;aspect-ratio:3/4;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:12px;">图片加载失败</div>'
 
 DIST_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'dist')
@@ -184,7 +185,7 @@ function renderGallery(data) {{
 
 async function loadGallery() {{
   try {{
-    const resp = await fetch('https://malongan.github.io/style-source/data/styles.json?t=' + Date.now());
+    const resp = await fetch('./data/styles.json?t=' + Date.now());
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     renderGallery(data);

@@ -1,4 +1,4 @@
-/* gallery-runtime.js v202607031411 — 由 build_gallery.py 生成 */
+/* gallery-runtime.js v202607031530 — 由 build_gallery.py 生成 */
 /**
  * Gallery 功能脚本 v4
  * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式、无限滚动、复制提示词
@@ -1246,7 +1246,7 @@ function renderGallery(data) {
 
 async function loadGallery() {
   try {
-    const resp = await fetch('https://malongan.github.io/style-source/data/styles.json?t=' + Date.now());
+    const resp = await fetch('./data/styles.json?t=' + Date.now());
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     renderGallery(data);

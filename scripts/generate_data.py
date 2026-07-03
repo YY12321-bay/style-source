@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 STYLES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'styles')
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
 IMAGES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'images')
-BASE_URL = 'https://malongan.github.io/style-source'
+BASE_URL = '.'
 NUMBERS_FILE = os.path.join(DATA_DIR, 'style_numbers.json')
 TIMESTAMPS_FILE = os.path.join(DATA_DIR, 'style_timestamps.json')
 
