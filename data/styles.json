@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": "v0.7.0-8-g116254f-dirty",
-    "generated": "2026-07-03T07:30:09Z",
-    "total": 169,
+    "version": "v0.7.0-9-g486431a-dirty",
+    "generated": "2026-07-03T08:41:42Z",
+    "total": 170,
     "categories": [
       "brand_kv",
       "creative",
@@ -4324,6 +4324,51 @@
       "preview_webp": "./images/styles_previews/realistic_photo_dd50687b.webp",
       "preview_webp_thumb": "./images/styles_previews/realistic_photo_dd50687b.thumb.webp",
       "created_at": "2026-06-28T08:01:29+08:00"
+    },
+    {
+      "id": "pop_toy_poster",
+      "code": "ST0170",
+      "name": "Pop Toy Poster",
+      "category": "creative",
+      "tags": [
+        "潮玩",
+        "3D",
+        "海报",
+        "IP",
+        "哑光",
+        "街头",
+        "C4D",
+        "8K"
+      ],
+      "triggers": [
+        "潮玩海报",
+        "3D哑光潮玩",
+        "潮流IP海报",
+        "潮玩手办",
+        "pop toy poster"
+      ],
+      "scene": "品牌潮玩IP海报、潮流服饰广告、街头文化视觉、潮玩产品宣传",
+      "ratio": "9:16",
+      "summary": "C4D写实渲染的3D哑光潮玩手办海报，方块头男性人偶+西装造型+荧光绿点缀+涂鸦排版，潮酷街头氛围",
+      "features": [
+        "**3D哑光潮玩手办** — C4D写实渲染，磨砂哑光材质质感，潮玩产品级渲染质量，8K超高清",
+        "**潮酷街头氛围** — 深灰/哑光白/荧光绿为主色调，硬朗面部线条，金属徽章装饰",
+        "**方块头男性人偶** — 灰绿色拼色短发，面部表情严肃，佩戴耳钉、智能手表",
+        "**西装造型** — 深灰色西装外套+荧光亮绿色衬衫+灰黑条纹领带，金属徽章点缀",
+        "**涂鸦排版** — 粗体英文标题+黑色飘逸手写涂鸦字叠加，条形码/编号/署名等排版元素",
+        "**品牌LOGO** — 左下角黑底荧光绿品牌logo",
+        "**浅灰色干净背景** — 半透明大号字母底纹"
+      ],
+      "prompt": "竖版潮玩 IP 海报，3D 哑光潮玩手办风格，C4D 写实渲染，磨砂哑光材质质感，浅灰色干净背景。\n画面主体是上半身的方块头男性潮玩人偶，灰绿色拼色短发，面部线条硬朗神情严肃，耳朵佩戴耳钉；\n身穿深灰色西装外套，内搭荧光亮绿色衬衫，系灰黑条纹领带，\n西装上点缀多款金属徽章，胸口有圆形表情徽章、三角标识徽章与圆形徽章。\n人偶右手抬起整理领带，手腕佩戴黑色智能手表，表盘印有生物危害标志，手背有手写签名纹身；\n左手持雪茄，姿态酷感十足。\n背景与文字装饰：背景衬有半透明灰色大号字母底纹；\n顶部是荧光绿色粗体英文，其上叠加黑色飘逸手写涂鸦字体；\n左侧竖排标注设计署名；右侧排布竖版条形码与数字编号；\n左下角是黑底荧光绿的品牌 logo。\n整体以深灰、哑光白、荧光绿为主色调，潮酷街头氛围强烈，材质质感细腻真实，高清 8K，潮玩产品级渲染质量。\n不要水印，不要真实Logo，不要电商广告感。\n",
+      "variables": {},
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7658103847092636937",
+      "source_author": "即梦（jimeng.jianying.com）",
+      "preview_urls": [
+        "./images/styles_previews/pop_toy_poster_dd94c6da.webp"
+      ],
+      "preview_webp": "./images/styles_previews/pop_toy_poster_dd94c6da.webp",
+      "preview_webp_thumb": "./images/styles_previews/pop_toy_poster_dd94c6da.thumb.webp",
+      "created_at": ""
     },
     {
       "id": "playful_avantgarde_poster",

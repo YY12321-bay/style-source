@@ -1,4 +1,4 @@
-共 169 个风格
+共 170 个风格
 
 ST0001 | Y3K 酷酷女孩 | ./images/styles_previews/y3k_cool_girl_portrait_d64d0282.webp
 ST0002 | 旷野的风 | ./images/styles_previews/wilderness_wind_poster_4920aafd.webp
@@ -87,6 +87,7 @@ ST0077 | 复古未来主义科幻海报 | ./images/styles_previews/retro_future_
 ST0078 | 复古饮料广告 | ./images/styles_previews/retro_drink_ad_52652b0d.webp
 ST0079 | Retro Cel Animation | ./images/styles_previews/retro_cel_animation_70639aef.webp
 ST0080 | 写实摄影 | ./images/styles_previews/realistic_photo_dd50687b.webp
+ST0170 | Pop Toy Poster | ./images/styles_previews/pop_toy_poster_dd94c6da.webp
 ST0081 | 童趣前卫艺术展海报 | ./images/styles_previews/playful_avantgarde_poster_be32ed45.webp
 ST0144 | 像素切割社区活动海报 | ./images/styles_previews/pixel_cut_community_poster_74cb7a79.webp
 ST0082 | Pixar 3D 卡通肖像 | ./images/styles_previews/pixar_cartoon_portrait_cc32688d.webp
