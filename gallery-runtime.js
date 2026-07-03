@@ -1,4 +1,4 @@
-/* gallery-runtime.js v202607031641 — 由 build_gallery.py 生成 */
+/* gallery-runtime.js v202607031656 — 由 build_gallery.py 生成 */
 /**
  * Gallery 功能脚本 v4
  * 包含：搜索过滤、标签筛选、收藏、Lightbox信息卡片、深色模式、无限滚动、复制提示词
@@ -42,6 +42,8 @@
     extractCategoriesFromData();
     renderSidebarTags();
     renderCategoryFilters();
+    // 初始渲染：应用默认排序（按编号倒序）
+    reRenderGrid();
     // URL 参数路由：加载后读取 URL params 并应用筛选
     readURLParams();
     // 同步下拉选择器的值
@@ -268,7 +270,17 @@
 
   /** 对 styles 列表按当前排序方式排序 */
   function sortStyles(styles) {
-    if (state.currentSort === 'default' || state.currentSort === 'date-desc') {
+    if (state.currentSort === 'default') {
+      // 默认：按编号倒序（ST0170 排最前，最新添加的永远在顶部）
+      return styles.slice().sort(function(a, b) {
+        const numA = parseInt((a.code || a.number || '').replace(/\D/g, ''), 10);
+        const numB = parseInt((b.code || b.number || '').replace(/\D/g, ''), 10);
+        if (numA && numB) return numB - numA;
+        if (numA) return -1;
+        if (numB) return 1;
+        return 0;
+      });
+    } else if (state.currentSort === 'date-desc') {
       // date-desc: 按 created_at 倒序
       return styles.slice().sort(function(a, b) {
         const dateA = a.created_at || '';
