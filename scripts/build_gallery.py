@@ -261,7 +261,7 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
         <h1 class="header-title">🎨 AI 风格库 <span class="header-update" id="headerVersion">v{today_str}</span> <span class="header-author">by malongan</span></h1>
       </div>
       <div class="header-right">
-        <a href="https://malongan.github.io/ip-gallery/" target="_blank" class="header-nav-link" title="IP 预览">🎭 IP</a>
+        <a href="./../ip_gallery/index.html" target="_blank" class="header-nav-link" title="IP 图库">🎭 IP</a>
         <div class="search-box">
           <span class="search-icon">🔍</span>
           <input type="text" id="searchInput" placeholder="搜索风格、标签、作者..." autofocus>

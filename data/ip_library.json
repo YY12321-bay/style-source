@@ -1,0 +1,13 @@
+{
+  "ips": [
+    {
+      "id": "喜猫",
+      "name": "喜猫",
+      "brand": "喜马拉雅",
+      "style": "3D可爱卡通",
+      "thumb": "ip_gallery/喜猫/thumb.jpg",
+      "square": "ip_gallery/喜猫/square.jpg"
+    }
+  ],
+  "total": 1
+}

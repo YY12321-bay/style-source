@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP 图库</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f0f2f5;
+  color: #1f2937;
+  min-height: 100vh;
+}
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+header h1 { font-size: 2em; margin-bottom: 8px; }
+header p { opacity: 0.85; font-size: 1.1em; }
+header .count { 
+  display: inline-block; 
+  background: rgba(255,255,255,0.2); 
+  padding: 4px 16px; 
+  border-radius: 20px; 
+  margin-top: 12px;
+  font-size: 0.9em;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+
+/* IP卡片网格 */
+.ip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+.ip-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.ip-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.ip-card .img-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.ip-card .img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ip-card .info {
+  padding: 16px;
+}
+.ip-card .info h3 {
+  font-size: 1.1em;
+  margin-bottom: 4px;
+}
+.ip-card .info .brand {
+  color: #667eea;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+.ip-card .info .style-tag {
+  display: inline-block;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  margin-top: 6px;
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+.lightbox.active { display: flex; }
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+}
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: 12px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+}
+.lightbox .close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.lightbox .close:hover { opacity: 1; }
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #9ca3af;
+}
+.empty-state .icon { font-size: 64px; margin-bottom: 16px; }
+.empty-state h3 { font-size: 1.3em; margin-bottom: 8px; color: #6b7280; }
+.empty-state p { font-size: 0.95em; }
+
+/* 页脚 */
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: #9ca3af;
+  font-size: 0.85em;
+}
+footer a { color: #667eea; text-decoration: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎭 IP 图库</h1>
+  <p>本地IP角色参考图，用于AI绘画生图</p>
+  <div class="count" id="countTotal">加载中...</div>
+</header>
+
+<div class="container">
+  <div class="ip-grid" id="ipGrid"></div>
+  <div class="empty-state" id="emptyState" style="display:none">
+    <div class="icon">📭</div>
+    <h3>还没有IP</h3>
+    <p>将IP图片放入桌面 <code>ip_library/</code> 目录，运行同步脚本即可显示</p>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-content">
+    <span class="close">&times;</span>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+</div>
+
+<footer>
+  <a href="https://yy12321-bay.github.io/style-source/gallery.html">🎨 风格画廊</a> · 
+  <a href="https://github.com/YY12321-bay/style-source">GitHub</a>
+</footer>
+
+<script>
+async function loadIPs() {
+  try {
+    const resp = await fetch('../data/ip_library.json?t=' + Date.now());
+    const data = await resp.json();
+    const grid = document.getElementById('ipGrid');
+    const count = document.getElementById('countTotal');
+    
+    if (!data.ips || data.ips.length === 0) {
+      document.getElementById('emptyState').style.display = 'block';
+      count.textContent = '0 个IP';
+      return;
+    }
+    
+    count.textContent = data.total + ' 个IP';
+    
+    data.ips.forEach(ip => {
+      const card = document.createElement('div');
+      card.className = 'ip-card';
+      card.innerHTML = `
+        <div class="img-wrap">
+          <img src="../${ip.thumb}" alt="${ip.name}" loading="lazy">
+        </div>
+        <div class="info">
+          <h3>${ip.name}</h3>
+          <div class="brand">${ip.brand}</div>
+          <span class="style-tag">${ip.style}</span>
+        </div>
+      `;
+      card.addEventListener('click', () => openLightbox('../' + ip.square, ip.name));
+      grid.appendChild(card);
+    });
+  } catch(e) {
+    document.getElementById('countTotal').textContent = '加载失败';
+    console.warn('IP图库加载失败', e);
+  }
+}
+
+function openLightbox(src, name) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightboxImg').alt = name;
+  lb.classList.add('active');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+loadIPs();
+</script>
+</body>
+</html>
