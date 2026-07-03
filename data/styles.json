@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "v0.6.0-before-opt-5-g970634c-dirty",
-    "generated": "2026-07-02T15:21:13Z",
+    "version": "v0.7.0-1-ga7a94b0-dirty",
+    "generated": "2026-07-03T06:11:11Z",
     "total": 168,
     "categories": [
       "brand_kv",
@@ -2472,10 +2472,10 @@
       "source_url": "https://x.com/VigoCreativeAI",
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "preview_urls": [
-        "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_kinetic_poster_cb5d6942.webp"
+        "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_kinetic_poster_f4505868.webp"
       ],
-      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_kinetic_poster_cb5d6942.webp",
-      "preview_webp_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_kinetic_poster_cb5d6942.thumb.webp",
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_kinetic_poster_f4505868.webp",
+      "preview_webp_thumb": "https://malongan.github.io/style-source/images/styles_previews/vigo_blue_kinetic_poster_f4505868.thumb.webp",
       "created_at": "2026-06-28T08:01:29+08:00"
     },
     {
@@ -3406,10 +3406,10 @@
       "source_url": "https://x.com/VigoCreativeAI",
       "source_author": "Vigo AI Visual Prompt Cookbook",
       "preview_urls": [
-        "https://malongan.github.io/style-source/images/styles_previews/style_poster_cb5d6942.webp"
+        "https://malongan.github.io/style-source/images/styles_previews/style_poster_c8d9aeec.webp"
       ],
-      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/style_poster_cb5d6942.webp",
-      "preview_webp_thumb": "https://malongan.github.io/style-source/images/styles_previews/style_poster_cb5d6942.thumb.webp",
+      "preview_webp": "https://malongan.github.io/style-source/images/styles_previews/style_poster_c8d9aeec.webp",
+      "preview_webp_thumb": "https://malongan.github.io/style-source/images/styles_previews/style_poster_c8d9aeec.thumb.webp",
       "created_at": "2026-06-28T08:01:29+08:00"
     },
     {
