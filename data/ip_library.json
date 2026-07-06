@@ -7,7 +7,15 @@
       "style": "3D可爱卡通",
       "thumb": "ip_gallery/喜猫/thumb.jpg",
       "square": "ip_gallery/喜猫/square.jpg"
+    },
+    {
+      "id": "迅雷",
+      "name": "迅雷",
+      "brand": "迅雷",
+      "style": "科技/数码/IP形象",
+      "thumb": "ip_gallery/迅雷/thumb.jpg",
+      "square": "ip_gallery/迅雷/square.jpg"
     }
   ],
-  "total": 1
+  "total": 2
 }
