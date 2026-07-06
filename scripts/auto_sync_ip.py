@@ -17,6 +17,7 @@ import os, sys, hashlib, json, subprocess, time
 from PIL import Image
 
 ENV = {**os.environ, 'PYTHONIOENCODING': 'utf-8'}  # 解决GBK编码问题
+GIT_OPTS = ['-c', 'http.version=HTTP/1.1']  # 解决HTTP/2连接问题
 
 # ====== 路径配置 ======
 DESKTOP_IP_DIR = r'C:\Users\zy\Desktop\ip_library'
@@ -125,6 +126,9 @@ Maintain IP identity and consistency throughout.
 
 def sub_run(args, **kwargs):
     """subprocess.run wrapper with utf-8 env"""
+    # git命令自动追加HTTP/1.1配置
+    if args and args[0] == 'git':
+        args = ['git'] + GIT_OPTS + args[1:]
     result = subprocess.run(args, capture_output=True, env=ENV, cwd=REPO_ROOT, **kwargs)
     # 手动解码，忽略GBK错误
     try:
