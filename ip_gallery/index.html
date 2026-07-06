@@ -126,6 +126,62 @@ header .count {
 .ip-card .info .btn-copy-link:hover {
   background: #c7d2fe;
 }
+.ip-card .info .btn-copy-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 4px;
+  margin-top: 8px;
+}
+.ip-card .info .btn-copy-dropdown > button {
+  padding: 4px 14px;
+  background: #e0e7ff;
+  color: #4f46e5;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ip-card .info .btn-copy-dropdown > button:hover {
+  background: #c7d2fe;
+}
+.ip-card .info .btn-copy-dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  z-index: 10;
+  min-width: 180px;
+  padding: 4px 0;
+  margin-top: 4px;
+}
+.ip-card .info .btn-copy-dropdown .dropdown-menu.show {
+  display: block;
+}
+.ip-card .info .btn-copy-dropdown .dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 0.85em;
+  cursor: pointer;
+  color: #1f2937;
+  transition: background 0.15s;
+}
+.ip-card .info .btn-copy-dropdown .dropdown-menu button:hover {
+  background: #f3f4f6;
+}
+.ip-card .info .btn-copy-dropdown .dropdown-menu button .hint {
+  color: #9ca3af;
+  font-size: 0.8em;
+  display: block;
+}
 
 /* 图片链接复制提示 */
 .toast {
@@ -295,8 +351,9 @@ footer a { color: #667eea; text-decoration: none; }
   <div class="lightbox-content">
     <span class="close">&times;</span>
     <img id="lightboxImg" src="" alt="">
-    <div style="text-align:center;margin-top:12px">
-      <button class="btn-copy-link" id="lightboxCopyBtn" onclick="copyImageUrl()">🔗 复制图片链接</button>
+    <div style="text-align:center;margin-top:12px;display:flex;gap:8px;justify-content:center">
+      <button class="btn-copy-link" id="lightboxCopySquare" onclick="copyLightboxUrl('square')">🔗 复制方形图 (API用)</button>
+      <button class="btn-copy-link" id="lightboxCopyRef" onclick="copyLightboxUrl('reference')">🔗 复制原图 (高清)</button>
     </div>
   </div>
 </div>
@@ -348,9 +405,21 @@ async function loadIPs() {
           <div class="brand">${ip.brand}</div>
           <div class="scene-tag">${ip.scene}</div>
           <span class="style-tag">${ip.style}</span>
-          <div style="display:flex;gap:4px;flex-wrap:wrap">
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">
             ${ip.has_sheji ? `<button class="btn-sheji" onclick="event.stopPropagation(); openSheji('${ip.id}')">📋 角色设定</button>` : ''}
-            <button class="btn-copy-link" onclick="event.stopPropagation(); copyImgLink('${ip.square}', '${ip.name}')">🔗 复制图片链接</button>
+            <div class="btn-copy-dropdown" onclick="event.stopPropagation()">
+              <button onclick="toggleDropdown(this)">🔗 复制链接 ▾</button>
+              <div class="dropdown-menu">
+                <button onclick="copyImgLink('${ip.square}', '${ip.name}', 'square'); closeDropdown(this)">
+                  方形图 (800×800)
+                  <span class="hint">API传参用</span>
+                </button>
+                <button onclick="copyImgLink('${ip.reference}', '${ip.name}', 'reference'); closeDropdown(this)">
+                  原图 (1200px)
+                  <span class="hint">高清参考</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       `;
@@ -368,25 +437,45 @@ function openLightbox(src, name) {
   const img = document.getElementById('lightboxImg');
   img.src = src;
   img.alt = name;
-  img.dataset.fullUrl = src.startsWith('http') ? src : BASE_URL + '/../' + src;
+  img.dataset.ipName = name;
   lb.classList.add('active');
 }
 
-function copyImgLink(squarePath, name) {
-  const url = IP_GALLERY_URL + '/' + encodeURIComponent(name) + '/square.jpg';
-  copyToClipboard(url);
+function copyLightboxUrl(type) {
+  const name = document.getElementById('lightboxImg').dataset.ipName;
+  if (!name) return;
+  const files = { 'square': 'square.jpg', 'reference': 'reference.jpg' };
+  const labels = { 'square': '方形图', 'reference': '原图' };
+  const path = 'ip_gallery/' + encodeURIComponent(name) + '/' + files[type];
+  const url = BASE_URL + '/' + path;
+  copyToClipboard(url, labels[type] + ' 链接已复制');
 }
 
-function copyImageUrl() {
-  const img = document.getElementById('lightboxImg');
-  const url = img.dataset.fullUrl || img.src;
-  copyToClipboard(url);
+function copyImgLink(imgPath, name, type) {
+  const url = BASE_URL + '/' + imgPath;
+  const labels = { 'square': '方形图', 'reference': '原图' };
+  const label = labels[type] || '图片';
+  copyToClipboard(url, label + ' 链接已复制');
 }
 
-function copyToClipboard(text) {
+function toggleDropdown(btn) {
+  const menu = btn.nextElementSibling;
+  // 关闭其他dropdown
+  document.querySelectorAll('.dropdown-menu.show').forEach(m => {
+    if (m !== menu) m.classList.remove('show');
+  });
+  menu.classList.toggle('show');
+}
+
+function closeDropdown(btn) {
+  btn.closest('.dropdown-menu').classList.remove('show');
+}
+
+function copyToClipboard(text, msg) {
+  const displayMsg = msg || '已复制到剪贴板';
   navigator.clipboard.writeText(text).then(() => {
     const toast = document.getElementById('toast');
-    toast.textContent = '✅ 已复制: ' + text.slice(0, 50) + '...';
+    toast.textContent = '✅ ' + displayMsg;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2000);
   }).catch(() => {
@@ -398,7 +487,7 @@ function copyToClipboard(text) {
     document.execCommand('copy');
     document.body.removeChild(ta);
     const toast = document.getElementById('toast');
-    toast.textContent = '✅ 已复制到剪贴板';
+    toast.textContent = '✅ ' + displayMsg;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2000);
   });
