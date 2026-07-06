@@ -29,23 +29,27 @@ print(f'📁 创建: {DESKTOP_IP_DIR}')
 
 # ===== 2. 处理图片 =====
 img = Image.open(img_path).convert('RGB')
-w, h = img.size
 
-# reference.jpg — 最长边1200px
-ratio = min(1200 / w, 1200 / h, 1.0)
-ref_img = img.resize((int(w * ratio), int(h * ratio)), Image.LANCZOS)
+def to_square(im, size, bg_color=(255, 255, 255)):
+    """等比例缩放并填充白边到正方形，保留全部内容"""
+    r = min(size / im.width, size / im.height)
+    resized = im.resize((int(im.width * r), int(im.height * r)), Image.LANCZOS)
+    square = Image.new('RGB', (size, size), bg_color)
+    x = (size - resized.width) // 2
+    y = (size - resized.height) // 2
+    square.paste(resized, (x, y))
+    return square
+
+# reference.jpg — 最长边1200px，保持比例
+ratio = min(1200 / img.width, 1200 / img.height, 1.0)
+ref_img = img.resize((int(img.width * ratio), int(img.height * ratio)), Image.LANCZOS)
 ref_img.save(os.path.join(DESKTOP_IP_DIR, 'reference.jpg'), 'JPEG', quality=85, optimize=True)
 
-# reference_square.jpg — 800x800 方形裁剪
-size = min(w, h)
-left = (w - size) // 2
-top = (h - size) // 2
-square = img.crop((left, top, left + size, top + size)).resize((800, 800), Image.LANCZOS)
-square.save(os.path.join(DESKTOP_IP_DIR, 'reference_square.jpg'), 'JPEG', quality=85, optimize=True)
+# reference_square.jpg — 800×800 白边填充（不裁剪内容）
+to_square(img, 800).save(os.path.join(DESKTOP_IP_DIR, 'reference_square.jpg'), 'JPEG', quality=85, optimize=True)
 
-# reference_thumb.jpg — 400x400
-square.resize((400, 400), Image.LANCZOS).save(
-    os.path.join(DESKTOP_IP_DIR, 'reference_thumb.jpg'), 'JPEG', quality=75, optimize=True)
+# reference_thumb.jpg — 400×400 白边填充
+to_square(img, 400).save(os.path.join(DESKTOP_IP_DIR, 'reference_thumb.jpg'), 'JPEG', quality=75, optimize=True)
 
 print(f'  ✅ reference.jpg ({ref_img.size[0]}x{ref_img.size[1]})')
 print(f'  ✅ reference_square.jpg (800x800)')

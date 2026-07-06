@@ -65,20 +65,27 @@ def process_ip(folder_name):
     img = Image.open(img_path).convert('RGB')
     w, h = img.size
 
-    # reference.jpg
+    # reference.jpg — 最长边1200px，保持比例（不裁剪）
     ratio = min(1200 / w, 1200 / h, 1.0)
     ref = img.resize((int(w * ratio), int(h * ratio)), Image.LANCZOS)
     ref.save(os.path.join(folder_path, 'reference.jpg'), 'JPEG', quality=85, optimize=True)
 
-    # reference_square.jpg 800x800
-    crop_size = min(w, h)
-    left = (w - crop_size) // 2
-    top = (h - crop_size) // 2
-    square = img.crop((left, top, left + crop_size, top + crop_size)).resize((800, 800), Image.LANCZOS)
+    # reference_square.jpg — 800×800 白边填充（不裁剪内容）
+    def to_square(im, size, bg_color=(255, 255, 255)):
+        """等比例缩放并填充白边到正方形，保留全部内容"""
+        r = min(size / im.width, size / im.height)
+        resized = im.resize((int(im.width * r), int(im.height * r)), Image.LANCZOS)
+        square = Image.new('RGB', (size, size), bg_color)
+        x = (size - resized.width) // 2
+        y = (size - resized.height) // 2
+        square.paste(resized, (x, y))
+        return square
+
+    square = to_square(img, 800)
     square.save(os.path.join(folder_path, 'reference_square.jpg'), 'JPEG', quality=85, optimize=True)
 
-    # reference_thumb.jpg 400x400
-    square.resize((400, 400), Image.LANCZOS).save(
+    # reference_thumb.jpg — 400×400 白边填充
+    to_square(img, 400).save(
         os.path.join(folder_path, 'reference_thumb.jpg'), 'JPEG', quality=75, optimize=True)
 
     # 生成 README.md（如果不存在）
