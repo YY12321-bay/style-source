@@ -9,6 +9,14 @@
       "square": "ip_gallery/喜猫/square.jpg"
     },
     {
+      "id": "电视",
+      "name": "电视",
+      "brand": "电视",
+      "style": "默认风格",
+      "thumb": "ip_gallery/电视/thumb.jpg",
+      "square": "ip_gallery/电视/square.jpg"
+    },
+    {
       "id": "迅雷",
       "name": "迅雷",
       "brand": "迅雷",
@@ -17,5 +25,5 @@
       "square": "ip_gallery/迅雷/square.jpg"
     }
   ],
-  "total": 2
+  "total": 3
 }
