@@ -15,6 +15,7 @@ for folder in os.listdir(src_base):
     name = folder
     brand = ''
     style = ''
+    scene = ''
     if os.path.exists(readme_path):
         with open(readme_path, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -24,6 +25,9 @@ for folder in os.listdir(src_base):
         m = re.search(r'\|\s*\*\*风格\*\*\s*\|\s*(.+?)(?:\s*\||$)', content)
         if m:
             style = m.group(1).strip()
+        m = re.search(r'\|\s*\*\*产品场景\*\*\s*\|\s*(.+?)(?:\s*\||$)', content)
+        if m:
+            scene = m.group(1).strip()
 
     dst_folder = os.path.join(dst_base, folder)
     os.makedirs(dst_folder, exist_ok=True)
@@ -37,6 +41,7 @@ for folder in os.listdir(src_base):
         'id': folder,
         'name': name,
         'brand': brand,
+        'scene': scene,
         'style': style,
         'thumb': f'ip_gallery/{folder}/thumb.jpg',
         'square': f'ip_gallery/{folder}/square.jpg'
@@ -48,4 +53,4 @@ with open(os.path.join(data_dir, 'ip_library.json'), 'w', encoding='utf-8') as f
 
 print(f'同步完成: {len(ips)} 个IP')
 for ip in ips:
-    print(f'  - {ip["name"]} ({ip["brand"]})')
+    print(f'  - {ip["name"]} ({ip["brand"]}) [{ip["scene"]}]')

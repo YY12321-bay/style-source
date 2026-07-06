@@ -98,10 +98,17 @@ def process_ip(folder_name):
 |------|------|
 | **IP名称** | {folder_name} |
 | **品牌** | {folder_name} |
+| **产品场景** | 待补充 |
 | **风格** | 默认风格 |
 | **参考图** | `reference.jpg` ({ref.size[0]}×{ref.size[1]}) |
+| | `reference_square.jpg` (方形 800×800，API传参用) |
 
 ## 生图规范
+### Prompt结构（IP × 风格）
+```
+{{风格描述}}，{{产品场景}}，{{角色动作表情}}，{{道具/元素}}
+Maintain IP identity and consistency throughout.
+```
 ### 基础句
 ```
 Maintain IP identity and consistency throughout.
@@ -116,7 +123,7 @@ Maintain IP identity and consistency throughout.
         with open(index_path, 'r', encoding='utf-8') as f:
             content = f.read()
         if f'[{folder_name}]' not in content:
-            new_line = f'| [{folder_name}]({folder_name}/README.md) | {folder_name} | 默认风格 | `{folder_name}/reference_square.jpg` |\n'
+            new_line = f'| [{folder_name}]({folder_name}/README.md) | {folder_name} | 待补充 | 默认风格 | `{folder_name}/reference_square.jpg` |\n'
             content = content.rstrip() + '\n' + new_line
             with open(index_path, 'w', encoding='utf-8') as f:
                 f.write(content)

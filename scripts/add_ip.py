@@ -62,6 +62,7 @@ readme = f"""# {name}
 |------|------|
 | **IP名称** | {name} |
 | **品牌** | {brand} |
+| **产品场景** | 待补充（品牌产品/服务相关场景） |
 | **风格** | {style} |
 | **参考图** | `reference.jpg` ({ref_img.size[0]}×{ref_img.size[1]}) |
 | | `reference_square.jpg` (方形 800×800，API传参用) |
@@ -70,6 +71,12 @@ readme = f"""# {name}
 {brand}品牌IP形象——{style}风格。
 
 ## 生图规范
+
+### Prompt结构（IP × 风格）
+```
+{{风格描述}}，{{产品场景}}，{{角色动作表情}}，{{道具/元素}}
+Maintain IP identity and consistency throughout.
+```
 
 ### 基础句
 ```
