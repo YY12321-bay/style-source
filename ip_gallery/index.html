@@ -109,6 +109,41 @@ header .count {
 .ip-card .info .btn-sheji:hover {
   background: #fde68a;
 }
+.ip-card .info .btn-copy-link {
+  display: inline-block;
+  margin-left: 4px;
+  margin-top: 8px;
+  padding: 4px 14px;
+  background: #e0e7ff;
+  color: #4f46e5;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ip-card .info .btn-copy-link:hover {
+  background: #c7d2fe;
+}
+
+/* 图片链接复制提示 */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
 
 /* Lightbox */
 .lightbox {
@@ -260,8 +295,14 @@ footer a { color: #667eea; text-decoration: none; }
   <div class="lightbox-content">
     <span class="close">&times;</span>
     <img id="lightboxImg" src="" alt="">
+    <div style="text-align:center;margin-top:12px">
+      <button class="btn-copy-link" id="lightboxCopyBtn" onclick="copyImageUrl()">🔗 复制图片链接</button>
+    </div>
   </div>
 </div>
+
+<!-- Toast 提示 -->
+<div class="toast" id="toast">✅ 已复制到剪贴板</div>
 
 <!-- 角色设定 Modal -->
 <div class="sheji-modal" id="shejiModal">
@@ -277,6 +318,9 @@ footer a { color: #667eea; text-decoration: none; }
 </footer>
 
 <script>
+const BASE_URL = 'https://yy12321-bay.github.io/style-source';
+const IP_GALLERY_URL = BASE_URL + '/ip_gallery';
+
 async function loadIPs() {
   try {
     const resp = await fetch('../data/ip_library.json?t=' + Date.now());
@@ -304,7 +348,10 @@ async function loadIPs() {
           <div class="brand">${ip.brand}</div>
           <div class="scene-tag">${ip.scene}</div>
           <span class="style-tag">${ip.style}</span>
-          ${ip.has_sheji ? `<button class="btn-sheji" onclick="event.stopPropagation(); openSheji('${ip.id}')">📋 角色设定</button>` : ''}
+          <div style="display:flex;gap:4px;flex-wrap:wrap">
+            ${ip.has_sheji ? `<button class="btn-sheji" onclick="event.stopPropagation(); openSheji('${ip.id}')">📋 角色设定</button>` : ''}
+            <button class="btn-copy-link" onclick="event.stopPropagation(); copyImgLink('${ip.square}', '${ip.name}')">🔗 复制图片链接</button>
+          </div>
         </div>
       `;
       card.addEventListener('click', () => openLightbox('../' + ip.square, ip.name));
@@ -318,9 +365,43 @@ async function loadIPs() {
 
 function openLightbox(src, name) {
   const lb = document.getElementById('lightbox');
-  document.getElementById('lightboxImg').src = src;
-  document.getElementById('lightboxImg').alt = name;
+  const img = document.getElementById('lightboxImg');
+  img.src = src;
+  img.alt = name;
+  img.dataset.fullUrl = src.startsWith('http') ? src : BASE_URL + '/../' + src;
   lb.classList.add('active');
+}
+
+function copyImgLink(squarePath, name) {
+  const url = IP_GALLERY_URL + '/' + encodeURIComponent(name) + '/square.jpg';
+  copyToClipboard(url);
+}
+
+function copyImageUrl() {
+  const img = document.getElementById('lightboxImg');
+  const url = img.dataset.fullUrl || img.src;
+  copyToClipboard(url);
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('toast');
+    toast.textContent = '✅ 已复制: ' + text.slice(0, 50) + '...';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const toast = document.getElementById('toast');
+    toast.textContent = '✅ 已复制到剪贴板';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  });
 }
 
 function closeLightbox() {
