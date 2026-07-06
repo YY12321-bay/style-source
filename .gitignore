@@ -18,3 +18,4 @@ Thumbs.db
 *.swp
 *.swo
 *.bak*
+".ip_sync_state.json"  
