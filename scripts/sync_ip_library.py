@@ -37,12 +37,18 @@ for folder in os.listdir(src_base):
         if os.path.exists(src):
             shutil.copy2(src, os.path.join(dst_folder, newname))
 
+    # 复制设定集
+    sheji_src = os.path.join(fpath, '设定集.md')
+    if os.path.exists(sheji_src):
+        shutil.copy2(sheji_src, os.path.join(dst_folder, '设定集.md'))
+
     ips.append({
         'id': folder,
         'name': name,
         'brand': brand,
         'scene': scene,
         'style': style,
+        'has_sheji': os.path.exists(os.path.join(fpath, '设定集.md')),
         'thumb': f'ip_gallery/{folder}/thumb.jpg',
         'square': f'ip_gallery/{folder}/square.jpg'
     })
