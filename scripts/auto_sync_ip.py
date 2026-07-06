@@ -145,20 +145,31 @@ def sync_and_push(has_changes=True):
         if r and r.stdout.strip():
             print(f'  {r.stdout.strip()}')
 
-    if has_changes:
-        r = sub_run(['git', 'diff', '--stat'])
+    # 检查是否有未提交的变更 或 未推送的commit
+    has_uncommitted = bool(sub_run(['git', 'diff', '--stat']).stdout.strip())
+    has_unpushed = False
+    for branch in ['main', 'style-source']:
+        r = sub_run(['git', 'log', f'origin/{branch}..{branch}', '--oneline'])
         if r.stdout.strip():
-            sub_run(['git', 'add', '-A'])
-            sub_run(['git', 'commit', '-m', 'auto-sync: update IP gallery'])
-            for branch in ['main', 'style-source']:
-                sub_run(['git', 'checkout', branch])
-                if branch == 'style-source':
-                    sub_run(['git', 'merge', 'main', '--no-edit'])
-                sub_run(['git', 'push', 'origin', branch])
-            sub_run(['git', 'checkout', 'main'])
-            print(f'  🚀 已推送到 GitHub Pages')
-        else:
-            print(f'  📭 没有变更，跳过推送')
+            has_unpushed = True
+
+    if has_uncommitted:
+        sub_run(['git', 'add', '-A'])
+        sub_run(['git', 'commit', '-m', 'auto-sync: update IP gallery'])
+
+    if has_uncommitted or has_unpushed:
+        for branch in ['main', 'style-source']:
+            sub_run(['git', 'checkout', branch])
+            if branch == 'style-source':
+                sub_run(['git', 'merge', 'main', '--no-edit'])
+            r = sub_run(['git', 'push', 'origin', branch])
+            if r.returncode == 0:
+                print(f'  🚀 {branch} 已推送')
+            else:
+                print(f'  ⚠️  {branch} 推送失败: {r.stderr.strip()[:80]}')
+        sub_run(['git', 'checkout', 'main'])
+    else:
+        print(f'  📭 没有变更，跳过推送')
 
 def run_once():
     """执行一次巡检"""
