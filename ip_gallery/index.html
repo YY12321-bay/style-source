@@ -109,6 +109,22 @@ header .count {
 .ip-card .info .btn-sheji:hover {
   background: #fde68a;
 }
+.ip-card .info .btn-sheet {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 14px;
+  background: #ede9fe;
+  color: #7c3aed;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ip-card .info .btn-sheet:hover {
+  background: #ddd6fe;
+}
 .ip-card .info .btn-copy-link {
   display: inline-block;
   margin-left: 4px;
@@ -407,6 +423,7 @@ async function loadIPs() {
           <span class="style-tag">${ip.style}</span>
           <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">
             ${ip.has_sheji ? `<button class="btn-sheji" onclick="event.stopPropagation(); openSheji('${ip.id}')">📋 角色设定</button>` : ''}
+            ${ip.has_sheet ? `<button class="btn-sheet" onclick="event.stopPropagation(); openSheet('${ip.id}')">🖼️ 设定图</button>` : ''}
             <div class="btn-copy-dropdown" onclick="event.stopPropagation()">
               <button onclick="toggleDropdown(this)">🔗 复制链接 ▾</button>
               <div class="dropdown-menu">
@@ -469,6 +486,12 @@ function toggleDropdown(btn) {
 
 function closeDropdown(btn) {
   btn.closest('.dropdown-menu').classList.remove('show');
+}
+
+function openSheet(id) {
+  const src = 'ip_gallery/' + encodeURIComponent(id) + '/character_sheet.jpg';
+  const url = BASE_URL + '/' + src;
+  openLightbox(url, id + ' 角色设定图');
 }
 
 function copyToClipboard(text, msg) {

@@ -32,7 +32,7 @@ for folder in os.listdir(src_base):
     dst_folder = os.path.join(dst_base, folder)
     os.makedirs(dst_folder, exist_ok=True)
 
-    for fname, newname in [('reference_thumb.jpg', 'thumb.jpg'), ('reference_square.jpg', 'square.jpg'), ('reference.jpg', 'reference.jpg')]:
+    for fname, newname in [('reference_thumb.jpg', 'thumb.jpg'), ('reference_square.jpg', 'square.jpg'), ('reference.jpg', 'reference.jpg'), ('character_sheet.jpg', 'character_sheet.jpg')]:
         src = os.path.join(fpath, fname)
         if os.path.exists(src):
             shutil.copy2(src, os.path.join(dst_folder, newname))
@@ -49,6 +49,7 @@ for folder in os.listdir(src_base):
         'scene': scene,
         'style': style,
         'has_sheji': os.path.exists(os.path.join(fpath, '设定集.md')),
+        'has_sheet': os.path.exists(os.path.join(fpath, 'character_sheet.jpg')),
         'thumb': f'ip_gallery/{folder}/thumb.jpg',
         'square': f'ip_gallery/{folder}/square.jpg',
         'reference': f'ip_gallery/{folder}/reference.jpg'

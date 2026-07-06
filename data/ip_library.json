@@ -7,6 +7,7 @@
       "scene": "音频内容、播客、有声书",
       "style": "3D可爱卡通",
       "has_sheji": true,
+      "has_sheet": true,
       "thumb": "ip_gallery/喜猫/thumb.jpg",
       "square": "ip_gallery/喜猫/square.jpg",
       "reference": "ip_gallery/喜猫/reference.jpg"
@@ -18,6 +19,7 @@
       "scene": "电视媒体、影视内容",
       "style": "默认风格",
       "has_sheji": true,
+      "has_sheet": false,
       "thumb": "ip_gallery/电视/thumb.jpg",
       "square": "ip_gallery/电视/square.jpg",
       "reference": "ip_gallery/电视/reference.jpg"
@@ -29,6 +31,7 @@
       "scene": "下载工具、云盘服务",
       "style": "科技/数码/IP形象",
       "has_sheji": true,
+      "has_sheet": false,
       "thumb": "ip_gallery/迅雷/thumb.jpg",
       "square": "ip_gallery/迅雷/square.jpg",
       "reference": "ip_gallery/迅雷/reference.jpg"
