@@ -19,7 +19,7 @@
       "scene": "电视媒体、影视内容",
       "style": "默认风格",
       "has_sheji": true,
-      "has_sheet": false,
+      "has_sheet": true,
       "thumb": "ip_gallery/电视/thumb.jpg",
       "square": "ip_gallery/电视/square.jpg",
       "reference": "ip_gallery/电视/reference.jpg"
