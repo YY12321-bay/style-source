@@ -37,6 +37,18 @@
       "reference": "ip_gallery/百度网盘/reference.jpg"
     },
     {
+      "id": "美团",
+      "name": "美团",
+      "brand": "美团",
+      "scene": "待补充",
+      "style": "默认风格",
+      "has_sheji": false,
+      "has_sheet": false,
+      "thumb": "ip_gallery/美团/thumb.jpg",
+      "square": "ip_gallery/美团/square.jpg",
+      "reference": "ip_gallery/美团/reference.jpg"
+    },
+    {
       "id": "迅雷",
       "name": "迅雷",
       "brand": "迅雷",
@@ -49,5 +61,5 @@
       "reference": "ip_gallery/迅雷/reference.jpg"
     }
   ],
-  "total": 4
+  "total": 5
 }
