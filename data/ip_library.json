@@ -25,6 +25,18 @@
       "reference": "ip_gallery/电视/reference.jpg"
     },
     {
+      "id": "百度网盘",
+      "name": "百度网盘",
+      "brand": "百度网盘",
+      "scene": "待补充",
+      "style": "默认风格",
+      "has_sheji": false,
+      "has_sheet": false,
+      "thumb": "ip_gallery/百度网盘/thumb.jpg",
+      "square": "ip_gallery/百度网盘/square.jpg",
+      "reference": "ip_gallery/百度网盘/reference.jpg"
+    },
+    {
       "id": "迅雷",
       "name": "迅雷",
       "brand": "迅雷",
@@ -37,5 +49,5 @@
       "reference": "ip_gallery/迅雷/reference.jpg"
     }
   ],
-  "total": 3
+  "total": 4
 }
