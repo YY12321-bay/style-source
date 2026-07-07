@@ -31,7 +31,7 @@
       "scene": "云存储、文件分享",
       "style": "3D风格",
       "has_sheji": true,
-      "has_sheet": false,
+      "has_sheet": true,
       "thumb": "ip_gallery/百度网盘/thumb.jpg",
       "square": "ip_gallery/百度网盘/square.jpg",
       "reference": "ip_gallery/百度网盘/reference.jpg"
