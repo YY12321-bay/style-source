@@ -7,160 +7,211 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #f0f2f5;
-  color: #1f2937;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+  background: #f8f9fc;
+  color: #1e293b;
   min-height: 100vh;
 }
-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 40px 20px;
-  text-align: center;
-}
-header h1 { font-size: 2em; margin-bottom: 8px; }
-header p { opacity: 0.85; font-size: 1.1em; }
-header .count { 
-  display: inline-block; 
-  background: rgba(255,255,255,0.2); 
-  padding: 4px 16px; 
-  border-radius: 20px; 
-  margin-top: 12px;
-  font-size: 0.9em;
-}
-.container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
 
-/* IP卡片网格 */
+/* ===== Header ===== */
+header {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+  color: white;
+  padding: 48px 20px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(99,102,241,0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(139,92,246,0.06) 0%, transparent 40%);
+  animation: shimmer 8s ease-in-out infinite alternate;
+}
+@keyframes shimmer {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-5%, 5%); }
+}
+header h1 { font-size: 2.2em; margin-bottom: 8px; position: relative; letter-spacing: 2px; }
+header h1 span { background: linear-gradient(135deg, #a5b4fc, #c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+header p { opacity: 0.7; font-size: 1.05em; position: relative; }
+header .count {
+  display: inline-block;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 6px 20px;
+  border-radius: 20px;
+  margin-top: 16px;
+  font-size: 0.85em;
+  color: rgba(255,255,255,0.8);
+  position: relative;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 36px 20px 20px; }
+
+/* ===== IP Grid ===== */
 .ip-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
 }
+
+/* ===== Card ===== */
 .ip-card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.04);
 }
 .ip-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
+  border-color: rgba(99,102,241,0.15);
 }
+
+/* ===== Cover Image ===== */
 .ip-card .img-wrap {
   width: 100%;
   aspect-ratio: 1;
-  background: #f5f5f5;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 16px 16px 0 0;
+}
+/* 背景渐变统一各IP封面 */
+.ip-card .img-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fef2f2 100%);
+  z-index: 0;
 }
 .ip-card .img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));
 }
+.ip-card:hover .img-wrap img {
+  transform: scale(1.05);
+}
+/* 封面底部渐变遮罩 */
+.ip-card .img-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ===== Card Info ===== */
 .ip-card .info {
-  padding: 16px;
+  padding: 14px 18px 18px;
+  position: relative;
 }
 .ip-card .info h3 {
   font-size: 1.1em;
-  margin-bottom: 4px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #0f172a;
 }
 .ip-card .info .brand {
-  color: #667eea;
-  font-size: 0.85em;
+  font-size: 0.8em;
+  color: #6366f1;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Tags ===== */
+.ip-card .info .tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.ip-card .info .tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: 500;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  line-height: 1.5;
+}
+
+/* ===== Buttons ===== */
+.ip-card .info .actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+.ip-card .info .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.78em;
   font-weight: 600;
-}
-.ip-card .info .scene-tag {
-  display: inline-block;
-  background: #f0fdf4;
-  color: #16a34a;
-  padding: 2px 10px;
-  border-radius: 12px;
-  font-size: 0.8em;
-  margin-top: 4px;
-}
-.ip-card .info .style-tag {
-  display: inline-block;
-  background: #eef2ff;
-  color: #4f46e5;
-  padding: 2px 10px;
-  border-radius: 12px;
-  font-size: 0.8em;
-  margin-top: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1.4;
 }
 .ip-card .info .btn-sheji {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 4px 14px;
-  background: #fef3c7;
-  color: #d97706;
-  border-radius: 20px;
-  font-size: 0.8em;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.2s;
-  border: none;
-  cursor: pointer;
+  background: #fefce8;
+  color: #a16207;
+  border: 1px solid #fef08a;
 }
 .ip-card .info .btn-sheji:hover {
-  background: #fde68a;
+  background: #fef9c3;
+  transform: translateY(-1px);
 }
 .ip-card .info .btn-sheet {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 4px 14px;
-  background: #ede9fe;
-  color: #7c3aed;
-  border-radius: 20px;
-  font-size: 0.8em;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
+  background: #f0f9ff;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
 }
 .ip-card .info .btn-sheet:hover {
-  background: #ddd6fe;
+  background: #e0f2fe;
+  transform: translateY(-1px);
 }
-.ip-card .info .btn-copy-link {
-  display: inline-block;
-  margin-left: 4px;
-  margin-top: 8px;
-  padding: 4px 14px;
-  background: #e0e7ff;
-  color: #4f46e5;
-  border-radius: 20px;
-  font-size: 0.8em;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
+.ip-card .info .btn-copy {
+  background: #f8fafc;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
 }
-.ip-card .info .btn-copy-link:hover {
-  background: #c7d2fe;
+.ip-card .info .btn-copy:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
 }
+
+/* ===== Copy Dropdown ===== */
 .ip-card .info .btn-copy-dropdown {
   position: relative;
   display: inline-block;
-  margin-left: 4px;
-  margin-top: 8px;
-}
-.ip-card .info .btn-copy-dropdown > button {
-  padding: 4px 14px;
-  background: #e0e7ff;
-  color: #4f46e5;
-  border-radius: 20px;
-  font-size: 0.8em;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.ip-card .info .btn-copy-dropdown > button:hover {
-  background: #c7d2fe;
 }
 .ip-card .info .btn-copy-dropdown .dropdown-menu {
   display: none;
@@ -169,11 +220,12 @@ header .count {
   left: 0;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   z-index: 10;
-  min-width: 180px;
-  padding: 4px 0;
+  min-width: 170px;
+  padding: 4px;
   margin-top: 4px;
+  border: 1px solid #e2e8f0;
 }
 .ip-card .info .btn-copy-dropdown .dropdown-menu.show {
   display: block;
@@ -181,31 +233,33 @@ header .count {
 .ip-card .info .btn-copy-dropdown .dropdown-menu button {
   display: block;
   width: 100%;
-  padding: 8px 16px;
+  padding: 8px 14px;
   border: none;
   background: none;
   text-align: left;
-  font-size: 0.85em;
+  font-size: 0.82em;
   cursor: pointer;
-  color: #1f2937;
+  color: #1e293b;
+  border-radius: 6px;
   transition: background 0.15s;
 }
 .ip-card .info .btn-copy-dropdown .dropdown-menu button:hover {
-  background: #f3f4f6;
+  background: #f1f5f9;
 }
 .ip-card .info .btn-copy-dropdown .dropdown-menu button .hint {
-  color: #9ca3af;
-  font-size: 0.8em;
+  color: #94a3b8;
+  font-size: 0.78em;
   display: block;
+  margin-top: 1px;
 }
 
-/* 图片链接复制提示 */
+/* ===== Toast ===== */
 .toast {
   position: fixed;
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  background: #1f2937;
+  background: #1e293b;
   color: white;
   padding: 10px 24px;
   border-radius: 12px;
@@ -214,15 +268,17 @@ header .count {
   opacity: 0;
   transition: opacity 0.3s;
   pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 .toast.show { opacity: 1; }
 
-/* Lightbox */
+/* ===== Lightbox ===== */
 .lightbox {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.85);
+  background: rgba(15,23,42,0.9);
+  backdrop-filter: blur(4px);
   z-index: 999;
   justify-content: center;
   align-items: center;
@@ -237,25 +293,49 @@ header .count {
   max-width: 100%;
   max-height: 85vh;
   border-radius: 12px;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
 }
 .lightbox .close {
   position: absolute;
-  top: -40px;
-  right: 0;
-  color: white;
-  font-size: 30px;
+  top: -44px;
+  right: -4px;
+  color: rgba(255,255,255,0.6);
+  font-size: 32px;
   cursor: pointer;
-  opacity: 0.8;
+  transition: color 0.2s;
+  line-height: 1;
 }
-.lightbox .close:hover { opacity: 1; }
+.lightbox .close:hover { color: white; }
+.lightbox-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+.lightbox-actions .btn-lightbox {
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.85);
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+.lightbox-actions .btn-lightbox:hover {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
 
-/* 角色设定 Modal */
+/* ===== 角色设定 Modal ===== */
 .sheji-modal {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(15,23,42,0.7);
+  backdrop-filter: blur(4px);
   z-index: 1000;
   justify-content: center;
   align-items: center;
@@ -269,9 +349,9 @@ header .count {
   width: 100%;
   max-height: 85vh;
   overflow-y: auto;
-  padding: 32px;
+  padding: 36px;
   position: relative;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.2);
 }
 .sheji-modal-content .close-btn {
   position: absolute;
@@ -279,77 +359,94 @@ header .count {
   right: 20px;
   font-size: 28px;
   cursor: pointer;
-  color: #9ca3af;
+  color: #94a3b8;
   background: none;
   border: none;
+  transition: color 0.2s;
+  line-height: 1;
 }
-.sheji-modal-content .close-btn:hover { color: #374151; }
-.sheji-modal-content h1 { font-size: 1.6em; margin-bottom: 12px; }
-.sheji-modal-content h2 { 
-  font-size: 1.2em; margin: 20px 0 10px; 
-  padding-bottom: 6px;
-  border-bottom: 2px solid #f0f2f5;
+.sheji-modal-content .close-btn:hover { color: #1e293b; }
+.sheji-modal-content h1 { font-size: 1.5em; margin-bottom: 12px; color: #0f172a; }
+.sheji-modal-content h2 {
+  font-size: 1.15em; margin: 24px 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f1f5f9;
+  color: #1e293b;
 }
-.sheji-modal-content h3 { font-size: 1em; margin: 14px 0 6px; color: #4b5563; }
+.sheji-modal-content h3 { font-size: 1em; margin: 16px 0 6px; color: #475569; }
 .sheji-modal-content table {
   width: 100%;
   border-collapse: collapse;
   margin: 12px 0;
   font-size: 0.9em;
+  border-radius: 8px;
+  overflow: hidden;
 }
 .sheji-modal-content td, .sheji-modal-content th {
-  border: 1px solid #e5e7eb;
-  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  padding: 8px 14px;
   text-align: left;
 }
 .sheji-modal-content td:first-child {
   font-weight: 600;
-  background: #f9fafb;
+  background: #f8fafc;
   white-space: nowrap;
   width: 100px;
 }
 .sheji-modal-content ul { padding-left: 20px; margin: 8px 0; }
-.sheji-modal-content li { margin: 4px 0; line-height: 1.6; }
+.sheji-modal-content li { margin: 4px 0; line-height: 1.7; }
 .sheji-modal-content p { line-height: 1.8; margin: 8px 0; }
 .sheji-modal-content code {
-  background: #f3f4f6;
+  background: #f1f5f9;
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.9em;
+  color: #6366f1;
 }
 .sheji-modal-content pre {
-  background: #1f2937;
-  color: #f9fafb;
-  padding: 16px;
-  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 16px 20px;
+  border-radius: 10px;
   overflow-x: auto;
   font-size: 0.85em;
   margin: 12px 0;
+  line-height: 1.5;
 }
 
-/* 空状态 */
+/* ===== Empty State ===== */
 .empty-state {
   text-align: center;
   padding: 80px 20px;
-  color: #9ca3af;
+  color: #94a3b8;
 }
-.empty-state .icon { font-size: 64px; margin-bottom: 16px; }
-.empty-state h3 { font-size: 1.3em; margin-bottom: 8px; color: #6b7280; }
+.empty-state .icon { font-size: 60px; margin-bottom: 16px; }
+.empty-state h3 { font-size: 1.3em; margin-bottom: 8px; color: #64748b; }
 .empty-state p { font-size: 0.95em; }
 
-/* 页脚 */
+/* ===== Footer ===== */
 footer {
   text-align: center;
-  padding: 30px 20px;
-  color: #9ca3af;
+  padding: 32px 20px;
+  color: #94a3b8;
   font-size: 0.85em;
 }
-footer a { color: #667eea; text-decoration: none; }
+footer a { color: #6366f1; text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: #4f46e5; text-decoration: underline; }
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  header { padding: 32px 16px 28px; }
+  header h1 { font-size: 1.6em; }
+  .container { padding: 20px 12px; }
+  .ip-grid { gap: 16px; }
+  .sheji-modal-content { padding: 24px; }
+}
 </style>
 </head>
 <body>
 <header>
-  <h1>🎭 IP 图库</h1>
+  <h1>🎭 <span>IP</span> 图库</h1>
   <p>本地IP角色参考图，用于AI绘画生图</p>
   <div class="count" id="countTotal">加载中...</div>
 </header>
@@ -367,17 +464,15 @@ footer a { color: #667eea; text-decoration: none; }
   <div class="lightbox-content">
     <span class="close">&times;</span>
     <img id="lightboxImg" src="" alt="">
-    <div style="text-align:center;margin-top:12px;display:flex;gap:8px;justify-content:center">
-      <button class="btn-copy-link" id="lightboxCopySquare" onclick="copyLightboxUrl('square')">🔗 复制方形图 (API用)</button>
-      <button class="btn-copy-link" id="lightboxCopyRef" onclick="copyLightboxUrl('reference')">🔗 复制原图 (高清)</button>
+    <div class="lightbox-actions">
+      <button class="btn-lightbox" onclick="copyLightboxUrl('square')">🔗 复制方形图 (API用)</button>
+      <button class="btn-lightbox" onclick="copyLightboxUrl('reference')">🔗 复制原图 (高清)</button>
     </div>
   </div>
 </div>
 
-<!-- Toast 提示 -->
 <div class="toast" id="toast">✅ 已复制到剪贴板</div>
 
-<!-- 角色设定 Modal -->
 <div class="sheji-modal" id="shejiModal">
   <div class="sheji-modal-content">
     <button class="close-btn" onclick="closeSheji()">&times;</button>
@@ -392,7 +487,6 @@ footer a { color: #667eea; text-decoration: none; }
 
 <script>
 const BASE_URL = 'https://yy12321-bay.github.io/style-source';
-const IP_GALLERY_URL = BASE_URL + '/ip_gallery';
 
 async function loadIPs() {
   try {
@@ -412,6 +506,30 @@ async function loadIPs() {
     data.ips.forEach(ip => {
       const card = document.createElement('div');
       card.className = 'ip-card';
+      
+      let actionsHtml = '<div class="actions">';
+      if (ip.has_sheji) {
+        actionsHtml += `<button class="btn btn-sheji" onclick="event.stopPropagation(); openSheji('${ip.id}')">📋 角色设定</button>`;
+      }
+      if (ip.has_sheet) {
+        actionsHtml += `<button class="btn btn-sheet" onclick="event.stopPropagation(); openSheet('${ip.id}')">🖼️ 设定图</button>`;
+      }
+      actionsHtml += `
+        <div class="btn-copy-dropdown" onclick="event.stopPropagation()">
+          <button class="btn btn-copy" onclick="toggleDropdown(this)">🔗 复制链接 ▾</button>
+          <div class="dropdown-menu">
+            <button onclick="copyImgLink('${ip.square}', '${ip.name}', 'square'); closeDropdown(this)">
+              方形图 (800×800)
+              <span class="hint">API传参用</span>
+            </button>
+            <button onclick="copyImgLink('${ip.reference}', '${ip.name}', 'reference'); closeDropdown(this)">
+              原图 (1200px)
+              <span class="hint">高清参考</span>
+            </button>
+          </div>
+        </div>`;
+      actionsHtml += '</div>';
+      
       card.innerHTML = `
         <div class="img-wrap">
           <img src="../${ip.thumb}" alt="${ip.name}" loading="lazy">
@@ -419,25 +537,11 @@ async function loadIPs() {
         <div class="info">
           <h3>${ip.name}</h3>
           <div class="brand">${ip.brand}</div>
-          <div class="scene-tag">${ip.scene}</div>
-          <span class="style-tag">${ip.style}</span>
-          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">
-            ${ip.has_sheji ? `<button class="btn-sheji" onclick="event.stopPropagation(); openSheji('${ip.id}')">📋 角色设定</button>` : ''}
-            ${ip.has_sheet ? `<button class="btn-sheet" onclick="event.stopPropagation(); openSheet('${ip.id}')">🖼️ 设定图</button>` : ''}
-            <div class="btn-copy-dropdown" onclick="event.stopPropagation()">
-              <button onclick="toggleDropdown(this)">🔗 复制链接 ▾</button>
-              <div class="dropdown-menu">
-                <button onclick="copyImgLink('${ip.square}', '${ip.name}', 'square'); closeDropdown(this)">
-                  方形图 (800×800)
-                  <span class="hint">API传参用</span>
-                </button>
-                <button onclick="copyImgLink('${ip.reference}', '${ip.name}', 'reference'); closeDropdown(this)">
-                  原图 (1200px)
-                  <span class="hint">高清参考</span>
-                </button>
-              </div>
-            </div>
+          <div class="tags">
+            <span class="tag">🏷️ ${ip.scene}</span>
+            <span class="tag">🎨 ${ip.style}</span>
           </div>
+          ${actionsHtml}
         </div>
       `;
       card.addEventListener('click', () => openLightbox('../' + ip.square, ip.name));
@@ -477,7 +581,6 @@ function copyImgLink(imgPath, name, type) {
 
 function toggleDropdown(btn) {
   const menu = btn.nextElementSibling;
-  // 关闭其他dropdown
   document.querySelectorAll('.dropdown-menu.show').forEach(m => {
     if (m !== menu) m.classList.remove('show');
   });
@@ -497,34 +600,33 @@ function openSheet(id) {
 function copyToClipboard(text, msg) {
   const displayMsg = msg || '已复制到剪贴板';
   navigator.clipboard.writeText(text).then(() => {
-    const toast = document.getElementById('toast');
-    toast.textContent = '✅ ' + displayMsg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2000);
+    showToast('✅ ' + displayMsg);
   }).catch(() => {
-    // fallback
     const ta = document.createElement('textarea');
     ta.value = text;
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    const toast = document.getElementById('toast');
-    toast.textContent = '✅ ' + displayMsg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2000);
+    showToast('✅ ' + displayMsg);
   });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
 }
 
-// 角色设定
 function openSheji(id) {
   const modal = document.getElementById('shejiModal');
   const content = document.getElementById('shejiContent');
-  content.innerHTML = '<div style="text-align:center;padding:40px;color:#9ca3af">⏳ 加载中...</div>';
+  content.innerHTML = '<div style="text-align:center;padding:40px;color:#94a3b8">⏳ 加载中...</div>';
   modal.classList.add('active');
   
   fetch(`../ip_gallery/${id}/设定集.md?t=${Date.now()}`)
@@ -533,7 +635,6 @@ function openSheji(id) {
       return r.text();
     })
     .then(md => {
-      // 简单渲染 Markdown
       content.innerHTML = renderSheji(md);
     })
     .catch(e => {
@@ -546,13 +647,10 @@ function closeSheji() {
 }
 
 function renderSheji(md) {
-  // 简易 Markdown → HTML
   let html = md
-    // 标题
     .replace(/^### (.+)$/gm, '<h3>$1</h3>')
     .replace(/^## (.+)$/gm, '<h2>$1</h2>')
     .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-    // 表格
     .replace(/\|(.+)\|/g, (m) => {
       if (m.includes('---')) return '';
       const cells = m.split('|').filter(c => c.trim()).map(c => c.trim());
@@ -560,22 +658,15 @@ function renderSheji(md) {
     })
     .replace(/<tr><tr>/g, '<tr>')
     .replace(/<\/tr><\/tr>/g, '</tr>')
-    // 列表
     .replace(/^- (.+)$/gm, '<li>$1</li>')
     .replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>')
-    // 代码块
     .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
-    // 加粗
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    // 换行
     .replace(/\n\n/g, '<br>')
     .replace(/\n/g, '<br>')
-    // 包裹表格
     .replace(/((?:<tr>.*<\/tr>\n?)+)/g, '<table>$1</table>')
-    // 包裹列表
     .replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
-  
   return html;
 }
 
@@ -583,7 +674,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeLightbox(); closeSheji(); }
 });
 
-// 点击外部关闭设定 Modal
 document.getElementById('shejiModal')?.addEventListener('click', e => {
   if (e.target === e.currentTarget) closeSheji();
 });
