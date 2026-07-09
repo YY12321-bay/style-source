@@ -82,70 +82,13 @@ header .count {
   width: 100%;
   aspect-ratio: 1;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  /* 统一背景 — 所有IP相同的微渐变+点阵装饰 */
-  background:
-    radial-gradient(ellipse at 20% 25%, rgba(99,102,241,0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 75%, rgba(236,72,153,0.04) 0%, transparent 50%),
-    linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%);
 }
-/* 点阵装饰图案 */
-.ip-card .img-wrap::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, #cbd5e1 0.8px, transparent 0.8px);
-  background-size: 20px 20px;
-  opacity: 0.3;
-  z-index: 0;
-}
-/* 统一图片相框 */
-.ip-card .img-wrap .frame {
-  width: 76%;
-  height: 76%;
-  background: white;
-  border-radius: 14px;
-  padding: 8px;
-  box-shadow: 
-    0 2px 4px rgba(0,0,0,0.04),
-    0 8px 24px rgba(0,0,0,0.06),
-    inset 0 0 0 1px rgba(0,0,0,0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.ip-card:hover .img-wrap .frame {
-  transform: scale(1.04);
-  box-shadow: 
-    0 4px 8px rgba(0,0,0,0.06),
-    0 12px 32px rgba(0,0,0,0.08),
-    inset 0 0 0 1px rgba(0,0,0,0.04);
-}
-.ip-card .img-wrap .frame img {
+.ip-card .img-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  border-radius: 8px;
-  transition: transform 0.3s;
-}
-.ip-card:hover .img-wrap .frame img {
-  transform: scale(1.02);
-}
-/* 封面底部装饰线 — 每个IP统一 */
-.ip-card .img-wrap::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
-  z-index: 2;
+  object-fit: cover;
+  display: block;
 }
 
 /* ===== Card Info ===== */
@@ -560,9 +503,7 @@ async function loadIPs() {
       
       card.innerHTML = `
         <div class="img-wrap">
-          <div class="frame">
-            <img src="../${ip.thumb}" alt="${ip.name}" loading="lazy">
-          </div>
+          <img src="../${ip.thumb}" alt="${ip.name}" loading="lazy">
         </div>
         <div class="info">
           <h3>${ip.name}</h3>
