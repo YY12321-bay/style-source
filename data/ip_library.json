@@ -15,9 +15,9 @@
     {
       "id": "新浪微博",
       "name": "新浪微博",
-      "brand": "",
-      "scene": "",
-      "style": "",
+      "brand": "新浪微博",
+      "scene": "社交媒体、微博客、内容分享",
+      "style": "科技可爱风",
       "has_sheji": false,
       "has_sheet": false,
       "thumb": "ip_gallery/新浪微博/thumb.jpg",
