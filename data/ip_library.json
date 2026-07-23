@@ -13,6 +13,18 @@
       "reference": "ip_gallery/喜猫/reference.jpg"
     },
     {
+      "id": "新浪微博",
+      "name": "新浪微博",
+      "brand": "",
+      "scene": "",
+      "style": "",
+      "has_sheji": false,
+      "has_sheet": false,
+      "thumb": "ip_gallery/新浪微博/thumb.jpg",
+      "square": "ip_gallery/新浪微博/square.jpg",
+      "reference": "ip_gallery/新浪微博/reference.jpg"
+    },
+    {
       "id": "电视",
       "name": "电视",
       "brand": "电视",
@@ -61,5 +73,5 @@
       "reference": "ip_gallery/迅雷/reference.jpg"
     }
   ],
-  "total": 5
+  "total": 6
 }
