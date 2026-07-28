@@ -428,20 +428,20 @@ footer a:hover { color: #4f46e5; text-decoration: underline; }
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <div class="lightbox-content">
-    <span class="close">&times;</span>
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <span class="close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
     <img id="lightboxImg" src="" alt="">
     <div class="lightbox-actions">
-      <button class="btn-lightbox" onclick="copyLightboxUrl('square')">🔗 复制方形图 (API用)</button>
-      <button class="btn-lightbox" onclick="copyLightboxUrl('reference')">🔗 复制原图 (高清)</button>
+      <button class="btn-lightbox" onclick="event.stopPropagation(); copyLightboxUrl('square')">🔗 复制方形图 (API用)</button>
+      <button class="btn-lightbox" onclick="event.stopPropagation(); copyLightboxUrl('reference')">🔗 复制原图 (高清)</button>
     </div>
   </div>
 </div>
 
 <div class="toast" id="toast">✅ 已复制到剪贴板</div>
 
-<div class="sheji-modal" id="shejiModal">
-  <div class="sheji-modal-content">
+<div class="sheji-modal" id="shejiModal" onclick="closeSheji()">
+  <div class="sheji-modal-content" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="closeSheji()">&times;</button>
     <div id="shejiContent"></div>
   </div>
@@ -521,6 +521,7 @@ async function loadIPs() {
 }
 
 function openLightbox(src, name) {
+  closeAllDropdowns();
   const lb = document.getElementById('lightbox');
   const img = document.getElementById('lightboxImg');
   img.src = src;
@@ -546,44 +547,62 @@ function copyImgLink(imgPath, name, type) {
   copyToClipboard(url, label + ' 链接已复制');
 }
 
+function closeDropdownByMenu(menu) {
+  if (!menu.classList.contains('show')) return;
+  menu.classList.remove('show');
+  if (menu._closeHandler) {
+    document.removeEventListener('click', menu._closeHandler, true);
+    delete menu._closeHandler;
+  }
+}
+
 function toggleDropdown(btn) {
   const menu = btn.nextElementSibling;
   if (!menu) return;
   
   // Close if clicking the same button again
   if (menu.classList.contains('show')) {
-    menu.classList.remove('show');
+    closeDropdownByMenu(menu);
     return;
   }
   
-  // Close any other open dropdowns
-  document.querySelectorAll('.dropdown-menu.show').forEach(m => m.classList.remove('show'));
+  // Close any other open dropdowns + clean up their listeners
+  document.querySelectorAll('.dropdown-menu.show').forEach(function(m) {
+    closeDropdownByMenu(m);
+  });
   
-  // Position at button
+  // Check if near bottom edge — flip upward
   const rect = btn.getBoundingClientRect();
+  const menuH = 120; // approximate dropdown height
+  let top = rect.bottom + 4;
   let left = rect.left;
   const menuW = 200;
+  
+  if (top + menuH > window.innerHeight - 8) {
+    top = rect.top - menuH - 4;
+  }
   if (left + menuW > window.innerWidth - 8) {
     left = window.innerWidth - menuW - 8;
   }
   menu.style.left = left + 'px';
-  menu.style.top = (rect.bottom + 4) + 'px';
+  menu.style.top = top + 'px';
   menu.classList.add('show');
   
-  // Close on any click outside the menu (captured after current event)
+  // Close on any click outside the menu (captured phase to bypass stopPropagation)
   setTimeout(function() {
     function closeOnOutside(e) {
       if (!menu.contains(e.target) && e.target !== btn) {
-        menu.classList.remove('show');
-        document.removeEventListener('click', closeOnOutside, true);
+        closeDropdownByMenu(menu);
       }
     }
+    menu._closeHandler = closeOnOutside;
     document.addEventListener('click', closeOnOutside, true);
   }, 0);
 }
 
 function closeDropdown(btn) {
-  btn.closest('.dropdown-menu').classList.remove('show');
+  const menu = btn.closest('.dropdown-menu');
+  closeDropdownByMenu(menu);
 }
 
 function openSheet(id) {
@@ -618,7 +637,14 @@ function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
 }
 
+function closeAllDropdowns() {
+  document.querySelectorAll('.dropdown-menu.show').forEach(function(m) {
+    closeDropdownByMenu(m);
+  });
+}
+
 function openSheji(id) {
+  closeAllDropdowns();
   const modal = document.getElementById('shejiModal');
   const content = document.getElementById('shejiContent');
   content.innerHTML = '<div style="text-align:center;padding:40px;color:#94a3b8">⏳ 加载中...</div>';
