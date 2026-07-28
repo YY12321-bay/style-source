@@ -180,40 +180,41 @@ header .count {
 
 /* ===== Copy Dropdown ===== */
 .ip-card .info .btn-copy-dropdown {
-  position: relative;
   display: inline-block;
 }
-.ip-card .info .btn-copy-dropdown .dropdown-menu {
+.copy-dropdown-menu {
   display: none;
   position: fixed;
-  z-index: 9999;
-  min-width: 200px;
+  z-index: 10000;
+  width: 210px;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(15,23,42,0.22), 0 2px 8px rgba(15,23,42,0.1);
   padding: 6px;
   border: 1px solid #e2e8f0;
 }
-.ip-card .info .btn-copy-dropdown .dropdown-menu.show {
+.copy-dropdown-menu.show {
   display: block;
 }
-.ip-card .info .btn-copy-dropdown .dropdown-menu button {
+.copy-dropdown-menu button {
   display: block;
   width: 100%;
-  padding: 8px 14px;
+  padding: 9px 14px;
   border: none;
-  background: none;
+  background: transparent;
   text-align: left;
   font-size: 0.82em;
   cursor: pointer;
   color: #1e293b;
-  border-radius: 6px;
+  border-radius: 7px;
   transition: background 0.15s;
 }
-.ip-card .info .btn-copy-dropdown .dropdown-menu button:hover {
+.copy-dropdown-menu button:hover,
+.copy-dropdown-menu button:focus-visible {
   background: #f1f5f9;
+  outline: none;
 }
-.ip-card .info .btn-copy-dropdown .dropdown-menu button .hint {
+.copy-dropdown-menu button .hint {
   color: #94a3b8;
   font-size: 0.78em;
   display: block;
@@ -438,6 +439,17 @@ footer a:hover { color: #4f46e5; text-decoration: underline; }
   </div>
 </div>
 
+<div class="copy-dropdown-menu" id="copyDropdown" role="menu" aria-hidden="true">
+  <button type="button" id="copySquareBtn" role="menuitem">
+    方形图 (800×800)
+    <span class="hint">API传参用</span>
+  </button>
+  <button type="button" id="copyReferenceBtn" role="menuitem">
+    原图 (1200px)
+    <span class="hint">高清参考</span>
+  </button>
+</div>
+
 <div class="toast" id="toast">✅ 已复制到剪贴板</div>
 
 <div class="sheji-modal" id="shejiModal" onclick="closeSheji()">
@@ -483,17 +495,9 @@ async function loadIPs() {
       }
       actionsHtml += `
         <div class="btn-copy-dropdown" onclick="event.stopPropagation()">
-          <button class="btn btn-copy" onclick="toggleDropdown(this)">🔗 复制链接 ▾</button>
-          <div class="dropdown-menu">
-            <button onclick="copyImgLink('${ip.square}', '${ip.name}', 'square'); closeDropdown(this)">
-              方形图 (800×800)
-              <span class="hint">API传参用</span>
-            </button>
-            <button onclick="copyImgLink('${ip.reference}', '${ip.name}', 'reference'); closeDropdown(this)">
-              原图 (1200px)
-              <span class="hint">高清参考</span>
-            </button>
-          </div>
+          <button type="button" class="btn btn-copy" aria-haspopup="menu" aria-expanded="false"
+            data-square="${ip.square}" data-reference="${ip.reference}" data-name="${ip.name}"
+            onclick="event.stopPropagation(); toggleDropdown(this)">🔗 复制链接 ▾</button>
         </div>`;
       actionsHtml += '</div>';
       
@@ -547,63 +551,87 @@ function copyImgLink(imgPath, name, type) {
   copyToClipboard(url, label + ' 链接已复制');
 }
 
-function closeDropdownByMenu(menu) {
-  if (!menu.classList.contains('show')) return;
+let activeCopyButton = null;
+
+function closeCopyDropdown() {
+  const menu = document.getElementById('copyDropdown');
+  if (!menu) return;
   menu.classList.remove('show');
-  if (menu._closeHandler) {
-    document.removeEventListener('click', menu._closeHandler, true);
-    delete menu._closeHandler;
+  menu.setAttribute('aria-hidden', 'true');
+  if (activeCopyButton) {
+    activeCopyButton.setAttribute('aria-expanded', 'false');
+    activeCopyButton = null;
   }
+}
+
+function positionCopyDropdown(btn) {
+  const menu = document.getElementById('copyDropdown');
+  const rect = btn.getBoundingClientRect();
+  const gap = 6;
+  const margin = 8;
+  const menuW = menu.offsetWidth || 210;
+  const menuH = menu.offsetHeight || 118;
+  let left = Math.min(rect.left, window.innerWidth - menuW - margin);
+  left = Math.max(margin, left);
+  let top = rect.bottom + gap;
+  if (top + menuH > window.innerHeight - margin) {
+    top = Math.max(margin, rect.top - menuH - gap);
+  }
+  menu.style.left = Math.round(left) + 'px';
+  menu.style.top = Math.round(top) + 'px';
 }
 
 function toggleDropdown(btn) {
-  const menu = btn.nextElementSibling;
+  const menu = document.getElementById('copyDropdown');
   if (!menu) return;
-  
-  // Close if clicking the same button again
-  if (menu.classList.contains('show')) {
-    closeDropdownByMenu(menu);
-    return;
-  }
-  
-  // Close any other open dropdowns + clean up their listeners
-  document.querySelectorAll('.dropdown-menu.show').forEach(function(m) {
-    closeDropdownByMenu(m);
-  });
-  
-  // Check if near bottom edge — flip upward
-  const rect = btn.getBoundingClientRect();
-  const menuH = 120; // approximate dropdown height
-  let top = rect.bottom + 4;
-  let left = rect.left;
-  const menuW = 200;
-  
-  if (top + menuH > window.innerHeight - 8) {
-    top = rect.top - menuH - 4;
-  }
-  if (left + menuW > window.innerWidth - 8) {
-    left = window.innerWidth - menuW - 8;
-  }
-  menu.style.left = left + 'px';
-  menu.style.top = top + 'px';
+  const sameOpenButton = activeCopyButton === btn && menu.classList.contains('show');
+  closeCopyDropdown();
+  if (sameOpenButton) return;
+
+  activeCopyButton = btn;
+  btn.setAttribute('aria-expanded', 'true');
+  menu.dataset.square = btn.dataset.square || '';
+  menu.dataset.reference = btn.dataset.reference || '';
+  menu.dataset.name = btn.dataset.name || '';
   menu.classList.add('show');
-  
-  // Close on any click outside the menu (captured phase to bypass stopPropagation)
-  setTimeout(function() {
-    function closeOnOutside(e) {
-      if (!menu.contains(e.target) && e.target !== btn) {
-        closeDropdownByMenu(menu);
-      }
-    }
-    menu._closeHandler = closeOnOutside;
-    document.addEventListener('click', closeOnOutside, true);
-  }, 0);
+  menu.setAttribute('aria-hidden', 'false');
+  positionCopyDropdown(btn);
 }
 
-function closeDropdown(btn) {
-  const menu = btn.closest('.dropdown-menu');
-  closeDropdownByMenu(menu);
+function copyFromDropdown(type) {
+  const menu = document.getElementById('copyDropdown');
+  const path = type === 'square' ? menu.dataset.square : menu.dataset.reference;
+  const name = menu.dataset.name || '';
+  closeCopyDropdown();
+  if (path) copyImgLink(path, name, type);
 }
+
+function closeAllDropdowns() {
+  closeCopyDropdown();
+}
+
+// One stable document listener; no delayed registration and no listener accumulation.
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('copyDropdown');
+  if (!menu || !menu.classList.contains('show')) return;
+  if (!menu.contains(e.target) && e.target !== activeCopyButton) {
+    closeCopyDropdown();
+  }
+});
+window.addEventListener('resize', closeCopyDropdown);
+window.addEventListener('scroll', closeCopyDropdown, true);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeCopyDropdown();
+});
+
+document.getElementById('copySquareBtn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  copyFromDropdown('square');
+});
+document.getElementById('copyReferenceBtn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  copyFromDropdown('reference');
+});
 
 function openSheet(id) {
   const src = 'ip_gallery/' + encodeURIComponent(id) + '/character_sheet.jpg';
@@ -635,12 +663,6 @@ function showToast(msg) {
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
-}
-
-function closeAllDropdowns() {
-  document.querySelectorAll('.dropdown-menu.show').forEach(function(m) {
-    closeDropdownByMenu(m);
-  });
 }
 
 function openSheji(id) {
