@@ -185,20 +185,22 @@ header .count {
 }
 .ip-card .info .btn-copy-dropdown .dropdown-menu {
   display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
+  position: fixed;
+  z-index: 9999;
+  min-width: 200px;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  z-index: 10;
-  min-width: 170px;
-  padding: 4px;
-  margin-top: 4px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  padding: 6px;
   border: 1px solid #e2e8f0;
 }
 .ip-card .info .btn-copy-dropdown .dropdown-menu.show {
   display: block;
+  animation: dropFadeIn 0.15s ease-out;
+}
+@keyframes dropFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .ip-card .info .btn-copy-dropdown .dropdown-menu button {
   display: block;
@@ -551,14 +553,47 @@ function copyImgLink(imgPath, name, type) {
 
 function toggleDropdown(btn) {
   const menu = btn.nextElementSibling;
+  if (!menu) return;
+  
+  // Close if already open
+  if (menu.classList.contains('show')) {
+    menu.classList.remove('show');
+    document.querySelectorAll('.dropdown-backdrop').forEach(b => b.remove());
+    return;
+  }
+  
+  // Close any other open dropdowns
   document.querySelectorAll('.dropdown-menu.show').forEach(m => {
-    if (m !== menu) m.classList.remove('show');
+    m.classList.remove('show');
   });
-  menu.classList.toggle('show');
+  document.querySelectorAll('.dropdown-backdrop').forEach(b => b.remove());
+  
+  // Position dropdown at button location using fixed positioning
+  const rect = btn.getBoundingClientRect();
+  const menuW = 200;
+  let left = rect.left;
+  // If too far right, align to right edge of button
+  if (left + menuW > window.innerWidth - 8) {
+    left = window.innerWidth - menuW - 8;
+  }
+  menu.style.left = left + 'px';
+  menu.style.top = (rect.bottom + 4) + 'px';
+  menu.classList.add('show');
+  
+  // Create backdrop to close on outside click
+  const backdrop = document.createElement('div');
+  backdrop.className = 'dropdown-backdrop';
+  backdrop.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:9998';
+  backdrop.onclick = function() {
+    menu.classList.remove('show');
+    this.remove();
+  };
+  document.body.appendChild(backdrop);
 }
 
 function closeDropdown(btn) {
   btn.closest('.dropdown-menu').classList.remove('show');
+  document.querySelectorAll('.dropdown-backdrop').forEach(b => b.remove());
 }
 
 function openSheet(id) {
