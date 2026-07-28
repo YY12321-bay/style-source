@@ -566,17 +566,21 @@ function closeCopyDropdown() {
 
 function positionCopyDropdown(btn) {
   const menu = document.getElementById('copyDropdown');
+  if (!btn || !menu || !menu.classList.contains('show')) return;
   const rect = btn.getBoundingClientRect();
   const gap = 6;
   const margin = 8;
   const menuW = menu.offsetWidth || 210;
   const menuH = menu.offsetHeight || 118;
-  let left = Math.min(rect.left, window.innerWidth - menuW - margin);
-  left = Math.max(margin, left);
+  let left = rect.left;
   let top = rect.bottom + gap;
+
   if (top + menuH > window.innerHeight - margin) {
-    top = Math.max(margin, rect.top - menuH - gap);
+    top = rect.top - menuH - gap;
   }
+  left = Math.max(margin, Math.min(left, window.innerWidth - menuW - margin));
+  top = Math.max(margin, Math.min(top, window.innerHeight - menuH - margin));
+
   menu.style.left = Math.round(left) + 'px';
   menu.style.top = Math.round(top) + 'px';
 }
@@ -618,8 +622,15 @@ document.addEventListener('click', function(e) {
     closeCopyDropdown();
   }
 });
-window.addEventListener('resize', closeCopyDropdown);
-window.addEventListener('scroll', closeCopyDropdown, true);
+function refreshCopyDropdownPosition() {
+  if (activeCopyButton) positionCopyDropdown(activeCopyButton);
+}
+window.addEventListener('resize', refreshCopyDropdownPosition);
+window.addEventListener('scroll', refreshCopyDropdownPosition, true);
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', refreshCopyDropdownPosition);
+  window.visualViewport.addEventListener('scroll', refreshCopyDropdownPosition);
+}
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeCopyDropdown();
 });
