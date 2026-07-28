@@ -196,11 +196,6 @@ header .count {
 }
 .ip-card .info .btn-copy-dropdown .dropdown-menu.show {
   display: block;
-  animation: dropFadeIn 0.15s ease-out;
-}
-@keyframes dropFadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 .ip-card .info .btn-copy-dropdown .dropdown-menu button {
   display: block;
@@ -555,24 +550,19 @@ function toggleDropdown(btn) {
   const menu = btn.nextElementSibling;
   if (!menu) return;
   
-  // Close if already open
+  // Close if clicking the same button again
   if (menu.classList.contains('show')) {
     menu.classList.remove('show');
-    document.querySelectorAll('.dropdown-backdrop').forEach(b => b.remove());
     return;
   }
   
   // Close any other open dropdowns
-  document.querySelectorAll('.dropdown-menu.show').forEach(m => {
-    m.classList.remove('show');
-  });
-  document.querySelectorAll('.dropdown-backdrop').forEach(b => b.remove());
+  document.querySelectorAll('.dropdown-menu.show').forEach(m => m.classList.remove('show'));
   
-  // Position dropdown at button location using fixed positioning
+  // Position at button
   const rect = btn.getBoundingClientRect();
-  const menuW = 200;
   let left = rect.left;
-  // If too far right, align to right edge of button
+  const menuW = 200;
   if (left + menuW > window.innerWidth - 8) {
     left = window.innerWidth - menuW - 8;
   }
@@ -580,20 +570,20 @@ function toggleDropdown(btn) {
   menu.style.top = (rect.bottom + 4) + 'px';
   menu.classList.add('show');
   
-  // Create backdrop to close on outside click
-  const backdrop = document.createElement('div');
-  backdrop.className = 'dropdown-backdrop';
-  backdrop.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:9998';
-  backdrop.onclick = function() {
-    menu.classList.remove('show');
-    this.remove();
-  };
-  document.body.appendChild(backdrop);
+  // Close on any click outside the menu (captured after current event)
+  setTimeout(function() {
+    function closeOnOutside(e) {
+      if (!menu.contains(e.target) && e.target !== btn) {
+        menu.classList.remove('show');
+        document.removeEventListener('click', closeOnOutside, true);
+      }
+    }
+    document.addEventListener('click', closeOnOutside, true);
+  }, 0);
 }
 
 function closeDropdown(btn) {
   btn.closest('.dropdown-menu').classList.remove('show');
-  document.querySelectorAll('.dropdown-backdrop').forEach(b => b.remove());
 }
 
 function openSheet(id) {
