@@ -1486,6 +1486,63 @@ loadGallery();
     });
   }
 
+
+  function autoCompleteFields() {
+    var prompt = $('asPrompt').value.trim();
+    var name = $('asName').value.trim();
+    if (!prompt) { toast('请先填写提示词，再点智能补全', true); return; }
+    var kwLib = {
+      '3D': ['3D', '三维'], 'C4D': ['C4D', 'c4d'], 'OC渲染': ['OC渲染', 'oc渲染', 'Octane'],
+      '纯色背景': ['纯色背景'], '高饱和度': ['高饱和度', '饱和'], '8K': ['8K', '8k'],
+      '潮流': ['潮流'], '街头': ['街头'], '卡通': ['卡通'], '插画': ['插画', '手绘'],
+      '水彩': ['水彩'], '油画': ['油画'], '水墨': ['水墨', '国风'], '赛博朋克': ['赛博朋克', '霓虹'],
+      '未来科技': ['未来科技', '科技感'], '萌系': ['萌'], '写实': ['写实'], '电影感': ['电影感', '电影'],
+      '低角度': ['低角度', '仰拍'], '动感': ['动感', '速度感', '冲刺'], '柔光': ['柔光', '柔和光线'],
+      '渐变': ['渐变'], '金属': ['金属'], '玻璃': ['玻璃', '透明'], '毛绒': ['毛绒'], '软萌': ['软萌']
+    };
+    var found = [];
+    var hitSent = {};
+    for (var kw in kwLib) {
+      for (var i = 0; i < kwLib[kw].length; i++) {
+        var idx = prompt.indexOf(kwLib[kw][i]);
+        if (idx > -1) { found.push(kw); hitSent[kw] = idx; break; }
+      }
+    }
+    if (found.length === 0) found.push(name || '风格');
+
+    // 摘要：prompt 前 60 字
+    var summary = prompt.slice(0, 60);
+    if (prompt.length > 60) summary += '…';
+
+    // 触发词：名称 + 前 3 个标签组合
+    var triggers = [name];
+    for (var j = 0; j < Math.min(3, found.length); j++) {
+      triggers.push(name + found[j]);
+    }
+
+    // 特点：按标点分句，挑含关键词的句子（最多 5 条）
+    var sentences = prompt.split(/[。；;，,]/).map(function (x) { return x.trim(); }).filter(function (x) { return x.length > 6; });
+    var features = [];
+    for (var k = 0; k < sentences.length && features.length < 5; k++) {
+      var s = sentences[k];
+      var kwHit = null;
+      for (var kw2 in kwLib) {
+        for (var m = 0; m < kwLib[kw2].length; m++) {
+          if (s.indexOf(kwLib[kw2][m]) > -1) { kwHit = kw2; break; }
+        }
+        if (kwHit) break;
+      }
+      if (kwHit) features.push('**' + kwHit + '**：' + s.slice(0, 40));
+    }
+    if (features.length === 0 && sentences.length > 0) features.push('**核心画面**：' + sentences[0].slice(0, 40));
+
+    $('asSummary').value = summary;
+    $('asTags').value = found.join(', ');
+    $('asTriggers').value = triggers.join(', ');
+    $('asFeatures').value = features.join('\n');
+    toast('✨ 已智能补全，可手动修改');
+  }
+
   function initAddStyle() {
     if (!document.getElementById('addStyleBtn')) return;
     $('addStyleBtn').addEventListener('click', openModal);
@@ -1493,6 +1550,7 @@ loadGallery();
     $('asCancel').addEventListener('click', closeModal);
     $('addStyleOverlay').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
     $('asSubmit').addEventListener('click', doSubmit);
+    if ($('asAutoFill')) $('asAutoFill').addEventListener('click', autoCompleteFields);
     var area = $('asUploadArea'), input = $('asImageInput');
     area.addEventListener('click', function () { input.click(); });
     input.addEventListener('change', function () { handleImage(input.files[0]); input.value = ''; });

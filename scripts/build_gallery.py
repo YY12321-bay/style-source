@@ -372,6 +372,7 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
         <div class="style-form-row"><label>触发词（逗号分隔）</label><input type="text" id="asTriggers" placeholder="温馨故事书插画, 咖啡馆治愈"></div>
         <div class="style-form-row"><label>核心特点（每行一条，格式：**特点名**：描述）</label><textarea id="asFeatures" rows="4" placeholder="**3D软萌质感**：软塑料、毛绒、半透明亚克力&#10;**电光蓝渐变背景**：明亮霓虹感"></textarea></div>
         <div class="style-form-row"><label>提示词 Prompt *</label><textarea id="asPrompt" rows="6" placeholder="粘贴完整提示词模板，变量用 {变量名}"></textarea></div>
+        <div class="style-form-row" style="margin-bottom:6px;"><button type="button" class="style-btn-submit" id="asAutoFill" style="width:auto;">✨ 智能补全（根据提示词自动填写）</button><span style="font-size:12px;color:#9ca3af;margin-left:8px;">填好提示词后点此，自动生成摘要/标签/触发词/特点，可再修改</span></div>
         <div class="style-form-row"><label>比例</label><input type="text" id="asRatio" placeholder="3:4 / 9:16 / 1:1"></div>
         <div class="style-form-row"><label>来源链接 / 作者（可选）</label><div style="display:flex;gap:8px;"><input type="text" id="asSourceUrl" placeholder="https://x.com/xxx" style="flex:1"><input type="text" id="asSourceAuthor" placeholder="@作者" style="flex:1"></div></div>
         <div class="style-form-row"><label>预览图（可选，≤ 5MB，Ctrl+V 可粘贴）</label>
