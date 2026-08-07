@@ -1,8 +1,8 @@
 {
   "meta": {
     "version": "v0.7.0-9-g486431a-dirty",
-    "generated": "2026-08-07T05:46:33.475Z",
-    "total": 172,
+    "generated": "2026-08-07T06:17:17.415Z",
+    "total": 173,
     "categories": [
       "brand_kv",
       "creative",
@@ -8316,6 +8316,28 @@
       "preview_webp": "./images/styles_previews/style_msiiv1in_mts2agpd.webp",
       "preview_webp_thumb": "./images/styles_previews/style_msiiv1in_mts2agpd.thumb.webp",
       "created_at": "2026-08-07T05:46:33.475Z"
+    },
+    {
+      "id": "style_msijykfz",
+      "code": "ST0173",
+      "name": "3D补给站",
+      "category": "brand_kv",
+      "tags": [],
+      "triggers": [],
+      "scene": "",
+      "ratio": "",
+      "summary": "",
+      "features": [],
+      "prompt": "单张活动海报，明亮电光蓝渐变背景，中心是一座3D软萌风格的“AI灵感补给站”，由一台透明手机、一盒彩色提示词卡片、一本亮蓝色创作手册、漂浮的对话气泡、星星贴纸、放大镜、耳机和小型立方体组件堆叠组成，整体像高级互联网平台会员活动KV。画面上方准确写大标题“灵感补给站”，字体为超大白色厚重圆角黑体，带轻微立体阴影；标题旁加入荧光绿色手写涂鸦线条，写“CREATIVE DROP”。中间道具使用软塑料、毛绒、半透明亚克力、果冻材质，色彩为电光蓝、纯白、荧光黄绿、桃粉、橙色点缀。底部小字写“会员专属创作能量”，整体清爽、可爱、潮流、平台活动感强，避免真实品牌logo、LIBLIB字样、低清晰度、文字乱码、画面过乱。画面中必须准确出现设计师署名“AXIONGSHEJI”，仅作为小型辅助标识放在右下角安全区，不得作为主标题或副标题，不得改写、漏字、变形或生成乱码。",
+      "variables": {},
+      "source_url": "https://jimeng.jianying.com/ai-tool/work-detail/7667811671724887306?workDetailType=Image&itemType=9",
+      "source_author": "https://jimeng.jianying.com/ai-tool/work-detail/7670745160883506458?workDetailType=Image&itemType=9",
+      "preview_urls": [
+        "./images/styles_previews/style_msijykfz_90o7vaaz.webp"
+      ],
+      "preview_webp": "./images/styles_previews/style_msijykfz_90o7vaaz.webp",
+      "preview_webp_thumb": "./images/styles_previews/style_msijykfz_90o7vaaz.thumb.webp",
+      "created_at": "2026-08-07T06:17:17.415Z"
     }
   ]
 }
