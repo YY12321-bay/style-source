@@ -1,0 +1,12 @@
+name: 测试素材（请删除）
+category: creative
+ratio: 
+summary: 自动化测试条目
+tags:
+triggers:
+features: []
+variables: []
+prompt: |-
+  This is an automated test prompt. Delete this entry.
+id: style_msibj1a7
+code: ST0171
