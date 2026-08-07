@@ -3,10 +3,35 @@ category: brand_kv
 ratio: 
 source_author: 'https://jimeng.jianying.com/ai-tool/work-detail/7670745160883506458?workDetailType=Image&itemType=9'
 source_url: 'https://jimeng.jianying.com/ai-tool/work-detail/7669997215481400614?workDetailType=Image&itemType=9'
-summary: 
+summary: C4D+OC渲染，纯色背景高饱和，3D潮流街头卡通游泳运动员划水冲刺瞬间，低角度仰拍极端透视，动感速度感强
 tags:
+- 3D
+- C4D
+- OC渲染
+- 游泳
+- 潮流
+- 街头
+- 卡通
+- 高饱和度
+- 动感
+- 运动
 triggers:
-features: []
+- 3D游泳冲刺
+- 潮流街头卡通游泳
+- 低角度仰拍运动
+- C4D游泳海报
+features:
+- title: C4D+OC渲染
+  desc: 纯色背景、高饱和度、8K 高分辨率高质量
+- title: 3D潮流街头卡通
+  desc: 游泳运动员奋力向前划水冲刺
+- title: 极端透视构图
+  desc: 低角度仰拍，近大远小，贴近镜头手臂极度放大
+- title: 动感氛围
+  desc: 动态颗粒、飞溅水珠、细密水雾与水汽微粒
+- title: 真实环境约束
+  desc: 效果符合游泳运动真实环境，不混用无关元素
+
 variables: []
 prompt: |-
   C4D 风格，OC 渲染，纯色背景，高饱和度、8K 高分辨率、高质量。画面中的核心人物是一名 3D 潮流街头风格卡通游泳运动员，正在奋力向前划水冲刺。捕捉动作爆发力最强、最接近极限的一瞬间，采用低角度仰拍，人物比例夸张，贴近镜头的手臂被极度放大，远端肢体缩小，形成近大远小的极端透视对比，动感、阳光活力、充满速度感，强烈的视觉冲击。根据游泳运动加入动态颗粒，飞溅的水珠、细密水雾与空气中流动的水汽微粒，所有效果必须符合游泳运动真实环境，不要无缘无故混用无关元素。
