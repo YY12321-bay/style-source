@@ -268,6 +268,7 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
           <span class="search-clear" id="searchClear" style="display:none;">✕</span>
         </div>
         <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+        <button class="add-style-btn" id="addStyleBtn" title="添加素材">➕ 添加</button>
       </div>
     </header>
 
@@ -356,6 +357,32 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- 添加素材弹窗 -->
+  <div class="style-modal-overlay" id="addStyleOverlay" style="display:none">
+    <div class="style-modal">
+      <div class="style-modal-header"><h2>➕ 添加风格素材</h2><button class="style-modal-close" id="addStyleClose">✕</button></div>
+      <div class="style-modal-body">
+        <div class="style-form-row"><label>名称 *</label><input type="text" id="asName" placeholder="如：温馨故事书咖啡馆"></div>
+        <div class="style-form-row"><label>分类 *</label><select id="asCategory"><option value="brand_kv">品牌KV</option><option value="creative">创意特殊</option><option value="e-commerce">电商</option><option value="fashion">时尚美容</option><option value="ip_character">IP/角色</option><option value="print">印刷品</option><option value="science">科研专业</option><option value="social_media">社交媒体</option><option value="travel">旅行城市</option><option value="typography">字体</option><option value="vigo_cookbook">Vigo Cookbook</option></select></div>
+        <div class="style-form-row"><label>一句话理解</label><input type="text" id="asSummary" placeholder="如：温馨治愈的绘本风格咖啡馆插画"></div>
+        <div class="style-form-row"><label>标签（逗号分隔）</label><input type="text" id="asTags" placeholder="故事书插画, 咖啡馆, 治愈, 温暖"></div>
+        <div class="style-form-row"><label>触发词（逗号分隔）</label><input type="text" id="asTriggers" placeholder="温馨故事书插画, 咖啡馆治愈"></div>
+        <div class="style-form-row"><label>提示词 Prompt *</label><textarea id="asPrompt" rows="6" placeholder="粘贴完整提示词模板，变量用 {变量名}"></textarea></div>
+        <div class="style-form-row"><label>比例</label><input type="text" id="asRatio" placeholder="3:4 / 9:16 / 1:1"></div>
+        <div class="style-form-row"><label>来源链接 / 作者（可选）</label><div style="display:flex;gap:8px;"><input type="text" id="asSourceUrl" placeholder="https://x.com/xxx" style="flex:1"><input type="text" id="asSourceAuthor" placeholder="@作者" style="flex:1"></div></div>
+        <div class="style-form-row"><label>预览图（可选，≤ 5MB，Ctrl+V 可粘贴）</label>
+          <div class="as-upload-area" id="asUploadArea" tabindex="0">
+            <div class="as-upload-text">🖼️ 点击选择 或 Ctrl+V 粘贴预览图</div>
+            <input type="file" id="asImageInput" accept="image/*" style="display:none">
+          </div>
+          <div class="as-preview-wrap" id="asPreviewWrap" style="display:none"><img id="asPreview" alt="预览"><button type="button" id="asRemoveImg">✕ 移除</button></div>
+        </div>
+        <div class="style-form-row"><label>GitHub Token（首次填，自动保存到本机）</label><input type="password" id="asToken" placeholder="github_pat_... 或 ghp_..."><div style="font-size:12px;color:#9ca3af;">需要仓库写入权限（contents:write），仅存浏览器本地。<a href="https://github.com/settings/tokens" target="_blank" style="color:#3b82f6;">去 GitHub 生成 →</a></div></div>
+      </div>
+      <div class="style-modal-footer"><button class="style-btn-cancel" id="asCancel">取消</button><button class="style-btn-submit" id="asSubmit">🚀 添加并发布</button></div>
     </div>
   </div>
 
