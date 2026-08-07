@@ -2,7 +2,7 @@
   "meta": {
     "version": "v0.7.0-9-g486431a-dirty",
     "generated": "2026-08-07T02:21:13.061Z",
-    "total": 171,
+    "total": 170,
     "categories": [
       "brand_kv",
       "creative",
@@ -8231,26 +8231,6 @@
       "preview_webp": "./images/styles_previews/3d_sports_event_poster_13193fbe.webp",
       "preview_webp_thumb": "./images/styles_previews/3d_sports_event_poster_13193fbe.thumb.webp",
       "created_at": "2026-06-30T13:58:50+08:00"
-    },
-    {
-      "id": "style_msibj1a7",
-      "code": "ST0171",
-      "name": "测试素材（请删除）",
-      "category": "creative",
-      "tags": [],
-      "triggers": [],
-      "scene": "",
-      "ratio": "",
-      "summary": "自动化测试条目",
-      "features": [],
-      "prompt": "This is an automated test prompt. Delete this entry.",
-      "variables": {},
-      "source_url": "",
-      "source_author": "",
-      "preview_urls": [],
-      "preview_webp": "",
-      "preview_webp_thumb": "",
-      "created_at": "2026-08-07T02:21:13.060Z"
     }
   ]
 }
