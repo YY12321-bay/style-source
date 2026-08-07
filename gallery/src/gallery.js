@@ -1344,11 +1344,12 @@
       // 3. 构造新风格对象
       var tags = $('asTags').value.split(/[,，]/).map(function (s) { return s.trim(); }).filter(Boolean);
       var triggers = $('asTriggers').value.split(/[,，]/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var features = $('asFeatures') ? $('asFeatures').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean) : [];
       var previewPath = fileNames ? './' + IMG_DIR + '/' + fileNames.webp : '';
       var newStyle = {
         id: id, code: code, name: name, category: $('asCategory').value,
         tags: tags, triggers: triggers, scene: '', ratio: $('asRatio').value.trim(),
-        summary: $('asSummary').value.trim(), features: [], prompt: prompt,
+        summary: $('asSummary').value.trim(), features: features, prompt: prompt,
         variables: {}, source_url: $('asSourceUrl').value.trim(), source_author: $('asSourceAuthor').value.trim(),
         preview_urls: previewPath ? [previewPath] : [],
         preview_webp: previewPath,
