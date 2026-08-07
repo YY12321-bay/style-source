@@ -1,0 +1,17 @@
+name: 标题
+category: brand_kv
+ratio: 
+source_author: 'https://jimeng.jianying.com/ai-tool/work-detail/7670745160883506458?workDetailType=Image&itemType=9'
+source_url: 'https://jimeng.jianying.com/ai-tool/work-detail/7630728605273787699?workDetailType=Image&itemType=9'
+summary: 中文字体标志设计，适合花店，文艺范，核心文字“推文标题计”+副标题“Graduation Yearbook”；粗黑无衬线…
+tags:
+- 插画
+triggers:
+- 插画
+features: []
+variables: []
+prompt: |-
+  中文字体标志设计，适合花店，文艺范，核心文字“推文标题计”+副标题“Graduation Yearbook”；粗黑无衬线体为基础，融入手写笔触，“推”“计”字延长笔触、字体保留灵动手绘感，标志笔画整体活泼、青春，字体可共用笔画连接；色彩：绿色、粉色、黑色，白色。搭配手绘元素、笔刷底色块。
+preview: ./images/styles_previews/style_msinrnwj_2eymxrkz.webp
+id: style_msinrnwj
+code: ST0174
