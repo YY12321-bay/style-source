@@ -1375,8 +1375,9 @@
         message: 'add style yaml ' + id, content: utf8ToB64(yaml), branch: BRANCH
       });
 
-      toast('✅ 已发布！刷新页面即可看到新风格');
-      setTimeout(function () { location.reload(); }, 1200);
+      toast('✅ 已发布！即将刷新并显示新素材');
+      // 带时间戳跳转，绕过页面/CDN 缓存，默认排序下新素材排第一
+      setTimeout(function () { window.location.href = './gallery.html?t=' + Date.now(); }, 1200);
     })().catch(function (e) {
       toast('❌ 发布失败: ' + e.message, true);
       $('asSubmit').disabled = false;
